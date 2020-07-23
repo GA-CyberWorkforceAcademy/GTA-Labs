@@ -1,4 +1,4 @@
-![](\GCC_Horz_4C.PNG)
+![](GCC_Horz_4C.PNG)
 
 Linux Access Control Lists (ACLs)
 =================================
