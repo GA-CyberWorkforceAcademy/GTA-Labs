@@ -1,4 +1,5 @@
->   Linux Access Control Lists (ACLs)
+Linux Access Control Lists (ACLs)
+=================================
 
 Overview
 ========
