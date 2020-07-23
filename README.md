@@ -1,2 +1,5 @@
-# labtainer_prompts
-Mod-folder for gitpages/Labtainer prompts
+labtainer_prompts
+=================
+
+This repo houses the lab prompts modified by the Georgia Cyber Center for the
+corresponding named Labtainer exercises.
