@@ -42,6 +42,9 @@ When the lab starts, you will be presented with a black virtual terminal, and
 the current directory is your *home* directory. [Windows uses the name *folder*
 instead of *directory*.]
 
+Starting on Linux CLI
+=====================
+
 For the root user, home is at /root on Linux. For regular users, it is often
 found at /home/*username*, but it could be anywhere. Use the pwd command
 (present working directory) to see what your home directory is:
@@ -61,14 +64,14 @@ ls
 \`\`\`
 
 dir is the Windows equivalent of the ls command. Unlike Windows command-line
-shells, Unix commands are case-sensitive, meaning that you cannot enter LS and
+shells, Linux commands are case-sensitive, meaning that you cannot enter LS and
 expect the shell to equate it to the lower-case ls.
 
 Without any arguments, ls will display the contents of the current directory
 without much special formatting (except that it is sorted).
 
 In addition to the files you can see, there are other files that are “hidden”.
-In Unix, hidden files are files that you don’t necessarily want to see all the
+In Linux, hidden files are files that you don’t necessarily want to see all the
 time. Therefore, unless specifically requested, they are not shown with a
 directory listing. Any file or directory that begins with a ‘.’ is hidden, and
 is referred to as a *dot file*.
@@ -289,7 +292,7 @@ ls /usr/bin \| more
 To see the next page of output, press the space bar. To see one line at a time,
 press Enter. To quit at any time, press ‘q’.
 
-This is traditionally the way complicated commands are done in Unix: stringing
+This is traditionally the way complicated commands are done in Linux: stringing
 successive commands together with pipes. The philosophy has been to keep
 commands simple.
 
@@ -375,9 +378,9 @@ grep -s student /etc/\*
 
 \`\`\`
 
-The Unix find command is like the Swiss army knife of Unix commands, and is also
-very useful for finding things. Its syntax is somewhat complicated, and it can
-do much more than can be shown in this tutorial.
+The Linux find command is like the Swiss army knife of Linux commands, and is
+also very useful for finding things. Its syntax is somewhat complicated, and it
+can do much more than can be shown in this tutorial.
 
 One basic use of find is to locate a file with a known name. Use find to locate
 a file called “hosts”, using the following command:
@@ -450,13 +453,13 @@ to what it was before su was entered (\$).
 Access Control
 ==============
 
-Linux has the traditional simple Unix form of Discretionary Access Control (DAC)
-known as *permission bits*. Every file has an owner, and every file belongs to a
-group. The owner controls access to a file; the owner of a file assigns his/her
-own permissions, permissions for members of the owning group, and others
-(everyone else). These three entities (referred to as user, group and other) may
-be given one or more of the following permissions to files or directories: read,
-write, and execute.
+Linux has the traditional simple Linux form of Discretionary Access Control
+(DAC) known as *permission bits*. Every file has an owner, and every file
+belongs to a group. The owner controls access to a file; the owner of a file
+assigns his/her own permissions, permissions for members of the owning group,
+and others (everyone else). These three entities (referred to as user, group and
+other) may be given one or more of the following permissions to files or
+directories: read, write, and execute.
 
 Display the contents of your home directory:
 
@@ -587,14 +590,14 @@ Who
 \`\`\`
 
 Since you are the only one logged in, it is not very useful right now. But
-because Unix can support a lot of users simultaneously, it can be very helpful
+because Linux can support a lot of users simultaneously, it can be very helpful
 on a production system. For example, if a system administrator wants to reboot a
 system, it would be wise to see if everyone has logged out first.
 
 Editors
 =======
 
-The traditional command-line editors in Unix are vi and emacs. It is not
+The traditional command-line editors in Linux are vi and emacs. It is not
 advisable to try to learn the vi editor unless there is a professional need,
 such as programming or an expectation of administering systems. emacs works
 better for a novice but it consumes 500 MB of disk, and is not typically
@@ -610,7 +613,7 @@ editor. This can be invoked by typing leafpad at the command prompt.
 History
 =======
 
-By default, most Unix shells keep track of the commands you have entered. Enter
+By default, most Linux shells keep track of the commands you have entered. Enter
 the following to see the commands you have entered as the student user:
 
 \`\`\`
@@ -760,7 +763,7 @@ something outside the usual places, you must be explicit. The “./” tells the
 shell to look in the current directory. If you only enter pinger then you’ll get
 a “command not found” error.
 
-That is the end of this tutorial. You will learn more about Unix commands in
+That is the end of this tutorial. You will learn more about Linux commands in
 other lab assignments.
 
 Finish Up
