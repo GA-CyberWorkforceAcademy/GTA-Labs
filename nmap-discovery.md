@@ -5,26 +5,32 @@ title: Password Cracking
 The goal of this lab is to familiarize students with password files and some
 elementary password cracking schemes.
 
-**Getting Started**
+Overview
+========
 
-A. Boot your Linux system or VM. If necessary, log in and then open a terminal
-window and cd to the labtainer/labtainer-student directory. The pre-packaged
-Labtainer VM will start with such a terminal open for you. Then start the lab:
+This exercise explores the use of Linux ACLs to provide flexible access control
+over files.
 
-labtainer pass-crack
+Lab Environment
+===============
 
-Note the terminal displays the paths to two files on your Linux host:
+Once you have logged into your range account and accessed your Labtainer-VM,
+open a terminal window.
 
->   1) This lab manual
+Navigate to the “labtainer-student” directory and start the lab using the
+command:
 
->   2) The lab report template
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>   labtainer nmap-discovery
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-On most Linux systems, these are links that you can right click on and select
-“Open Link”. **If you chose to edit the lab report on a different system, you
-are responsible for copying the completed report back to the displayed path on
-your Linux system before using “stoplab” to stop the lab for the last time.**
+-   Links to this lab manual will be displayed if you wish to view the prompt
+    from within your VM
 
-**Note**: There is an appendix of basic Unix commands at the end of these
+Setup
+=====
+
+**Note**: There is an appendix of basic commands at the end of these
 instructions.
 
 Task 1: Password Files
@@ -33,9 +39,13 @@ Task 1: Password Files
 In this task, you will briefly examine how your Linux system manages and stores
 user passwords.
 
-1.  Use the more command, as shown below, to view the /etc/passwd file.
+-   Use the more command, as shown below, to view the /etc/passwd file.
+
+>   \`\`\`
 
 >   more /etc/passwd
+
+\`\`\`
 
 >   You should see a list of all the users that potentially have login access to
 >   your machine. At the bottom of this file you should see a line for your
@@ -90,7 +100,7 @@ user passwords.
 3.  Within the field designated for the digest, it is further broken up into
     other fields that are separated by a ‘\$’. These fields are:
 
-    **\$**ID**\$**salt**\$**digest
+-   **\$**ID**\$**salt**\$**digest
 
 >   The “ID” field contains a number that corresponds to the hash
 >   function/algorithm used to generate the digest. The following table shows
@@ -118,7 +128,7 @@ user passwords.
 1.  Execute the following command to list some account information (where the
     “-l” is the letter ell, not the number one):
 
-    chage -l student
+-   chage -l student
 
 >   **In item \#5 of the worksheet record the date when your password was
 >   chosen.**
@@ -247,30 +257,30 @@ whose names were the first two hex digits of the digest. No digests were saved.
 To use the presorted passwords, the logic of the password-cracking script is
 roughly as follows:
 
-a. Get a digest from the password file and look at the first two hex digits.
+1.  Get a digest from the password file and look at the first two hex digits.
 
-b. Open the file that has the same name as those two hex digits.
+2.  Open the file that has the same name as those two hex digits.
 
-c. Hash each word in the opened file to see if one of the words will hash to the
-same full digest as was seen in step ‘a’.
+3.  Hash each word in the opened file to see if one of the words will hash to
+    the same full digest as was seen in step ‘a’.
 
-1.  Do the following to see all the **file names** for the sorted dictionary
+4.  Do the following to see all the **file names** for the sorted dictionary
     words:
 
-    ls calc
+-   ls calc
 
-2.  Do the following to see the contents of **one** of the saved files:
+1.  Do the following to see the contents of **one** of the saved files:
 
-    more calc/a9
+-   more calc/a9
 
     This file contains all the words in biglist.txt that hash to a digest that
     starts with “a9”. If a digest in a password file starts with “a9”, then the
     script only needs to hash the words in this file to **potentially** find a
     match.
 
-3.  Execute the following command to make use of the pre-calculated digests:
+1.  Execute the following command to make use of the pre-calculated digests:
 
-    ./crackPre.py htpasswd-sha1 calc
+-   ./crackPre.py htpasswd-sha1 calc
 
 >   **Record in item \#18 of the worksheet the number of words that were
 >   attempted, the number of passwords that were cracked, and the number of
@@ -287,7 +297,7 @@ In this task you will experiment with passwords of your choice.
     htpasswd format, with an entry for “alice”. You will be prompted for the
     password.
 
-    htpasswd **-sc** htpasswd-me alice
+-   htpasswd **-sc** htpasswd-me alice
 
     You can **add** other entries by doing the following (slightly modified)
     command:
@@ -302,7 +312,7 @@ In this task you will experiment with passwords of your choice.
 
 2.  Perform the pre-calculated attack as follows:
 
-    ./crackPre.py htpasswd-me calc
+-   ./crackPre.py htpasswd-me calc
 
 >   **Record in item \#20 of the worksheet the results of your experiments. [Do
 >   not write down any actual passwords you have used.]**
@@ -315,7 +325,7 @@ Submission
 After finishing the lab, go to the terminal on your Linux system that was used
 to start the lab and type:
 
-stoplab pass-crack
+stoplab nmap-discovery
 
 If you modified the lab report or spreadsheet on a different system, you must
 copy those completed files into the directory paths displayed when you started
@@ -323,8 +333,8 @@ the lab, and you must do that before typing “stoplab”. When you stop the lab
 the system will display a path to the zipped lab results on your Linux system.
 Provide that file to your instructor, e.g., via the Sakai site.
 
-Appendix – Some Unix Commands
-=============================
+Appendix – Some Useful Linux Commands
+=====================================
 
 | cd    | Change the current directory. cd destination With no “destination” your current directory will be changed to your home directory. If you “destination” is “..”, then your current directory will be changed to the parent of your current directory. |
 |-------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
