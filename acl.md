@@ -21,11 +21,15 @@ That site in- cludes links to a pre-built virtual machine that has Labtainers
 installed, however Labtainers can be run on any Linux host that supports Docker
 containers.
 
->   From your labtainer-student directory start the lab using:
+- From your labtainer-student directory start the lab using:
+
+```
 
 >   labtainer acl
 
-Links to this lab manual will be displayed.
+```
+
+- Links to this lab manual will be displayed.
 
 Setup
 =====
@@ -33,46 +37,58 @@ Setup
 After starting the lab, three virtual terminals will be created, each with a
 login prompt. Login to these as three different users:
 
+```
 >   user password
 
 >   bob password4bob alice password4alice harry password4harry
+
+```
 
 Lab Tasks
 =========
 
 In this lab, you will use the getfacl and setfacl commands to view and modify
-ACLs on files. Use the -h option to learn about these commands, e.g., getfacl
--h.
+ACLs on files. Use the -h option to learn about these commands, e.g., getfacl -h.
 
 Review existing file permissions
 --------------------------------
 
 In the ”alice” terminal, cd to the /shared data directory and list the files:
 
+```
 >   cd /shared_data ls -l
+
+```
 
 Observe the file permissions on the accounting.txt file and the two directories.
 Would you expect Alice to be able to view the content of accounting.txt? Try to
 cat the file.
 
->   Look again at the directory listing. Note how the accounting.txt entry has a
->   permission setting of:
+- Look again at the directory listing. Note how the accounting.txt entry has a permission setting of:
 
+```
 >   \-rw-rw +
+
+```
 
 That + symbol at the end indicates that this file has an ACL in addition to the
 standard UNIX permissions of ”rw” for user and group. You can view the ACL
 permissions on this file using:
 
+```
 >   getfacl accounting.txt
+
+```
 
 Note how one of the three users has permission to modify that file? Go to that
 user’s virtual terminal and append to the file using:
 
+```
 >   echo "more stuff" \>\> /shared_data/accounting.txt
 
->   Back in the Alice terminal, try to modify that file to confirm she lacks
->   that access.
+```
+
+- Back in the Alice terminal, try to modify that file to confirm she lacks that access.
 
 Task 2: Set an ACL on a single file
 -----------------------------------
@@ -95,8 +111,7 @@ users other than Bob and Alice. Consider doing this systematically:
 -   Set the default ACL on the alice directory to permit bob to read newly
     created files.
 
->   Create another new file in /shared data/alice and check its permissions. Are
->   they what you expect?
+-   Create another new file in /shared data/alice and check its permissions. Are they what you expect?
 
 -   Revise your default ACL on the alice directory if necessary
 
@@ -122,7 +137,10 @@ Submission
 After finishing the lab, go to the terminal on your Linux system that was used
 to start the lab and type:
 
+```
 >   stoplab acl
+
+```
 
 When you stop the lab, the system will display a path to the zipped lab results
 on your Linux system. Provide that file to your instructor, e.g., via the Sakai
