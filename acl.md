@@ -1,4 +1,4 @@
-![](GCC_Horz_4C.PNG)
+![](https://github.com/GA-CyberWorkforceAcademy/labtainer_prompts/raw/master/GCC_Horz_4C.png)
 
 Linux Access Control Lists (ACLs)
 =================================
