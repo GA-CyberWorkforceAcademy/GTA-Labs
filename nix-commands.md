@@ -49,19 +49,19 @@ For the root user, home is at /root on Linux. For regular users, it is often
 found at /home/*username*, but it could be anywhere. Use the pwd command
 (present working directory) to see what your home directory is:
 
-\`\`\`
+```
 
 pwd
 
-\`\`\`
+```
 
 List the contents of your home directory by using the ls (list) command:
 
-\`\`\`
+```
 
 ls
 
-\`\`\`
+```
 
 dir is the Windows equivalent of the ls command. Unlike Windows command-line
 shells, Linux commands are case-sensitive, meaning that you cannot enter LS and
@@ -80,11 +80,11 @@ List all objects, even the hidden files and directories, by also using the –a
 (all) option, as shown below. (Note that there must always be a space between
 the command and any arguments being passed to it). Try:
 
-\`\`\`
+```
 
 ls –a
 
-\`\`\`
+```
 
 The home directory contains many user-level configuration files for modifying
 how your environment behaves, and they are almost always dot files or dot
@@ -95,61 +95,60 @@ these do not exist, then system-wide configuration files are typically used.
 Get a bigger picture of the contents of the current directory (such as owner and
 size) by also using the -l (long) option, as shown below:
 
-\`\`\`
+```
 
 ls –al
 
-\`\`\`
+```
 
 The ls -l command is used so often that there is often a shortcut for it (ll).
 Try using the shortcut for ls -l as shown below:
 
-\`\`\`
+```
 
 ll
 
-\`\`\`
+```
 
 Without it being the current directory (i.e., the present working directory),
 the contents of another directory can be listed. List the contents of the bin
 (binary) directory (where many user-level commands are stored) by doing the
 following:
 
-\`\`\`
+```
 
 ls /usr/bin
 
-\`\`\`
+```
 
 Users may also create new directories. Create a directory from inside your home
 directory (i.e., from within /home/student) by using the mkdir command:
 
-\`\`\`
+```
 
 mkdir temp
 
 ll
 
-\`\`\`
-
+```
 Change your current directory to the new directory using the cd (change
 directory) command:
 
-\`\`\`
+```
 
 cd temp
 
 pwd
 
-\`\`\`
+```
 
 List all the contents of this new directory:
 
-\`\`\`
+```
 
 ll –a
 
-\`\`\`
+```
 
 Even though a directory is brand new, it is not exactly empty. Every directory
 has at least two entries: two directories named “.” and “..” (called *dot* and
@@ -160,22 +159,22 @@ directory with three dots, which might be easily overlooked).
 
 Use the dotdot directory to list the contents of the parent directory:
 
-\`\`\`
+```
 
 ll ..
 
-\`\`\`
+```
 
 Use the dotdot directory to change your working directory to the parent
 directory of temp, as shown below:
 
-\`\`\`
+```
 
 cd ..
 
 pwd
 
-\`\`\`
+```
 
 (Note that a nice feature of the cd command is that if it is entered with no
 arguments, it will always take you back to your home directory).
@@ -183,74 +182,74 @@ arguments, it will always take you back to your home directory).
 Files or directories can be moved or simply renamed by using the mv (move)
 command. Rename the temp directory to temp2 by doing the following:
 
-\`\`\`
+```
 
 mv temp temp2
 
 ll
 
-\`\`\`
+```
 
 Copying files is done with the cp (copy) command. Copy one of your hidden files
 into the temp2 directory:
 
-\`\`\`
+```
 
 cp .bashrc temp2
 
 ll -a temp2
 
-\`\`\`
+```
 
 You can, of course, rename the file while copying. Copy the hidden file again,
 renaming it in the process:
 
-\`\`\`
+```
 
 cp .bashrc temp2/.bash
 
 ll –a temp2
 
-\`\`\`
+```
 
 Try to delete the temp2 directory using the rmdir (remove directory) command:
 
-\`\`\`
+```
 
 rmdir temp2
 
-\`\`\`
+```
 
 **It should have failed** because files still exist in that directory. Delete
 the files in the temp2 directory by using the rm (remove) command:
 
-\`\`\`
+```
 
 rm temp2/.bas\*
 
 ll –a temp2
 
-\`\`\`
+```
 
 Notice the use of the wild card “\*” symbol in the rm command. The command was
 interpreted to mean: delete all the files starting with “.bas”.
 
 Now remove the directory:
 
-\`\`\`
+```
 
 rmdir temp2
 
 ll
 
-\`\`\`
+```
 
 (Note that a **rmdir** will fail if you are currently in that directory.)
 
 To display the contents of a text file to the screen, the cat (concatenate)
 command can be used. Display the contents of the password file:
 
-\`\`\`
+```
 
 cat /etc/passwd
 
@@ -258,7 +257,7 @@ Display text on the screen by using the echo command:
 
 echo "hello world"
 
-\`\`\`
+```
 
 The echo command may seem meaningless, but it comes in handy, such as when
 writing scripts (to be covered later).
@@ -271,11 +270,11 @@ immediately following the line where the command was typed. If the output turns
 out to be quite long, it is useful to have a way to view it before it speeds by.
 One of the commands from the last section scrolled by too fast to see it all:
 
-\`\`\`
+```
 
 ls /usr/bin
 
-\`\`\`
+```
 
 One way to slow it down is to “pipe” it into another command. The pipe symbol is
 the “\|” character (shift “\\”). (Microsoft also borrowed this concept).
@@ -283,11 +282,11 @@ the “\|” character (shift “\\”). (Microsoft also borrowed this concept).
 Pipe the previous command through the more command (as shown below), which will
 display one screen at a time:
 
-\`\`\`
+```
 
 ls /usr/bin \| more
 
-\`\`\`
+```
 
 To see the next page of output, press the space bar. To see one line at a time,
 press Enter. To quit at any time, press ‘q’.
@@ -302,13 +301,13 @@ also borrowed this concept.
 
 Redirect the directory listing into a file, as shown in the following command:
 
-\`\`\`
+```
 
 ls /usr/bin \> listing
 
 ll
 
-\`\`\`
+```
 
 This file can now be viewed using more or cat or your favorite editor.
 
@@ -316,13 +315,13 @@ If the file named “listing” already exists, it will be overwritten with a
 redirection. It is possible, however, to append the contents of an existing file
 by using “\>\>”:
 
-\`\`\`
+```
 
 echo "testing" \>\> listing
 
 cat listing
 
-\`\`\`
+```
 
 The displayed output should first list the contents of the /usr/bin directory,
 followed by the single word “testing”.
@@ -333,20 +332,20 @@ Help
 The command-line method for getting help is with the man command (short for
 “manual”). Enter the following to get more information about the mkdir command:
 
-\`\`\`
+```
 
 man mkdir
 
-\`\`\`
+```
 
 The output is piped through the more command. (Press ‘q’ to quit). You can even
 get information about the man command itself by entering the following:
 
-\`\`\`
+```
 
 man man
 
-\`\`\`
+```
 
 Searching
 =========
@@ -356,11 +355,11 @@ The command for searching the contents of a file for a given string is grep
 
 Search for the string “student” in all the files in the /etc directory:
 
-\`\`\`
+```
 
 grep student /etc/\*
 
-\`\`\`
+```
 
 The first argument of the grep command is the string to be searched for
 (student), while the last argument is the file, or files, to look in. The /etc
@@ -372,11 +371,11 @@ be quoted.
 There were a lot of errors reported from the previous grep command, so you can
 tell grep to be silent about those errors in order to have a cleaner output:
 
-\`\`\`
+```
 
 grep -s student /etc/\*
 
-\`\`\`
+```
 
 The Linux find command is like the Swiss army knife of Linux commands, and is
 also very useful for finding things. Its syntax is somewhat complicated, and it
@@ -385,11 +384,11 @@ can do much more than can be shown in this tutorial.
 One basic use of find is to locate a file with a known name. Use find to locate
 a file called “hosts”, using the following command:
 
-\`\`\`
+```
 
 find /etc –name hosts –print
 
-\`\`\`
+```
 
 find recursively checks all the directories from the starting point down. In the
 above example, it looked everywhere at and below the “/etc” directory. The
@@ -400,11 +399,11 @@ In this case, it prints out the path where it is located.
 There were a lot of permission problems with the last execution of the find
 command. Gain root privilege by entering the this command:
 
-\`\`\`
+```
 
 sudo su
 
-\`\`\`
+```
 
 The “student” account on this computer is a member of the “sudo” group, allowing
 you to work with root privileges. (Note that for convenience, most Labtainer
@@ -416,28 +415,27 @@ are still executing on behalf of the regular user.
 
 Re-execute the last find command with root privileges:
 
-\`\`\`
+```
 
 find /etc –name hosts –print
 
-\`\`\`
+```
 
 Wild card characters can be used, but they must be quoted. For example, to find
 all the files ending with “.h”, the following could be used (**typed on one
 line**):
 
-\`\`\`
+```
 
 find /usr/include -name "\*.h" –print
 
-\`\`\`
-
+```
 An even more basic use of find is to display the path of **every** file it sees.
 In the following example, find is told to look in the entire hierarchy starting
 with “/usr/local”. When it finds a file, it prints out the location. In other
 words, it will display all the file and directory names in the hierarchy.
 
-\`\`\`
+```
 
 find /usr/local –print
 
@@ -445,7 +443,7 @@ Return to the privilege of a regular user:
 
 Exit
 
-\`\`\`
+```
 
 You should still have a shell window open, but the prompt should have returned
 to what it was before su was entered (\$).
@@ -463,13 +461,13 @@ directories: read, write, and execute.
 
 Display the contents of your home directory:
 
-\`\`\`
+```
 
 cd
 
 ll –a
 
-\`\`\`
+```
 
 The permissions are displayed on the far left-hand side of the output of each
 object. The permissions are broken down by user (i.e., owner), group and others,
@@ -498,7 +496,7 @@ the group, use ‘g’, and for other use ‘o’. For read, write and execute, 
 ‘w’ and ‘x’, respectively. For example, change the permissions on your .bashrc
 file so that everyone can write to it:
 
-\`\`\`
+```
 
 ll .bashrc
 
@@ -506,28 +504,28 @@ chmod o+w .bashrc
 
 ll .bashrc
 
-\`\`\`
+```
 
 The “o+w” means “Add the write permission to other”. Now remove the permission:
 
-\`\`\`
+```
 
 chmod o-w .bashrc
 
 ll .bashrc
 
-\`\`\`
+```
 
 Multiple changes can be made at one time. Do the following to make multiple
 changes at once:
 
-\`\`\`
+```
 
 chmod ugo+rwx .bashrc
 
 ll .bashrc
 
-\`\`\`
+```
 
 where user, group and other are all given read write and execute permissions to
 the file.
@@ -535,13 +533,13 @@ the file.
 To change the permissions so the group and other only have read access, do the
 following:
 
-\`\`\`
+```
 
 chmod go=r .bashrc
 
 ll .bashrc
 
-\`\`\`
+```
 
 Process Management
 ==================
@@ -549,11 +547,11 @@ Process Management
 To display a list of the processes currently executing, the ps (process status)
 command is used. Enter the following:
 
-\`\`\`
+```
 
 ps
 
-\`\`\`
+```
 
 Without any arguments, the default output is a list of the processes associated
 with your command-line session. Among other things, it shows the unique process
@@ -562,32 +560,32 @@ ID (PID), the amount of CPU time used, and the program name.
 To display all the processes currently running (even those not associated with
 your terminal), enter the following:
 
-\`\`\`
+```
 
 ps ax
 
-\`\`\`
+```
 
 If a process ever gets hung and will not die, the PID displayed for that process
 can be used to terminate it. **For example**, if a process with PID of 11076
 needed to be terminated, the following is used:
 
-\`\`\`
+```
 
 kill –9 11076
 
-\`\`\`
+```
 
 If the process needing termination is running from the command-line, then maybe
 something as simple as CTRL-C will kill it.
 
 To see who is currently logged into the system, the following is used:
 
-\`\`\`
+```
 
 Who
 
-\`\`\`
+```
 
 Since you are the only one logged in, it is not very useful right now. But
 because Linux can support a lot of users simultaneously, it can be very helpful
@@ -616,11 +614,11 @@ History
 By default, most Linux shells keep track of the commands you have entered. Enter
 the following to see the commands you have entered as the student user:
 
-\`\`\`
+```
 
 History
 
-\`\`\`
+```
 
 There are several benefits of keeping track of your commands. One benefit is
 being able to reuse previous commands without retyping them. One way to do that
@@ -634,11 +632,11 @@ Enter to re-execute it.
 An even quicker way to run the last grep command is by using the ‘!’ character
 as shown below:
 
-\`\`\`
+```
 
 !grep
 
-\`\`\`
+```
 
 Of course, the more general use of ‘!’ is to search for the last command that
 started with whatever follows “!”, such as “!ps”.
@@ -667,7 +665,7 @@ Assume a simple example: every morning the first thing you do is verify that
 your most important servers are accessible. You might perform the following
 commands (**but not now**):
 
-\`\`\`
+```
 
 ping mail
 
@@ -677,38 +675,38 @@ ping printer
 
 ping router
 
-\`\`\`
+```
 
 It would be nice if one command could be entered that would perform all your
 pings at once. But before we do something like that, let’s alter the ping
 commands to be somewhat friendly for a script. **Enter the following**:
 
-\`\`\`
+```
 
 ping -c 1 -w 1 google.com
 
-\`\`\`
+```
 
 Instead of pinging continuously until interrupted by the user, the above command
 will ping only once (-c 1), and will only wait one second (-w 1) for the reply.
 That is an improvement, but you don’t really want to see all that output. So try
 the following (all on one command line):
 
-\`\`\`
+```
 
 ping -c 1 -w 1 google.com \> /dev/null
 
-\`\`\`
+```
 
 You redirected all the output into a black hole from which nothing returns. So
 we have removed all the output, but now we don’t know if the ping was
 successful. So, try the following addition (all on one command line):
 
-\`\`\`
+```
 
 ping -c 1 -w 1 google.com \> /dev/null && echo Up
 
-\`\`\`
+```
 
 That looks more like it. If ping is successful, the command after “&&” is
 executed, otherwise it is not. In this case “Up” is displayed on the screen if
@@ -717,7 +715,7 @@ the ping is successful.
 Now you can write a script. Start up an editor, such as leafpad, and enter the
 following lines:
 
-\`\`\`
+```
 
 echo
 
@@ -737,14 +735,14 @@ echo “Trying NPS”
 
 ping -c 1 -w 1 nps.edu \> /dev/null && echo Up
 
-\`\`\`
+```
 
 Save the file in your home directory with the name of “pinger”, and then exit
 the editor.
 
 Make the file executable and try it out by doing the following:
 
-\`\`\`
+```
 
 ll
 
@@ -754,7 +752,7 @@ ll
 
 ./pinger
 
-\`\`\`
+```
 
 Notice how you had to enter a “./” before pinger? Why is that? The shell is
 configured to look in given locations for the commands entered by the user.
