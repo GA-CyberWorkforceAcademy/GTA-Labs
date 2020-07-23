@@ -6,28 +6,24 @@ Linux Access Control Lists (ACLs)
 Overview
 ========
 
-This exercise explores the use of Linux ACLs to provide access control over
-files, with more flexibility than the access control offered by traditional UNIX
-file permissions. It is assumed the student has received instruction, or
-independent study, in access control policies and ACLs. A description of Linux
-ACLs can be found at <https://wiki.archlinux.org/index.php/Access_Control_Lists>
+This exercise explores the use of Linux ACLs to provide flexible access control
+over files.
 
-Lab Environmnet
+Lab Environment
 ===============
 
-This lab runs in the Labtainer framework, available at
-[http://my.nps.edu/web/c3o/labtainers.](http://my.nps.edu/web/c3o/labtainers)
-That site in- cludes links to a pre-built virtual machine that has Labtainers
-installed, however Labtainers can be run on any Linux host that supports Docker
-containers.
+Once you have logged into your range account and accessed your Labtainer-VM,
+open a terminal window.
 
--   From your labtainer-student directory start the lab using:
+Navigate to the “labtainer-student” directory and start the lab using the
+command:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 >   labtainer acl
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
--   Links to this lab manual will be displayed.
+-   Links to this lab manual will be displayed if you wish to view the prompt
+    from within your VM
 
 Setup
 =====
@@ -35,11 +31,11 @@ Setup
 After starting the lab, three virtual terminals will be created, each with a
 login prompt. Login to these as three different users:
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->   user password
-
->   bob password4bob alice password4alice harry password4harry
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+| **Username** | **Password**   |
+|--------------|----------------|
+| bob          | password4bob   |
+| alice        | password4alice |
+| henry        | password4henry |
 
 Lab Tasks
 =========
@@ -117,9 +113,9 @@ users other than Bob and Alice. Consider doing this systematically:
 Task 3: Trojan Horses
 ---------------------
 
-Revisit the permissons on the /shared data/accounting.txt file. Bob is unable to
-read this file, but he would very much like to know its content. Bob knows Alice
-is a fool for ascii art, and he created the
+Revisit the permissions on the /shared data/accounting.txt file. Bob is unable
+to read this file, but he would very much like to know its content. Bob knows
+Alice is a fool for ascii art, and he created the
 
 /shared data/bob/fun script. As Bob, modify that script so that if Alice (or
 Harry) run the script, it will make a copy of the accounting.txt file in a
