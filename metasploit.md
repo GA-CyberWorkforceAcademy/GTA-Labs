@@ -31,7 +31,7 @@ command:
     from within your VM
 
 
-**Tasks**
+**Lab Tasks**
 
 1. **Verify connectivity between attacker and victim**
 
@@ -48,7 +48,7 @@ An 'nmap' scan of the victim will be sufficient.
 nmap -p0-65535 192.168.1.2
 ```
 
-3. **Vulnerably configured rlogin service (port 513)**
+3. ** Walk-Thru for Vulnerably configured rlogin service (port 513)**
 
 Remote login to the victim (with root privilege)
 ```
@@ -60,7 +60,7 @@ Display a 'root' file
 cat /root/filetoview.txt
 ```
 
-4. **Vulnerable ingreslock service (port 1524)**
+4. **Walk-Thru for Vulnerable ingreslock service (port 1524)**
 
 Use telnet to access ingreslock service and obtain root privilege
 ```
@@ -69,7 +69,7 @@ telnet 192.168.1.2 1524
 
 Display root file as above
 
-5. **Vulnerable distccd service (port 3632)**
+5. **Walk-Thru for Vulnerable distccd service (port 3632)**
 
 Start Metasploit console
 ```
@@ -107,7 +107,7 @@ Note: when the exploit has succeeded, no prompt is shown but a shell is created.
 
 Display the root file as above.
 
-6. **Vulnerable IRC daemon (port 6667)**
+6. **Your Turn! Exploit the Vulnerable IRC daemon (port 6667)**
 
 Search for unreal_ircd exploit.
 
@@ -116,7 +116,7 @@ Use the exploit.
 View and set options as necessary (RHOST option) run the exploit and display
 root file.
 
-7. **Vulnerable VSFtpd service (port 21)**
+7. **Exploit the Vulnerable VSFtpd service (port 21)**
 
 Search for vsftpd_234.
 
@@ -125,7 +125,7 @@ Use the exploit.
 View and set options as necessary (RHOST option), run the exploit and display
 root file.
 
-8. **Vulnerable Samba service (port 139)**
+8. **Exploit the Vulnerable Samba service (port 139)**
 
 Search for samba usermap_script.
 
@@ -134,7 +134,7 @@ Use the exploit.
 View and set options as necessary (RHOST option), run the exploit and display
 root file.
 
-9. **Vulnerable HTTP (php) service (port 80)**
+9. **Exploit the Vulnerable HTTP (php) service (port 80)**
 
 Search for php_cgi.
 
@@ -152,7 +152,7 @@ shell
 
 Display the root file.
 
-10. **Vulnerable Postgres service (port 5432)**
+10. **Expolit the Vulnerable Postgres service (port 5432)**
 
 Search for postgres_payload.
 
