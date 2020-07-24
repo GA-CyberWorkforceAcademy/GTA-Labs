@@ -36,7 +36,7 @@ The gateway is also configured to mirror traffic that enters the gateway via eit
 
 - The remote ws component includes the Firefox browser, and a local /etc/hosts file that maps www.example.com to the external address of the gateway, i.e., 203.0.113.10. The internal workstation (ws2) also includes Firefox and an entry in /etc/hosts for www.example.com. Both workstations also include the nmap utility.
 
-![topology](link)
+![](media/map.jpg)
 
 Lab Tasks
 =====
