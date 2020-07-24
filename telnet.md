@@ -30,12 +30,13 @@ command:
 Tasks
 =====
 
-**Determine the server IP address**
+Determine the server IP address
+=====
 
 In the server window, type “ifconfig” to view the IP address of the server. The
-server IP address will follow the “inet adddr:” label.
+server IP address will follow the “inet addr:” label.
 
-**Telnet to telnet server and display a file on the server**
+Telnet to telnet server and display a file on the server
 
 On the client computer, use the telnet command to access the server using its IP
 address:
@@ -53,7 +54,8 @@ View the file content by typing:
 ``
 Exit the telnet session on the client via the “exit” command.
 
-1.  **View plaintext passwords.**
+View plaintext passwords
+=====
 
 On the server, start tcpdump to display TCP network traffic with this command:
 ```
@@ -64,20 +66,22 @@ On the client start a telnet session, but when prompted for the password type
 letter of the password, observe the tcpdump of the traffic. Keeping in mind that
 every other packet is an “ack”, do you see the password. What do you notice?
 
-1.  **Use SSH to protect communications with the server**
+Use SSH to protect communications with the server
+=====
 
 From the client computer, use the SSH command to access the server using its IP
 address:
-``
+```
 >   ssh \<IP\>
 ```
 The first time you SSH to a server, SSH will warn you that the “authenticity of
 the host… can’t be established”. Type “yes” at the prompt.
 
 View the file content by typing:
-``
+```
 >   cat filetoview.txt
-``
+```
+
 Observe the tcpdump output and note that there is no readable plain text.
 
 Stop the Labtainer
@@ -87,7 +91,5 @@ When the lab is completed, or you’d like to stop working for a while, run:
 ```
 >   stoplab telnetlab
 ```
-from the host labtainer working directory. You can always restart the labtainer
-and continue your work where you left off. When the Labtainer is stopped, a zip
-file is created and saved to a location displayed beneath the stoplab. When you
-are finished, send that file to your instructor.
+From the host labtainer working directory. You can always restart the labtainer
+and continue your work where you left off. 
