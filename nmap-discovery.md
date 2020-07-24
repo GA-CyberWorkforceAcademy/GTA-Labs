@@ -1,15 +1,12 @@
----
-title: Password Cracking
----
+![](media/b80e0eacca6dad9d42b5dc3545946591.png)
 
-The goal of this lab is to familiarize students with password files and some
-elementary password cracking schemes.
+Discovering Services with NMAP
+=================================
 
 Overview
 ========
 
-This exercise explores the use of Linux ACLs to provide flexible access control
-over files.
+This exercise explores the use of nmap to identify services on a target.
 
 Lab Environment
 ===============
