@@ -37,18 +37,16 @@ Open pcaps/http-misctraffic101.pcapng in Wireshark
 
 Select Statistics — Conversations. Click the Ethernet tab; notice there is only one pair of hosts communicating on the local network. Ensure that the Name resolution box is checked. The MAC address listed as Cadant is the local router. The Flextron host is the client from which the traffic was captured.
 
-- 5 pts: Click on the IPv4 tab to examine the IPv4 conversations in this trace file. Based on the bytes count, what IP addresses participate in the most active IPv4 conversation?
+- **5 pts: Click on the IPv4 tab to examine the IPv4 conversations in this trace file. Based on the bytes count, what IP addresses participate in the most active IPv4 conversation?
 
 Click the TCP tab to identify the most active TCP conversation. Sort by bytes by clicking on the Bytes column heading.
 
 When looking at the most active flow, we see that host 107.6.133.250 is using port http (80) and host 25.6.181.160 is using port dellpwrappks (1266). Since HTTP clients choose a random ephemeral port to communicate, we can be reasonably confident that this traffic is in fact unrelated to the dellp- wrappks service.(If you see service names, you can uncheck the Name resolution box to view the
 port numbers.)
 
-- 10 pts: Right-click on the most active TCP conversation and select Apply as a Filter 
+- **10 pts: Right-click on the most active TCP conversation and select Apply as a Filter. Wireshark automatically creates and applies a display filter for this TCP conversation. How many packets match this filter?
 
-Wireshark automatically creates and applies a display filter for this TCP conversation. How many packets match this filter?
-
-**Clean-up: Click the Clear button (the red X next to the filter expression) to remove your display filter before continuing. Toggle to the conversation window and click Close.
+*Clean-up: Click the Clear button (the red X next to the filter expression) to remove your display filter before continuing. Toggle to the conversation window and click Close.
 
 Geolocating IP Addresses (15 pts total)
 ==========
@@ -65,9 +63,9 @@ Select Statistics — Endpoints and click on the IPv4 tab. You should see inform
 
 Click the Map button. Wireshark will launch a map view in your browser with the known IP addresses plotted as points on the map. Click on any of the plot point to find more information about the IP address.
 
-- 15 pts: How much aggregate traffic went to/from Milpitas, CA?
+- **15 pts: How much aggregate traffic went to/from Milpitas, CA?
 
-**Clean-up: Close the browser tab/window when you are finished. Close the Wireshark Endpoints window
+*Clean-up: Close the browser tab/window when you are finished. Close the Wireshark Endpoints window
 
 Reassemble text from TCP stream (15 pts)
 ==========
@@ -78,7 +76,7 @@ Open pcaps/http-wiresharkdownload101.pcapng in Wireshark.
 
 The first three packets are the TCP handshake for the web server connection. Frame 4 contains the clients GET request for the download.html page. Right-click on frame 4 and select Follow — TCP stream. Traffic from the first host seen in the trace file, the client in this case, is colored red. Traffic from the second host seen in the trace file, the server in this case, is colored blue.
 
-- 5 points: Wireshark displays the conversation without the Ethernet, IP or TCP headers. Scroll through the stream to look for the hidden message from Gerald Combs, creator of Wireshark. It is located in the server stream and begins with X-Slogan. What is the message?
+- **5 points: Wireshark displays the conversation without the Ethernet, IP or TCP headers. Scroll through the stream to look for the hidden message from Gerald Combs, creator of Wireshark. It is located in the server stream and begins with X-Slogan. What is the message?
 
 This isn’t the only message hidden in the web browsing session. Now that you know the message begins with X-Slogan, you can have Wireshark display every frame that includes this ASCII string. Click the Close button and then the Clear button to remove the TCP stream filter.
 
@@ -86,9 +84,9 @@ Apply the display filter frame contains ”X-Slogan”
 
 Right-click on the two other displayed frames and select Follow — TCP Stream to examine the HTTP headers exchanged between hosts. Did you find the other message? Note that you can only follow one stream at a time using this right-click method. You will need to clear out your display filter before following the next stream.
 
-- 10 pts: What other message did you find (different than Q4)?
+- **10 pts: What other message did you find (different than before)?
 
-**Clean-up: Click the Close button on the Follow TCP Stream window when you have finished following streams. Click the Clear button to remove your display filter before continuing.
+*Clean-up: Click the Close button on the Follow TCP Stream window when you have finished following streams. Click the Clear button to remove your display filter before continuing.
 
 Extract binary file from FTP session (15 points total)
 ==========
@@ -101,7 +99,7 @@ Scroll through the beginning of the trace file. You will see numerous FTP comman
 
 There are two data connection in this trace file: one for the directory list and another for the file transfer. We are only interested in these two data streams, and not the command channel stream. In the Follow TCP Stream window, click the Filter Out This Stream button. This closes the TCP stream window and applies an exclusion filter.
 
-- 5 pts: Now you only see the data channel traffic. Frames 16 through 18 and frames 35 through 38 are TCP handshake packets to establish the two required data channels. Right-click on frame 16 and select Follow — TCP Stream. This stream list indicates there is only one file in the directory. What is its name? (You will use it next.)
+- **5 pts: Now you only see the data channel traffic. Frames 16 through 18 and frames 35 through 38 are TCP handshake packets to establish the two required data channels. Right-click on frame 16 and select Follow — TCP Stream. This stream list indicates there is only one file in the directory. What is its name? (You will use it next.)
 
 Click the Filter Out This Stream button. This closes the TCP stream window and adds to the existing exclusion filter.
 
@@ -109,9 +107,9 @@ The only remaining traffic displayed is the file transfer traffic. Right-click o
 
 To reassemble the graphic image transferred in this FTP communication, Change the Show and save data as dropdown to Raw and click the Save As button, select a target directory for the file, and set the file name to the one you found a few steps back. Click Save.
 
-- 10 pts: Navigate to the target directory and open the file you saved in the previous step. Include the image in your report.
+- **10 pts: Navigate to the target directory and open the file you saved in the previous step. Include the image in your report.
 
-**Clean-up: When youve finished examining the image you extracted, close your image viewer. Return to Wireshark to close the TCP Stream window and clear your display filter.
+*Clean-up: When youve finished examining the image you extracted, close your image viewer. Return to Wireshark to close the TCP Stream window and clear your display filter.
 
 Submission
 ==========
