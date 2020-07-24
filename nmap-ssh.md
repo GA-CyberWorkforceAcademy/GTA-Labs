@@ -25,7 +25,7 @@ command:
 -   Links to this lab manual will be displayed if you wish to view the prompt
     from within your VMThe nmap-ssh lab
     
-    - The resulting virtual terminal will include a bash shell on a computer called “MyComputer”. The nmap utility is pre-installed on that computer. You will also have a virtual terminal connected to a “router”, and a bash shell there. You have been told that the router sits between the organization’s client workstations and the servers.
+- The resulting virtual terminal will include a bash shell on a computer called “MyComputer”. The nmap utility is pre-installed on that computer. You will also have a virtual terminal connected to a “router”, and a bash shell there. You have been told that the router sits between the organization’s client workstations and the servers.
 
 Scenario
 ===============
