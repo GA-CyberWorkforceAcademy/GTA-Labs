@@ -1,28 +1,28 @@
----
-title: Password Cracking
----
+![](media/b80e0eacca6dad9d42b5dc3545946591.png)
 
-The goal of this lab is to familiarize students with password files and some
-elementary password cracking schemes.
+Password Cracking
+=================================
 
-**Getting Started**
+Overview
+========
 
-A. Boot your Linux system or VM. If necessary, log in and then open a terminal
-window and cd to the labtainer/labtainer-student directory. The pre-packaged
-Labtainer VM will start with such a terminal open for you. Then start the lab:
+The goal of this lab is to familiarize students with password files and some simple password cracking schemes.
 
-labtainer pass-crack
+Lab Environment
+===============
 
-Note the terminal displays the paths to two files on your Linux host:
+Once you have logged into your range account and accessed your Labtainer-VM,
+open a terminal window.
 
->   1) This lab manual
+Navigate to the “labtainer-student” directory and start the lab using the
+command:
 
->   2) The lab report template
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>   labtainer pass-crack
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-On most Linux systems, these are links that you can right click on and select
-“Open Link”. **If you chose to edit the lab report on a different system, you
-are responsible for copying the completed report back to the displayed path on
-your Linux system before using “stoplab” to stop the lab for the last time.**
+-   Links to this lab manual will be displayed if you wish to view the prompt
+    from within your VM
 
 **Note**: There is an appendix of basic Unix commands at the end of these
 instructions.
@@ -30,45 +30,36 @@ instructions.
 Task 1: Password Files
 ======================
 
-In this task, you will briefly examine how your Linux system manages and stores
-user passwords.
+In this task, you will briefly examine how your Linux system manages and stores user passwords.
 
-1.  Use the more command, as shown below, to view the /etc/passwd file.
+-  Use the more command, as shown below, to view the /etc/passwd file.
 
+```
 >   more /etc/passwd
+```
 
->   You should see a list of all the users that potentially have login access to
->   your machine. At the bottom of this file you should see a line for your
->   account (e.g., the “student” account). There was a time when /etc/passwd was
->   the place where UNIX-based operating systems stored password digests, but
->   you’ll notice that no digests exist in this file. Your Linux distribution
->   uses what is called *shadow passwords*: a special file managed by the
->   operating system to store and protect password digests.
+You should see a list of all the users that potentially have login access to your machine. At the bottom of this file you should see a line for your account (e.g., the “student” account). There was a time when /etc/passwd was the place where UNIX-based operating systems stored password digests, but you’ll notice that no digests exist in this file. Your Linux distribution uses what is called *shadow passwords*: a special file managed by the operating system to store and protect password digests.
 
-1.  Your shadow password file exists at /etc/shadow. Use the more command, as
-    shown below to *try* to view its contents.
+- Your shadow password file exists at /etc/shadow. Use the more command, as shown below to *try* to view its contents.
 
+```
 >   more /etc/shadow
+```
+*Note the error message you received when you tried to view the shadow password file.
 
->   **Record in item \#1 of the worksheet the error message you received when
->   you tried to view the shadow password file.**
+- Try opening the shadow password file with root privileges. You can gain root privileges on Ubuntu by preceding your command with sudo. 
 
->   **Note that item \#2 asks a follow-up question.**
-
-1.  Try opening the shadow password file with root privileges. You can gain root
-    privileges on Ubuntu by preceding your command with sudo. For example:
-
+```
 >   sudo more /etc/shadow
+```
+ After entering your password you should be able to see the contents of the shadow password file.
 
->   After entering your password you should be able to see the contents of the
->   shadow password file.
+Go to the bottom of the shadow password file to see the entry for your account (which may be so long it wraps around to the next line).
 
-1.  Go to the bottom of the shadow password file to see the entry for your
-    account (which may be so long it wraps around to the next line).
+Each line in the shadow file is separated into different fields by a ‘:’.
 
-2.  Each line in the shadow file is separated into different fields by a ‘:’.
-    Reading left-to-right, the fields are:
-
+Reading left-to-right, the fields are:
+```
     1.  Login name
 
     2.  Digest (referred to horribly as the “encrypted password”)
@@ -86,15 +77,14 @@ user passwords.
     8.  Account expiration date
 
     9.  Reserved
+```
+Within the field designated for the digest, it is further broken up into other fields that are separated by a ‘\$’. These fields are:
 
-3.  Within the field designated for the digest, it is further broken up into
-    other fields that are separated by a ‘\$’. These fields are:
-
+```
     **\$**ID**\$**salt**\$**digest
-
->   The “ID” field contains a number that corresponds to the hash
->   function/algorithm used to generate the digest. The following table shows
->   the interpretation of that number:
+```
+The “ID” field contains a number that corresponds to the hash function/algorithm used to generate the digest. The following table shows
+the interpretation of that number:
 
 | **ID** | **Hash Function** |
 |--------|-------------------|
@@ -105,25 +95,16 @@ user passwords.
 | 5      | SHA-256           |
 | 6      | SHA-512           |
 
->   **Using the information provided above, determine the hash function that was
->   used to generate the value currently stored in your entry of the shadow
->   password file.**
 
->   **In item \#3 of the worksheet, enter the hash function used on your
->   password.**
+*Using the information provided above, determine the hash function that was used to generate the value currently stored in your entry of the shadow password file and the salt value.
 
->   **In item \#4 record the salt value used in the generation of the stored
->   digest.**
+- Execute the following command to list some account information (where the "-l” is the letter ell, not the number one):
 
-1.  Execute the following command to list some account information (where the
-    “-l” is the letter ell, not the number one):
-
+```
     chage -l student
+```
 
->   **In item \#5 of the worksheet record the date when your password was
->   chosen.**
-
->   **Note that item \#6 asks a follow-up question.**
+*Note the date when your password was chosen.
 
 Task 2: Dictionary Attacks
 ==========================
@@ -131,101 +112,67 @@ Task 2: Dictionary Attacks
 In this task, you will try a dictionary attack to crack the contents of a
 password file.
 
-Getting started
----------------
+- Use the cat command to view the contents of htpasswd-sha1.
 
-1.  Use the cat command to view the contents of htpasswd-sha1.
-
-2.  You will notice that this is not, in fact, a UNIX-like password file. It is
-    actually an htpasswd format, which can be used by an Apache web server to
-    provide password-based access control to portions of a web site. The line:
-
+You will notice that this is not, in fact, a UNIX-like password file. It is actually an htpasswd format, which can be used by an Apache web server to provide password-based access control to portions of a web site. The line:
+```
 >   alice:{SHA}A9Z8JjwnpFPvZbKeMDNHJzM8y80=
-
-says the user “alice” has had her password hashed by the SHA1 hash function, and
-that the digest is stored in a base64 encoded digest of
+```
+says the user “alice” has had her password hashed by the SHA1 hash function, and that the digest is stored in a base64 encoded digest of
 “A9Z8JjwnpFPvZbKeMDNHJzM8y80=”.
 
->   Examine the digest values for each user.
+- Examine the digest values for each user.
 
->   **Record in item \#7 of the worksheet the users that selected the same
->   password.**
+*Note the users that selected the same password.
 
-Simple Dictionary Attack
-------------------------
+Task 3: Simple Dictionary Attack
+==========================
 
-In this task you will be performing a simple and literal dictionary attack
-because the list contains only about 109,000 English words, and because no
-variations of each word is attempted.
+In this task you will be performing a simple and literal dictionary attack because the list contains only about 109,000 English words, and because no variations of each word is attempted.
 
-1.  Execute the following command to execute a dictionary attack on
-    htpasswd-sha1, using the list of English words:
-
+- Execute the following command to execute a dictionary attack on htpasswd-sha1, using the list of English words:
+```
 ./crackSHA.py htpasswd-sha1 tinylist.txt
+```
 
->   **Record in item \#8 of the worksheet the username(s) and password(s) of the
->   accounts that were cracked.**
+*Note the username(s) and password(s) of the accounts that were cracked.
 
-Common Password Dictionary Attack
----------------------------------
+Task 4: Common Password Dictionary Attack
+==========================
 
-By now, you should have cracked some passwords, but not all. This is because the
-dictionary you used contains only a small set of English words, with no common
-passwords or variants. Instead of the rather small list of words used above, you
-will now use biglist.txt that you downloaded earlier, which contains 2.2 million
-words and commonly used passwords.
+By now, you should have cracked some passwords, but not all. This is because the dictionary you used contains only a small set of English words, with no common passwords or variants. Instead of the rather small list of words used above, you will now use biglist.txt that you downloaded earlier, which contains 2.2 million words and commonly used passwords.
 
-1.  Execute the crackSHA.py script again with the new dictionary, as shown
-    below:
-
+- Execute the crackSHA.py script again with the new dictionary, as shown below:
+```
 >   ./crackSHA.py htpasswd-sha1 biglist.txt
+```
 
->   **Record in item \#9 of the worksheet the username(s) and password(s) of the
->   accounts that were cracked when using biglist.txt.**
+*Note the username(s) and password(s) of the accounts that were cracked when using biglist.txt.
 
->   **Record in item \#10 of the worksheet the number of words that were
->   attempted, the number of passwords that were cracked, and the number of
->   seconds**[^1] **it took (as reported at the end of the output).**
+*Note the number of words that were attempted, the number of passwords that were cracked, and the number of secondsit took (as reported at the end of the output).
 
-[^1]: Note that there are at least two things slowing down the password
-cracking: 1) running in a VM; and 2) executing via an interpreted script (rather
-than a compiled program). Otherwise the rate should be higher.
+**In this Lab, there are at least two things slowing down the password cracking: 1) running in a VM; and 2) executing via an interpreted script (rather than a compiled program). Otherwise the rate should be higher!
 
->   **Note that item \#11 asks a follow-up question.**
-
-Task 3: Considering Execution Time
+Task 5: Considering Execution Time
 ==================================
 
 In this task you will be comparing the execution time of various hash functions.
 
-1.  As a speed comparison between different hash functions, execute the
-    following script on a file that hashed the passwords using MD5 (an older
-    hash function):
-
+- As a speed comparison between different hash functions, execute the following script on a file that hashed the passwords using MD5 (an older hash function):
+```
 >   ./crackMD5.py htpasswd-md5 biglist.txt
+```
 
->   **Record in item \#12 of the worksheet the number of words that were
->   attempted, the number of passwords that were cracked, and the number of
->   seconds it took.**
+*Note the number of words that were attempted, the number of passwords that were cracked, and the number of seconds it took. Consider the benefits of salt values.
 
->   **Note that item \#13 asks a follow-up question.**
-
->   **Note that item \#14 asks a follow-up question. [You may need to refer to
->   the benefits of salt values, as found in your independent study or discussed
->   in your course lecture.]**
-
-1.  As another point of reference in the speed comparison, execute the following
-    script on a password file that used SHA512:
-
+- As another point of reference in the speed comparison, execute the following script on a password file that used SHA512:
+```
 >   ./crack512.py htpasswd-sha512 biglist.txt
+```
 
->   **Record in item \#15 of the worksheet the number of words that were
->   attempted, the number of passwords that were cracked, and the number of
->   seconds it took.**
+*Note the number of words that were attempted, the number of passwords that were cracked, and the number of seconds it took.
 
->   **Note that item \#16 asks a follow-up question.**
-
-1.  Refer to the numbers recorded in item \#10 of the worksheet. Enter into the
+Refer to the numbers recorded in item \#10 of the worksheet. Enter into the
     downloaded spreadsheet (where it is highlighted in red) the “Words
     processed” and the “Seconds to process”. The spreadsheet will then show you
     the estimated amount of time the python script would take (on your VM) if it
@@ -278,36 +225,31 @@ same full digest as was seen in step ‘a’.
 
 >   **Note that item \#19 of the worksheet asks a follow-up question.**
 
-Task 4: Personal Experimentation
+Task 6: Personal Experimentation
 ================================
 
 In this task you will experiment with passwords of your choice.
 
-1.  As described below, create your own password file (named htpasswd-me) in the
-    htpasswd format, with an entry for “alice”. You will be prompted for the
-    password.
+As described below, create your own password file (named htpasswd-me) in the htpasswd format, with an entry for “alice”. You will be prompted for the password.
 
-    htpasswd **-sc** htpasswd-me alice
+```
+> htpasswd **-sc** htpasswd-me alice
+```
+You can **add** other entries by doing the following (slightly modified) command:
 
-    You can **add** other entries by doing the following (slightly modified)
-    command:
+```
+> htpasswd -s htpasswd-me bob
+```
 
-    htpasswd **-s** htpasswd-me bob
+As a security exercise, you may want to add passwords you commonly use (or have used) to see if they can be cracked using this relatively small list of passwords.
 
->   As a security exercise, you may want to add passwords you commonly use (or
->   have used) to see if they can be cracked using this relatively small list of
->   passwords.
+- Display your htpasswd-me file by using the cat command.
 
-1.  Display your htpasswd-me file by using the cat command.
-
-2.  Perform the pre-calculated attack as follows:
-
+- Perform the pre-calculated attack as follows:
+```
     ./crackPre.py htpasswd-me calc
-
->   **Record in item \#20 of the worksheet the results of your experiments. [Do
->   not write down any actual passwords you have used.]**
-
->   **Complete items \#21 and \#22.**
+```
+*Note the results of your experiments. 
 
 Submission
 ==========
