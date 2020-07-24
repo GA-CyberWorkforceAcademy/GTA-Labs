@@ -1,7 +1,11 @@
-SQL Injection Attack Lab
-========================
+![](media/b80e0eacca6dad9d42b5dc3545946591.png)
 
->   **Overview**
+SQL Injection Attack Lab
+=================================
+
+Overview
+========
+
 
 >   SQL injection is a code injection technique that exploits the
 >   vulnerabilities in the interface between web applications and database
@@ -24,49 +28,34 @@ SQL Injection Attack Lab
 >   the attack, and master the techniques that can help defend against such type
 >   of attacks.
 
-Note for Instructors
---------------------
+Lab Environment
+===============
 
->   If the instructor plans to hold lab sessions for this lab, we suggest that
->   the following background materials be covered in the lab sessions:
+Once you have logged into your range account and accessed your Labtainer-VM,
+open a terminal window.
 
-1.  How to use the virtual machine and Labtainers, Firefox web browser, and the
-    Web Developer / Network tools.
+Navigate to the “labtainer-student” directory and start the lab using the
+command:
 
-2.  Brief introduction of SQL. Only need to cover the basic structure of the
-    SELECT, UPDATE, and INSERT statements. A useful online SQL tutorial can be
-    found at [http://www.w3schools.com/sql/.](http://www.w3schools.com/sql/)
-
-3.  How to operate the MySQL database (only the basics).
-
-4.  Brief introduction of PHP. Only need to cover the very basics. Students with
-    a background in C/C++, Java, or other language should be able to learn this
-    script language quite quickly.
-
-Setup
-=====
-
->   Start the lab from the Labtainer workspace directory:
-
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 >   labtainer sql-inject
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
->   This will result in creation of two virtual terminals, one connected to a
->   client, and one connected to the server, both with corresponding labels. A
->   Firefox browser will also start. The browser is running on the client
->   component.
+-   Links to this lab manual will be displayed if you wish to view the prompt
+    from within your VM
+-   A useful online SQL tutorial can be found at [http://www.w3schools.com/sql/.](http://www.w3schools.com/sql/)
 
 Lab Tasks
 =========
 
->   We have created a web application, and host it [at
->   www.SEEDLabSQLInjection.com.](http://www.SEEDLabSQLInjection.com/) This web
->   application is a simple employee management application. Employees can view
->   and update their personal information in the database through this web
->   application. There are mainly two roles in this web application:
->   Administrator is a privilege role and can manage each individual employees’
->   profile information; Employee is a normal role and can view or update
->   his/her own profile information. All employee information is described in
->   the following table.
+- We have a web application hosted it at [www.SEEDLabSQLInjection.com](http://www.SEEDLabSQLInjection.com/) 
+
+This web application is a simple employee management application. Employees can view and update their personal information in the database through this web application. There are mainly two roles in this web application:
+
+- Administrator is a privilege role and can manage each individual employees’ profile information
+- Employee is a normal role and can view or update his/her own profile information. 
+
+All employee information is described in the following table.
 
 | User  | Emploee ID | Password  | Salary | Birthday | SSN      |
 |-------|------------|-----------|--------|----------|----------|
@@ -78,7 +67,7 @@ Lab Tasks
 | Ted   | 50000      | seedted   | 110000 | 11/3     | 24343244 |
 
 Task 1: MySQL Console
----------------------
+=========
 
 >   The objective of this task is to get familiar with SQL commands by playing
 >   with the provided database. We have created a database called Users, which
@@ -92,22 +81,23 @@ Task 1: MySQL Console
 >   already setup MySQL in the “server” component. The user name is root and
 >   password is seedubuntu. Please login to MySQL console in the server’s
 >   virtual terminal using the following command:
-
+```
 >   \$ mysql -u root -pseedubuntu
-
+```
 >   After login, you can create new database or load an existing one. As we have
 >   already created the Users database for you, you just need to load this
 >   existing database using the following command:
-
+```
 >   mysql\> use Users;
-
+```
 >   To show what tables are there in the Users database, you can use the
 >   following command to print out all the tables of the selected database.
-
+```
 >   mysql\> show tables;
+```
 
 Task 2: SQL Injection Attack on SELECT Statement
-------------------------------------------------
+=========
 
 >   SQL injection is basically a technique through which attackers can execute
 >   their own malicious SQL statements generally referred as malicious payload.
@@ -130,12 +120,10 @@ Task 2: SQL Injection Attack on SELECT Statement
 
 >   To help you started with this task, we explain how authentication is
 >   implemented in our web application. The PHP code unsafe_credential.php,
->   located in the
-
->   /var/www/seedlabsqlinjection.com/public_html directory, is used to conduct
+>   located in the /var/www/seedlabsqlinjection.com/public_html directory, is used to conduct
 >   user authentication. The following code snippet show how users are
 >   authenticated.
-
+```
 >   \$conn = getDB();
 
 >   \$sql = "SELECT id, name, eid, salary, birth, ssn, phonenumber, address,
@@ -160,7 +148,7 @@ Task 2: SQL Injection Attack on SELECT Statement
 >   authentication fails.
 
 >   }
-
+```
 >   The above SQL statement selects personal employee information such as id,
 >   name, salary, ssn etc from the credential table. The variables input eid and
 >   input pwd hold the strings typed by users in the login page. Basically, the
@@ -207,7 +195,7 @@ Task 2: SQL Injection Attack on SELECT Statement
     delete a record from the database, and describe your observation.
 
 Task 3: SQL Injection Attack on UPDATE Statement
-------------------------------------------------
+=========
 
 >   If a SQL injection vulnerability happens to an UPDATE statement, the damage
 >   will be more severe, be- cause attackers can use the vulnerability to modify
@@ -221,7 +209,7 @@ Task 3: SQL Injection Attack on UPDATE Statement
 >   unsafe_edit.php file is used to update employee’s profile information. The
 >   PHP file is located in the /var/www/seedlabsqlinjection.com/public_html
 >   directory.
-
+```
 >   \$conn = getDB();
 
 >   \$sql = "UPDATE credential SET nickname=’\$nickname’, email=’\$email’,
@@ -229,10 +217,11 @@ Task 3: SQL Injection Attack on UPDATE Statement
 >   address=’\$address’, phonenumber=’\$phonenumber’, Password=’\$pwd’
 
 >   WHERE id= ’\$input_id’ ";
-
+```
 ![](media/1836a4c3b8eabd7b550ddb41f3d35597.jpg)
-
+```
 >   \$conn-\>query(\$sql))
+```
 
 >   **Figure 2: Edit Profile**
 
@@ -263,7 +252,7 @@ Task 3: SQL Injection Attack on UPDATE Statement
 >   attack on our web application.
 
 Task 4: Countermeasure — Prepared Statement
--------------------------------------------
+=========
 
 >   The fundamental problem of the SQL injection vulnerability is the failure to
 >   separate code from data. When constructing a SQL statement, the program
@@ -310,7 +299,7 @@ Task 4: Countermeasure — Prepared Statement
 >   Here is an example of how to write a prepared statement in PHP. We use a
 >   SELECT statement in the following example. We show how to use prepared
 >   statement to rewrite the code that is vulnerable to SQL injection attacks.
-
+```
 >   \$conn = getDB();
 
 >   \$sql = "SELECT name, local, gender FROM USER_TABLE
@@ -318,10 +307,10 @@ Task 4: Countermeasure — Prepared Statement
 >   WHERE id = \$id AND password =’\$pwd’ ";
 
 >   \$result = \$conn-\>query(\$sql))
-
+```
 >   The above code is vulnerable to SQL injection attacks. It can be rewritten
 >   to the following
-
+```
 >   \$conn = getDB();
 
 >   \$stmt = \$conn-\>prepare("SELECT name, local, gender FROM USER_TABLE
@@ -337,7 +326,7 @@ Task 4: Countermeasure — Prepared Statement
 >   \$stmt-\>bind_result(\$bind_name, \$bind_local, \$bind_gender);
 
 >   \$stmt-\>fetch();
-
+```
 >   Using the prepared statement mechanism, we divide the process of sending a
 >   SQL statement to the database into two steps. The first step is to only send
 >   the code part, i.e., a SQL statement without the actual the data. This is
@@ -364,11 +353,11 @@ Guidelines
 >   investigation, you can copy the SQL statement from php source code to the
 >   MySQL console. Assume you have the following SQL statement, and the
 >   injection string is ’ or 1=1;\#.
-
+```
 >   SELECT \* from credential
 
 >   WHERE name=’\$name’ and password=’\$pwd’;
-
+```
 >   You can replace the value of \$name with the injection string and test it
 >   using the MySQL console. This approach can help you to construct a
 >   syntax-error free injection string before launching the real injection
@@ -379,11 +368,6 @@ Submission
 
 >   After finishing the lab, go to the terminal on your Linux system that was
 >   used to start the lab and type:
-
+```
 >   stoplab sql-inject
-
->   When you stop the lab, the system will display a path to the zipped lab
->   results on your Linux system. Submit that and a detailed lab report to
->   describe what you have done and what you have observed. Please provide
->   details using screen shots and code snippets. You also need to provide
->   explanation to the observations that are interesting or surprising.
+```
