@@ -48,14 +48,14 @@ port numbers.)
 
 Wireshark automatically creates and applies a display filter for this TCP conversation. How many packets match this filter?
 
-Part 1 clean-up: Click the Clear button (the red X next to the filter expression) to remove your display filter before continuing. Toggle to the conversation window and click Close.
+**Clean-up: Click the Clear button (the red X next to the filter expression) to remove your display filter before continuing. Toggle to the conversation window and click Close.
 
 Geolocating IP Addresses (15 pts total)
 ==========
 
 Correlating network interfaces/IP addresses to physical locations is often a useful task. Wireshark includes a basic capability in this regard, which utilizes the free versions of the MaxMind2 database. It is important to recognize that no IP-geolocation database is error-free. Later on in the quarter we will discuss various approaches to geolocating IP addresses and the associated complexities of this process.
 
--   Open pcaps/http-browse101c.pcapng in Wireshark.
+Open pcaps/http-browse101c.pcapng in Wireshark.
 
 Now select Edit — Preferences — Name Resolution4 and click the GeoIP database directories Edit button. Click New and point to the maxmind directory (which has database files downloaded from <http://dev.maxmind.com/geoip/legacy/geolite/)>.
 
@@ -67,14 +67,14 @@ Click the Map button. Wireshark will launch a map view in your browser with the 
 
 - 15 pts: How much aggregate traffic went to/from Milpitas, CA?
 
-Part 2 clean-up: Close the browser tab/window when you are finished. Close the Wireshark Endpoints window
+**Clean-up: Close the browser tab/window when you are finished. Close the Wireshark Endpoints window
 
 Reassemble text from TCP stream (15 pts)
 ==========
 
 As a byte-stream oriented protocol, TCP segments data based on its MSS, not based on semantics of the English language, or even application data formatting. Thus it can be helpful to reassemble this data before manually nspecting it.
 
--   Open pcaps/http-wiresharkdownload101.pcapng in Wireshark.
+Open pcaps/http-wiresharkdownload101.pcapng in Wireshark.
 
 The first three packets are the TCP handshake for the web server connection. Frame 4 contains the clients GET request for the download.html page. Right-click on frame 4 and select Follow — TCP stream. Traffic from the first host seen in the trace file, the client in this case, is colored red. Traffic from the second host seen in the trace file, the server in this case, is colored blue.
 
@@ -82,20 +82,20 @@ The first three packets are the TCP handshake for the web server connection. Fra
 
 This isn’t the only message hidden in the web browsing session. Now that you know the message begins with X-Slogan, you can have Wireshark display every frame that includes this ASCII string. Click the Close button and then the Clear button to remove the TCP stream filter.
 
--   Apply the display filter frame contains ”X-Slogan”
+Apply the display filter frame contains ”X-Slogan”
 
 Right-click on the two other displayed frames and select Follow — TCP Stream to examine the HTTP headers exchanged between hosts. Did you find the other message? Note that you can only follow one stream at a time using this right-click method. You will need to clear out your display filter before following the next stream.
 
 - 10 pts: What other message did you find (different than Q4)?
 
-Part 3 clean-up: Click the Close button on the Follow TCP Stream window when you have finished following streams. Click the Clear button to remove your display filter before continuing.
+**Clean-up: Click the Close button on the Follow TCP Stream window when you have finished following streams. Click the Clear button to remove your display filter before continuing.
 
 Extract binary file from FTP session (15 points total)
 ==========
 
 In the previous section, we extracted ASCII-text messages from packets. What about binary data? Wireshark has tools for this as well.
 
--   Open pcaps/ftp-clientside101.pcapng in Wireshark.
+Open pcaps/ftp-clientside101.pcapng in Wireshark.
 
 Scroll through the beginning of the trace file. You will see numerous FTP commands used to login, request a directory, define a port number for the data transfer and retrieve a file.
 
@@ -111,7 +111,7 @@ To reassemble the graphic image transferred in this FTP communication, Change th
 
 - 10 pts: Navigate to the target directory and open the file you saved in the previous step. Include the image in your report.
 
-Part 4 clean-up: When youve finished examining the image you extracted, close your image viewer. Return to Wireshark to close the TCP Stream window and clear your display filter.
+**Clean-up: When youve finished examining the image you extracted, close your image viewer. Return to Wireshark to close the TCP Stream window and clear your display filter.
 
 Submission
 ==========
