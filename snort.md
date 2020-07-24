@@ -83,13 +83,15 @@ Now add a rule to your local.rules file on snort that will generate an alert whe
 
 On the browser at the remote workstation, clear your history (Menu / Preferences Security & Privacy), and then refresh the plan.html page. You should see an alert at the snort console.
 
-**Effects of encryption
+Effects of encryption
+=====
 
 Back at the Firefox browser, again clear the browser history. Now alter the URL to make use of the web server SSL function. Change the url to https://www.example.com/plan.html. Do you see a new snort alert? Why?
 
 One solution to this problem is to use a reverse proxy in front of the web server. This reverse proxy would handle the incoming web traffic and manage the SSL connections. The web server would then receive only clear-text HTTP traffic, and outgoing traffic from the web server could then be mirrored to the IDS. We will not pursue that solution in this lab.
  
-**Watching internal traffic
+Watching internal traffic
+=====
 
 Go to the ws2 (mary) component and run nmap:
 ```
