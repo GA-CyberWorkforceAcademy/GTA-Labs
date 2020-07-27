@@ -24,9 +24,9 @@ Custom Interactions with /dev/tcp
 
 #!/bin/bash
 
-exec 3<>/dev/tcp/10.2.0.4/80
+exec 3<>/dev/tcp/localhost/8000
 
-echo -e "GET /index.html/ HTTP/1.1\r\nhost: ga-cyberworkforceacademy.github.io/GTA-Labs\r\nConnection: close\r\n\r\n" >&3
+echo -e "GET /index.html/ HTTP/1.1\r\nhost: localhost\r\nConnection: close\r\n\r\n" >&3
 
 cat <&3
 
