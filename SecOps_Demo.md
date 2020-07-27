@@ -17,7 +17,7 @@ File Transfer with /dev/tcp
 
 4) Now go to the router container and create a file that you will send to the analyst. Make sure to write a message you will recognize into the file.
 
-5) Use the command: "cat filename.txt > /dev/tcp/172.25.0.3/1111" to send the file from the router to the analyst
+5) Use the command: "cat filename.txt > /dev/tcp/172.25.0.2/1111" to send the file from the router to the analyst
 
 5) You can go back to the analyst container now and check the contents of the file that you connected to the listener, it should display the file contents you sent from the router.
 
@@ -39,7 +39,7 @@ Custom Interactions with /dev/tcp
 
 exec 3<>/dev/tcp/10.2.0.4/80
 
-echo -e "GET /index.html HTTP/1.1\r\nhost: 10.2.0.4\r\nConnection: close\r\n\r\n" >&3
+echo -e "GET /index.html/ HTTP/1.1\r\nhost: ga-cyberworkforceacademy.github.io/GTA-Labs\r\nConnection: close\r\n\r\n" >&3
 
 cat <&3
 
@@ -53,7 +53,7 @@ Custom Port Scanner with /dev/tcp
 ====
 
 
-1) Log into H1. You can make yourself root, or use sudo as invoke the command.
+1) Start Labtainer "nmap-ssh". Log into the analyst container.
 
 2) Create the following bash script on the machine to scan ports 20 thru 80 (you can do more/different ports but for our environment, this saves time) and saves the results to a file in your home directory:
 
@@ -67,11 +67,11 @@ let p=20
 
 while [ $p -lt 80 ];
 
-do echo > /dev/tcp/10.2.0.4/$p;
+do echo > /dev/tcp/172.25.0.3/$p;
 
   if [ $? == 0 ]; then
   
-    echo $p "is open" >> /home/lastname/scan.txt; 
+    echo $p "is open" >> /home/analyst/scan.txt; 
     
   fi;
   
