@@ -1,3 +1,5 @@
 # labtainer_prompts
-![acl](acl.md)
+[linux commands](nix-commands.md)
+[acl lab](acl.md)
+[telnet lab](telnet.md)
 
