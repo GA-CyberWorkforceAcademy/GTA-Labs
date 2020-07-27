@@ -8,19 +8,6 @@ which it operates to transfer information, interact with application or port sca
 
 *Follow the below steps*
 
-File Transfer with /dev/tcp
-=====
- 
-1) Start Labtainer "nmap-ssh".
-
-2) You will establish a listening port on the analyst container and receive the contents of the file you created on the router container and sent over the socket. Use the command: "nc -l -p 1111 > filename.txt"
-
-4) Now go to the router container and create a file that you will send to the analyst. Make sure to write a message you will recognize into the file.
-
-5) Use the command: "cat filename.txt > /dev/tcp/172.25.0.2/1111" to send the file from the router to the analyst
-
-5) You can go back to the analyst container now and check the contents of the file that you connected to the listener, it should display the file contents you sent from the router.
-
 
 
 Custom Interactions with /dev/tcp
@@ -46,6 +33,21 @@ cat <&3
 ```
 
 3) Simply run the script, and you should be presented with the webpage index for this course's Lab Prompt Index.
+
+
+
+File Transfer with /dev/tcp
+=====
+ 
+1) Start Labtainer "nmap-ssh".
+
+2) You will establish a listening port on the analyst container and receive the contents of the file you created on the router container and sent over the socket. Use the command: "nc -l -p 1111 > filename.txt"
+
+4) Now go to the router container and create a file that you will send to the analyst. Make sure to write a message you will recognize into the file.
+
+5) Use the command: "cat filename.txt > /dev/tcp/172.25.0.2/1111" to send the file from the router to the analyst
+
+5) You can go back to the analyst container now and check the contents of the file that you connected to the listener, it should display the file contents you sent from the router.
 
 
 
