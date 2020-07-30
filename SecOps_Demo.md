@@ -64,21 +64,15 @@ Custom Port Scanner with /dev/tcp
 ```
 
 #!/bin/bash
-
-let p=20
-
-while [ $p -lt 80 ];
-
-do echo > /dev/tcp/172.25.0.3/$p;
-
-  if [ $? == 0 ]; then
-  
-    echo $p "is open" >> /home/analyst/scan.txt; 
-    
-  fi;
-  
-let p=(p+1)
-
+for P in {20..81} #port range
+do
+  echo "HEAD / HTTP 1.0" > dev/tcp/scanme.nmpa.org/$P #target to scan
+  MYEXIT=$?
+  if [ "X$MYEXIT" = "X0" ]; then
+    echo "$P ' is open'" >> /home/student/Desktop/scanresults.txt #file holding resutls
+  else
+    echo "Connection unsuccessful. Exit code: $MYEXIT"
+  fi
 done
 
 ```
