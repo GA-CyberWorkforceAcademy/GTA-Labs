@@ -7,7 +7,7 @@ Overview
 ========
 
 Cross-site scripting (XSS) is a type of vulnerability commonly found in web applications. This vulnerability makes it possible for attackers to inject
-malicious code (e.g. JavaScript programs) into victim’s web browser. Using this malicious code, the attackers can steal the victim’s credentials, such as session cookies. The access control policies (i.e., the same origin policy) employed by browsers to protect those credentials can be bypassed by exploiting the XSS vulnerability. Vulnerabilities of this kind can potentially lead to large- scale attacks.
+malicious code (e.g. JavaScript programs) into victim’s web browser. Using this malicious code, the attackers can steal the sensitive information, such as session cookies. The access control policies employed by browsers using session cookies, for example, can be bypassed by exploiting the XSS vulnerability. Vulnerabilities of this kind can potentially lead to large- scale attacks.
 
   
 
