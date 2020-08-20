@@ -33,15 +33,26 @@ Tasks
 Start sniffing traffic
 =====
 
-You should have two terminal's that represent an ubuntu client and server. These hosts reside on docker containers.
+You should have two additional terminal's open after starting the lab that represent an ubuntu client and server. These hosts reside on docker containers.
 
 *A container is a standard unit of software that packages up code and all its dependencies so the application runs quickly and reliably from one computing environment to another.
 
-From your ubuntu host, you will need to first identify the docker network ID's so you know what adapter to sniff traffic on. From the terminal window that you deployed the lab from, type "ip addr" (not the new terminal windows).  This will return a list of network adapters and information.  Locate the adapter that identifies the 172.20.0.0/24 network.  This is the network that the container client and server are connected to. 
+From your ubuntu host, you will need to first identify the docker network ID's so you know what adapter to sniff traffic on. From the terminal window that you deployed the lab from, type "ip addr" (not the new terminal windows).  This will return a list of network adapters and information.  Locate the adapter that is on the 172.20.0.0/24 network.  This is the network that the container client and server are connected to. 
 
 The image below shows the adapter and network, however the identifier will most likley me different as it is created dynamically.
 
 [!](\images\adapter.png)
+
+From your host's terminal, you will now need to run Wireshark and select the adapter that you identified in the previous step.  Ensure you run Wireshark with administrative priviledges. 
+
+```
+sudo wireshark
+
+```
+
+Select the correct adapter and start capturing traffic.
+
+No packets should apear in the Wireshark window until you are interacting between the client and server containers in the next steps.
 
 
 Determine the server IP address
@@ -77,11 +88,21 @@ Exit the telnet session on the client via the “exit” command.
 View plaintext passwords
 =====
 
-On the server, start tcpdump to display TCP network traffic with this command:
+Ensure that Wireshark is up and capturing traffic on the adapter that was previously identified. 
+
+On the client start a telnet session, but when prompted for the password type “mydoghasfleas” (you know this password is incorrect).
+
+Use the ctrl-C sequence to abort login so that you may analyze the packets you have captured.
+
+In wireshark, right-click on any of the packets in the stream and go "Follow > TCP Stream"
+
+
+
 ```
->   sudo tcpdump -i eth0 -X tcp
+>   sudo tcpdump -i eth0 -X dst 172.20.0.3
 ```
-On the client start a telnet session, but when prompted for the password type “mydoghasfleas” (you know this password is incorrect). As you type each letter of the password, notice that the tcpdump of the traffic . Keeping in mind that every other packet is an “ack”, do you see the password. What do you notice?
+
+As you type each letter of the password, notice that the tcpdump of the traffic . Keeping in mind that every other packet is an “ack”, do you see the password. What do you notice?
 
 Use SSH to protect communications with the server
 =====
