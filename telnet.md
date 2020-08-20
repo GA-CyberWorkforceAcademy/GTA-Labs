@@ -15,7 +15,7 @@ Lab Environment
 ===============
 
 Once you have logged into your range account and accessed your Labtainer-VM,
-open a terminal window.
+use the "labtainer-student" shortcut to open a terminal window.
 
 Navigate to the “labtainer-student” directory and start the lab using the
 command:
@@ -30,23 +30,43 @@ command:
 Tasks
 =====
 
+Start sniffing traffic
+=====
+
+You should have two terminal's that represent an ubuntu client and server. These hosts reside on docker containers.
+
+*A container is a standard unit of software that packages up code and all its dependencies so the application runs quickly and reliably from one computing environment to another.
+
+From your ubuntu host, you will need to first identify the docker network ID's so you know what adapter to sniff traffic on. From the terminal window that you deployed the lab from, type "ip addr" (not the new terminal windows).  This will return a list of network adapters and information.  Locate the adapter that identifies the 172.20.0.0/24 network.  This is the network that the container client and server are connected to. 
+
+The image below shows the adapter and network, however the identifier will most likley me different as it is created dynamically.
+
+[!](\images\adapter.png)
+
+
 Determine the server IP address
 =====
 
-In the server window, type “ifconfig” to view the IP address of the server. The
-server IP address will follow the “inet addr:” label.
+In the terminal window with the label "ubuntu@server", type “ip addr” to view the IP address of the server. The
+server IP address will follow the “inet” label.
+
+You may also use the ifconfig command to view this information. This is an older, deprecated command but still supported on popular Linux distrobutions.
 
 Telnet to telnet server and display a file on the server
+=====
 
-On the client computer, use the telnet command to access the server using its IP
-address:
+You will now be working from the client computer. In the terminal window with the label "ubuntu@client" use the telnet command to access the server using the IP
+address you discovered in the previous step:
 
 ```
->   telnet \<IP\
+>   telnet <IP ADDRESS>
 ```
 
-You will be prompted for a user ID and then a password. Both of them are
-“ubuntu” There is a pre-created file on the server named “filetoview.txt”.
+You will be prompted for a user ID and then a password. Both user ID and password are “ubuntu”.
+
+Once logged into the server, you will see that your terminal prompt changes from "ubuntu@client" to "ubuntu@server" You can view the files in your current directory using the "ls" command. You will see a file on the server named “filetoview.txt”. 
+
+Use the "ls" command 
 
 View the file content by typing:
 ``
@@ -61,10 +81,7 @@ On the server, start tcpdump to display TCP network traffic with this command:
 ```
 >   sudo tcpdump -i eth0 -X tcp
 ```
-On the client start a telnet session, but when prompted for the password type
-“mydoghasfleas” (as you know this password is incorrect). As you type each
-letter of the password, observe the tcpdump of the traffic. Keeping in mind that
-every other packet is an “ack”, do you see the password. What do you notice?
+On the client start a telnet session, but when prompted for the password type “mydoghasfleas” (you know this password is incorrect). As you type each letter of the password, notice that the tcpdump of the traffic . Keeping in mind that every other packet is an “ack”, do you see the password. What do you notice?
 
 Use SSH to protect communications with the server
 =====
@@ -72,17 +89,16 @@ Use SSH to protect communications with the server
 From the client computer, use the SSH command to access the server using its IP
 address:
 ```
->   ssh \<IP\>
+>   ssh <IP ADDRESS>
 ```
-The first time you SSH to a server, SSH will warn you that the “authenticity of
-the host… can’t be established”. Type “yes” at the prompt.
+The first time you SSH to a server, SSH will warn you that the “authenticity ofthe host… can’t be established”. Type “yes” at the prompt.
 
 View the file content by typing:
 ```
 >   cat filetoview.txt
 ```
 
-Observe the tcpdump output and note that there is no readable plain text.
+Observe the tcpdump output and note that there is no readable plaintext.
 
 Stop the Labtainer
 ==================
@@ -92,4 +108,4 @@ When the lab is completed, or you’d like to stop working for a while, run:
 >   stoplab telnetlab
 ```
 From the host labtainer working directory. You can always restart the labtainer
-and continue your work where you left off. 
+and try the lab again if you are unable to complete it. 
