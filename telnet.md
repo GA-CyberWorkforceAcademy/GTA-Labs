@@ -41,7 +41,7 @@ From your ubuntu host, you will need to first identify the docker network ID's s
 
 The image below shows the adapter and network, however the identifier will most likley me different as it is created dynamically.
 
-![](media\adapter.PNG)
+![](media/adapter.PNG)
 
 From your host's terminal, you will now need to run Wireshark and select the adapter that you identified in the previous step.  Ensure you run Wireshark with administrative priviledges. 
 
