@@ -15,9 +15,7 @@ Lab Environment
 ===============
 
 Once you have logged into your range account and accessed your Labtainer-VM,
-use the "labtainer-student" shortcut to open a terminal window.
-
-Navigate to the “labtainer-student” directory and start the lab using the
+open a terminal window and navigate to the “Labtainers/labtainer-student” directory and start the lab using the
 command:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
