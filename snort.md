@@ -61,6 +61,13 @@ When it comes time to stop snort, e.g., to add rules, simply use CTL-C.
 Pre-configured Snort rules
 =====
 
+While snort is running, open Firefox on the remote ws and view the webpage:
+```
+firefox www.example.com
+```
+- You should not see any alerts, as this is normal, permissible traffic. 
+- Close the firefox browser.
+
 The Snort utility includes a set of pre-configured rules that create alerts for known suspicious network activity. The configuration on the snort component is largely as it exists after initial installation of the snort utility. To see an example of some of the preconfigured rules, perform an nmap scan of www.example.com from the remote ws container:
 
 ```
@@ -72,15 +79,26 @@ sudo nmap www.example.com
 Write a simple (bad) rule
 =====
 
-Custom rules are typically added to the file at /etc/snort/rules/local.rules.
+Custom rules are typically added to the file at /etc/snort/rules/local.rules. Take note of your current location in the file system (Use "pwd". You should be in Tom's home directory.)
 
-- Stop snort and add a rule that generates an alert for each packet within a TCP stream. For example:
+- Open 
+
+- Stop snort and add a rule that generates an alert for each packet within a TCP stream.
+
+- You will need to access the "nano" text editor, with root priviledges and add a rule. 
+
+```
+sudo nano /etc/snort/rules/local.rules
+
+```
+- Now add to the bottom of the file: 
+
 ```
 alert tcp any any -> any any (msg:"TCP detected"; sid:00002;)
 ```
 **That rule can be read as: “Generate an alert whenever a TCP packet from any address on any port is sent to any address on any port, and include the message tagged as TCP detected:, and give the rule an identifier of 00002.” 
 
-- Restart snort. Test this rule by starting Firefox on the remote ws:
+- Restart snort. Test this rule by re-starting Firefox on the remote ws:
 ```
 firefox www.example.com
 ```
@@ -94,23 +112,26 @@ Custom rule for CONFIDENTIAL traffic
 **AS THE ATTACKER- HANK**
 - On the remote ws, open a firefox browser and ensure you are connected to http://www.example.com. 
 
-- An attacker (at the remote ws) has learned about an unpublished webpage that exists on the website. In particular, they have learned that there is a confidential business plan at http://www.example.com/plan.html. MAKE SURE YOU ARE USING HTTP, not HTTPS.  View the plan. 
+- Hank has learned about an unpublished webpage that exists on the website. In particular, he has learned that there is a confidential business plan at http://www.example.com/plan.html. MAKE SURE YOU ARE USING HTTP, not HTTPS.  View the plan. 
 
 **AS THE DEFENDER- TOM**
-- Now lets switch seats back into the defenders' role. Add a rule to your local.rules file on snort that will generate an alert whenever the text ”CONFIDENTIAL” is sent out to the internet. Reference the snort manual https://www.snort.org/ downloads/snortplus/snort_manual.pdf or existing rules to understand how to qualify alerts based on content. Be sure to include the word ”CONFIDENTIAL” in the alert message, and give the rule its own unique sid. 
+- Now lets switch seats back into the defenders' role. Working as Tom, on the snort container, add a rule to your local.rules file on snort that will generate an alert whenever the text ”CONFIDENTIAL” is sent out to the internet. 
+
+- Reference the snort manual https://www.snort.org/ section 3.5 (starting at pg 190) to understand how to qualify alerts based on the content of packets. Be sure to include the word ”CONFIDENTIAL” in the alert message, and give the rule its own unique sid. 
 
 - After adding the rule, restart snort.
 
 **TEST YOUR RULE AS THE ATTACKER- HANK**
 
-- On the firefox browser at the remote ws, clear your history (Menu / Preferences Security & Privacy), and then refresh the plan.html page. You should see an alert at the snort console.
+- On the firefox browser at the remote ws, clear your history (Menu / Preferences / Security & Privacy).
+- Re-open the plan.html page. You should see an alert at the snort console indicating that your rule was successful.
 
 Effects of encryption
 =====
 
 Back at the Firefox browser, again clear the browser history. Now alter the URL to make use of the web server SSL function. Change the url to https://www.example.com/plan.html. Do you see a new snort alert? Why?
 
-One solution to this problem is to use a reverse proxy in front of the web server. This reverse proxy would handle the incoming web traffic and manage the SSL connections. The web server would then receive only clear-text HTTP traffic, and outgoing traffic from the web server could then be mirrored to the IDS. We will not pursue that solution in this lab.
+One solution to this problem is to use a reverse proxy in front of the web server. This reverse proxy would handle the incoming web traffic and manage the SSL connections. The web server would then receive only clear-text HTTP traffic, and outgoing traffic from the web server could then be mirrored to the IDS. We will not pursue that solution in this lab for the sake of resources and time.
  
 Watching internal traffic
 =====
@@ -118,21 +139,22 @@ Watching internal traffic
 
 **TEST YOUR RULES AS THE EMPLOYEE- MARY**
 
-- Go to the ws2 component and run nmap:
+- Ensure snort is still running on the snort container. If not, restart it. 
+- Go to Mary's ws2 container and run nmap:
 ```
 sudo nmap www.example.com
 ```
 - What do you see on the snort component? Does it include the ICMP PING NMAP alert that you saw when the remote workstation ran nmap? Why not?
 
-- Go to the gateway component and edit the /etc/rc.local script so that traffic from Mary’s work- station is mirrored to the snort component. You can do this by adding this line to the section of that file that defines the packet mirroring:
+- Go to the internal gateway (ubuntu@gateway) container and edit the /etc/rc.local script so that traffic from Mary’s work- station is mirrored to the snort component. You can do this by adding this line to the section of that file that defines the packet mirroring:
 ```
 iptables -t mangle -A PREROUTING -i $lan2 -j TEE --gateway 192.168.3.1
 ```
-- Then run the script to replace the iptables rules with your new rules:
+- Then, from this same position, run the script to replace the iptables rules with your new rules:
 ```
 sudo /etc/rc.local
 ```
-- Now restart snort and again run nmap from the ws2 computer.
+- Now restart snort and again run nmap from the ws2 computer. You should now see additional alerts including ICMP PING NMAP alert. 
 
 Distinguishing traffic by address
 =====
