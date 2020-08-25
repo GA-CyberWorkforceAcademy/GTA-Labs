@@ -24,17 +24,26 @@ command:
 
 Network Configuration
 =====
-This lab includes several networked computers as shown in Figure 1. When the lab starts, you will get virtual terminals, one connected to each component. 
+This lab includes several networked computers as shown in Figure 1. When the lab starts, you will get (3) virtual terminals, each houses (2) container/components. 
 
-- The gateway is configured with iptables to use NAT to translate sources addresses of traffic from internal IP addresses, e.g., 192.168.2.1, to our external address, i.e., 203.0.113.10. The iptables in the gateway also routes web traffic (ports 80 and 443) to the web server component by translating the externally visible destination address to the internal web server address.
+**Terminal 1) 
 
-The gateway is configured to mirror traffic that enters the gateway via either the 203.0.113.10 link, or the link to the web server. This mirrored traffic is routed to the snort container. This mirroring allows the snort IDS to reconstruct TCP sessions between the web server and external addresses and monitor traffic.
+- The external side of the gateway is with our external address, i.e., 203.0.113.10. and routes web traffic (ports 80 and 443) to the internal gatway container.
 
-- The snort container includes the Snort IDS utility. It also includes Wireshark to help you observe traffic being mirrored to the snort container.
+- The remote ws component includes the Firefox browser, and is configured with local resolution to reach the www.example.com website via the external IP: 203.0.113.10. The internal workstation (ws2) also includes Firefox and an entry in /etc/hosts for www.example.com. Both workstations also include the nmap utility. "Hank" is our external adversary.
 
-- The web server runs Apache and is configured to support SSL for web pages in the www.example.com domain.
 
-- The remote ws component includes the Firefox browser, and is configured with local resolution to reach the www.example.com website via the external IP: 203.0.113.10. The internal workstation (ws2) also includes Firefox and an entry in /etc/hosts for www.example.com. Both workstations also include the nmap utility.
+**Terminal 2) 
+
+- The internal side of the gateway is configured with NAT to translate sources addresses of traffic from internal IP addresses, e.g., 192.168.2.1, to our external address, i.e., 203.0.113.10. The iptables in the gateway also routes web traffic (ports 80 and 443) to the web server component by translating the externally visible destination address to the internal web server address. The gateway is configured to mirror traffic that enters the gateway via either the 203.0.113.10 link, or the link to the web server. This mirrored traffic is routed to the snort container. This mirroring allows the snort IDS to reconstruct TCP sessions between the web server and external addresses and monitor traffic.
+
+- The web server runs Apache and is configured to support SSL for web pages in the www.example.com domain. 
+
+**Terminal 3)
+
+- The snort container includes the Snort IDS utility and is assigned to "Tom" in Security. It also includes Wireshark to help you observe traffic being mirrored to the snort container.
+
+- The ws 2 is an internal workstaion used by a company employee (Mary).
 
 ![](media/map.jpg)
 
@@ -82,17 +91,17 @@ As you can see, the rule you wrote will overwhelm you with useless information b
 Custom rule for CONFIDENTIAL traffic
 =====
 
-**AS THE ATTACKER**
+**AS THE ATTACKER- HANK**
 - On the remote ws, open a firefox browser and ensure you are connected to http://www.example.com. 
 
 - An attacker (at the remote ws) has learned about an unpublished webpage that exists on the website. In particular, they have learned that there is a confidential business plan at http://www.example.com/plan.html. MAKE SURE YOU ARE USING HTTP, not HTTPS.  View the plan. 
 
-**AS THE DEFENDER**
+**AS THE DEFENDER- TOM**
 - Now lets switch seats back into the defenders' role. Add a rule to your local.rules file on snort that will generate an alert whenever the text ”CONFIDENTIAL” is sent out to the internet. Reference the snort manual https://www.snort.org/ downloads/snortplus/snort_manual.pdf or existing rules to understand how to qualify alerts based on content. Be sure to include the word ”CONFIDENTIAL” in the alert message, and give the rule its own unique sid. 
 
 - After adding the rule, restart snort.
 
-**TEST YOUR RULE AS THE ATTACKER**
+**TEST YOUR RULE AS THE ATTACKER- HANK**
 
 - On the firefox browser at the remote ws, clear your history (Menu / Preferences Security & Privacy), and then refresh the plan.html page. You should see an alert at the snort console.
 
@@ -105,6 +114,9 @@ One solution to this problem is to use a reverse proxy in front of the web serve
  
 Watching internal traffic
 =====
+
+
+**TEST YOUR RULES AS THE EMPLOYEE- MARY**
 
 - Go to the ws2 component and run nmap:
 ```
