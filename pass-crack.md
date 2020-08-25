@@ -247,14 +247,12 @@ As a security exercise, you may want to add passwords you commonly use (or have 
 Submission
 ==========
 
-After finishing the lab, go to the terminal on your Linux system that was used
-to start the lab and type:
+After finishing the lab, go to the terminal on your Linux system that was used to start the lab and type:
 
+```
 stoplab pass-crack
-
-If you modified the lab report or spreadsheet on a different system, you must
-copy those completed files into the directory paths displayed when you started
-the lab, and you must do that before typing “stoplab”. When you stop the lab,
+```
+When you stop the lab,
 the system will display a path to the zipped lab results on your Linux system.
 Provide that file to your instructor, e.g., via the Sakai site.
 
