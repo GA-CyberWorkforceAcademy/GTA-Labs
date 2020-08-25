@@ -6,13 +6,12 @@ Using Snort
 Overview
 ========
 
-This exercise introduces the use of the snort system to provide intrusion detection within a Linux environ- ment. Students will configure simple snort rules and experiment with a network intrusion detection system, (IDS).
+This exercise introduces the use of the snort system to provide intrusion detection. Students will configure simple snort rules and experiment with a network intrusion detection system, (IDS).
 
 Lab Environment
 ===============
 
-Once you have logged into your range account and accessed your Labtainer-VM,
-open a terminal window.
+Once you have logged into your range account and accessed your Labtainer-VM, open a terminal window.
 
 Navigate to the “labtainer-student” directory and start the lab using the
 command:
@@ -21,16 +20,17 @@ command:
 >   labtainer snort
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
--   Links to this lab manual will be displayed if you wish to view the prompt
-    from within your VM
+-   Links to this lab manual will be displayed if you wish to view the prompt from within your VM
 
 Network Configuration
 =====
 This lab includes several networked computers as shown in Figure 1. When the lab starts, you will get virtual terminals, one connected to each component. 
-- The gateway is configured with iptables to use NAT to translate sources addresses of traffic from internal IP addresses, e.g., 192.168.2.1, to our external address, i.e., 203.0.113.10. The iptables in the gateway also routes web traffic (ports 80 and 443) to the web server component by translating the externally visible destination address to the internal web server address.
-The gateway is also configured to mirror traffic that enters the gateway via either the 203.0.113.10 link, or the link to the web server. This mirrored traffic is routed to the snort component. This mirroring allows the snort component to reconstruct TCP sessions between the web server and external addresses.
 
-- The snort component includes the Snort IDS utility. It also includes Wireshark to help you observe traffic being mirrored to the snort component.
+- The gateway is configured with iptables to use NAT to translate sources addresses of traffic from internal IP addresses, e.g., 192.168.2.1, to our external address, i.e., 203.0.113.10. The iptables in the gateway also routes web traffic (ports 80 and 443) to the web server component by translating the externally visible destination address to the internal web server address.
+
+The gateway is configured to mirror traffic that enters the gateway via either the 203.0.113.10 link, or the link to the web server. This mirrored traffic is routed to the snort container. This mirroring allows the snort IDS to reconstruct TCP sessions between the web server and external addresses and monitor traffic.
+
+- The snort container includes the Snort IDS utility. It also includes Wireshark to help you observe traffic being mirrored to the snort container.
 
 - The web server runs Apache and is configured to support SSL for web pages in the www.example.com domain.
 
