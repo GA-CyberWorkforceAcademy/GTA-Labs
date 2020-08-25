@@ -179,13 +179,9 @@ In this task you will be comparing the execution time of various hash functions.
 Task 6: Considering Execution Time
 ==================================
 
-In the next step below you will execute a script that will make use of
-pre-calculated digests. These pre-calculated digests were created by hashing
-each password in biglist.txt with SHA1, and then sorting the words into files
-whose names were the first two hex digits of the digest. No digests were saved.
+In the next step below you will execute a script that will make use of pre-calculated digests. These pre-calculated digests were created by hashing each password in biglist.txt with SHA1, and then sorting the words into files whose names were the first two hex digits of the digest. No digests were saved.
 
-To use the presorted passwords, the logic of the password-cracking script is
-roughly as follows:
+To use the presorted passwords, the logic of the password-cracking script is roughly as follows:
 
 a. Get a digest from the password file and look at the first two hex digits.
 
@@ -196,39 +192,35 @@ same full digest as was seen in step ‘a’.
 
 1.  Do the following to see all the **file names** for the sorted dictionary
     words:
-
+    
+```
     ls calc
-
+```
 2.  Do the following to see the contents of **one** of the saved files:
 
+```
     more calc/a9
-
-    This file contains all the words in biglist.txt that hash to a digest that
-    starts with “a9”. If a digest in a password file starts with “a9”, then the
-    script only needs to hash the words in this file to **potentially** find a
-    match.
+```
+This file contains all the words in biglist.txt that hash to a digest that starts with “a9”. If a digest in a password file starts with “a9”, then the script only needs to hash the words in this file to **potentially** find a  match.
 
 3.  Execute the following command to make use of the pre-calculated digests:
-
+```
     ./crackPre.py htpasswd-sha1 calc
+```
+ **Record in item \#18 of the worksheet the number of words that were attempted, the number of passwords that were cracked, and the number of seconds it took.**
 
->   **Record in item \#18 of the worksheet the number of words that were
->   attempted, the number of passwords that were cracked, and the number of
->   seconds it took.**
+**Note that item \#19 of the worksheet asks a follow-up question.**
 
->   **Note that item \#19 of the worksheet asks a follow-up question.**
 
 Task 7: Personal Experimentation
 ================================
 
-In this task you will experiment with passwords of your choice.
-
-As described below, create your own password file (named htpasswd-me) in the htpasswd format, with an entry for “alice”. You will be prompted for the password.
+In this task you will experiment with passwords of your choice. As described below, create your own password file (named htpasswd-me) in the htpasswd format. You will make an entry for “alice”. You will then be prompted for the password.
 
 ```
 > htpasswd **-sc** htpasswd-me alice
 ```
-You can **add** other entries by doing the following (slightly modified) command:
+You can **add** other entries if you would like, by doing the following (slightly modified) command:
 
 ```
 > htpasswd -s htpasswd-me bob
@@ -239,10 +231,11 @@ As a security exercise, you may want to add passwords you commonly use (or have 
 - Display your htpasswd-me file by using the cat command.
 
 - Perform the pre-calculated attack as follows:
+
 ```
     ./crackPre.py htpasswd-me calc
 ```
-*Note the results of your experiments. 
+*Note the results of your experiments. Were any of your passwords cracked?
 
 Submission
 ==========
