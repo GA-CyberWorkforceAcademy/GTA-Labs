@@ -252,9 +252,7 @@ After finishing the lab, go to the terminal on your Linux system that was used t
 ```
 stoplab pass-crack
 ```
-When you stop the lab,
-the system will display a path to the zipped lab results on your Linux system.
-Provide that file to your instructor, e.g., via the Sakai site.
+From the host labtainer working directory. You can always restart the labtainer and try the lab again if you are unable to complete it.
 
 Appendix – Some Unix Commands
 =============================
