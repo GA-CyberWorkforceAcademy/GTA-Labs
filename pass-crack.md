@@ -24,7 +24,7 @@ command:
 -   Links to this lab manual will be displayed if you wish to view the prompt
     from within your VM
 
-**Note**: There is an appendix of basic Unix commands at the end of these
+**Note**: There is an appendix of some helpful commands at the end of these
 instructions.
 
 Task 1: Password Files
@@ -38,23 +38,26 @@ In this task, you will briefly examine how your Linux system manages and stores 
 >   more /etc/passwd
 ```
 
-You should see a list of all the users that potentially have login access to your machine. At the bottom of this file you should see a line for your account (e.g., the “student” account). There was a time when /etc/passwd was the place where UNIX-based operating systems stored password digests, but you’ll notice that no digests exist in this file. Your Linux distribution uses what is called *shadow passwords*: a special file managed by the operating system to store and protect password digests.
+- You should see a list of all the users that have login access to your machine. At the bottom of this file you should see a line for your account (e.g., the “student” account).
 
-- Your shadow password file exists at /etc/shadow. Use the more command, as shown below to *try* to view its contents.
+- There was a time when /etc/passwd stored password digests, but you’ll notice no digests exist in this file. Modern Linux/Unix distrobutions use what is called a *shadow passwords* file. This is a special file managed by the operating system to store and protect password digests.
+
+- Your shadow password file exists at /etc/shadow. Use the "more" command, as shown below to *try* to view its contents.
 
 ```
 >   more /etc/shadow
 ```
 *Note the error message you received when you tried to view the shadow password file.
 
-- Try opening the shadow password file with root privileges. You can gain root privileges on Ubuntu by preceding your command with sudo. 
+- Try opening the shadow password file with root privileges. You can gain root privileges on Ubuntu by preceding your command with "sudo". 
 
 ```
 >   sudo more /etc/shadow
 ```
- After entering your password you should be able to see the contents of the shadow password file.
+-  After entering your password you should be able to see the contents of the shadow password file.
 
-Go to the bottom of the shadow password file to see the entry for your account (which may be so long it wraps around to the next line).
+- Go to the bottom of the shadow password file to see the entry for your account (which may be so long it wraps around to the next line).
+
 
 Each line in the shadow file is separated into different fields by a ‘:’.
 
@@ -269,12 +272,8 @@ Appendix – Some Unix Commands
 =============================
 
 | cd    | Change the current directory. cd destination With no “destination” your current directory will be changed to your home directory. If you “destination” is “..”, then your current directory will be changed to the parent of your current directory. |
-|-------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| cp    | Copy a file. cp source destination This will copy the file with the “source” name to a copy with the “destination” name. The “destination” can also include the path to another directory.                                                           |
-| clear | Erase all the output on the current terminal and place the shell prompt at the top of the terminal.                                                                                                                                                  |
-| less  | Display a page of a text file at a time in the terminal. (Also see more). less file To see another page, press the space bar. To see one more line, press the Enter key. To quit at any time press ‘q’ to quit.                                      |
-| ls    | List the contents and/or attributes of a directory or file ls location ls file With no “location” or “file” it will display the contents of the current working directory.                                                                           |
-| man   | Manual man command Displays the manual page for the given “command”. To see another page, press the space bar. To see one more line, press the Enter key. To quit before reaching the end of the file enter ‘q’.                                     |
+|-------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|                                                        |
+| clear | Erase all the output on the current terminal and place the shell prompt at the top of the terminal.                                                                                                                                                  |                                    |
+| ls    | List the contents and/or attributes of a directory or file ls location ls file With no “location” or “file” it will display the contents of the current working directory.                                                                           |                                  |
 | more  | Display a page of a text file at a time in the terminal. (Also see less). more file To see another page, press the space bar. To see one more line, press the Enter key. To quit at any time press ‘q’ to quit.                                      |
-| mv    | Move and/or Rename a file/directory mv source destination The “source” file will be moved and/or renamed to the given “destination.”                                                                                                                 |
 | pwd   | Display the present working directory pwd                                                                                                                                                                                                            |
