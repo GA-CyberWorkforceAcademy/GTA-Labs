@@ -101,7 +101,7 @@ the interpretation of that number:
 
 *Using the information provided above, determine the hash function that was used to generate the value currently stored in your entry of the shadow password file and the salt value.
 
-- Execute the following command to list some account information (where the "-l” is the letter ell, not the number one):
+- Execute the following command to list some account information (where the "-l” the letter, not the number one):
 
 ```
     chage -l student
@@ -112,12 +112,11 @@ the interpretation of that number:
 Task 2: Dictionary Attacks
 ==========================
 
-In this task, you will try a dictionary attack to crack the contents of a
-password file.
+In this task, you will try a dictionary attack to crack the contents of a password file.
 
-- Use the cat command to view the contents of htpasswd-sha1.
+- Use the "cat" command to view the contents of the htpasswd-sha1 file.
 
-You will notice that this is not, in fact, a UNIX-like password file. It is actually an htpasswd format, which can be used by an Apache web server to provide password-based access control to portions of a web site. The line:
+You will notice that this is not, in fact, a Linux/Unix-like password file. It is actually an htpasswd format, which can be used by an Apache web server to provide password-based access control to portions of a web site. The line:
 ```
 >   alice:{SHA}A9Z8JjwnpFPvZbKeMDNHJzM8y80=
 ```
@@ -131,9 +130,10 @@ says the user “alice” has had her password hashed by the SHA1 hash function,
 Task 3: Simple Dictionary Attack
 ==========================
 
-In this task you will be performing a simple and literal dictionary attack because the list contains only about 109,000 English words, and because no variations of each word is attempted.
+In this task you will be performing a simple and literal dictionary attack because the list contains only about 109k english words; no variations of words are attempted.
 
-- Execute the following command to execute a dictionary attack on htpasswd-sha1, using the list of English words:
+- Use the "crackSHA.py" script with the following command to execute a dictionary attack on the "htpasswd-sha1" passowrd digest file, using the list of english word saved in the file "tinylist.txt":
+
 ```
 ./crackSHA.py htpasswd-sha1 tinylist.txt
 ```
@@ -145,7 +145,7 @@ Task 4: Common Password Dictionary Attack
 
 By now, you should have cracked some passwords, but not all. This is because the dictionary you used contains only a small set of English words, with no common passwords or variants. Instead of the rather small list of words used above, you will now use biglist.txt that you downloaded earlier, which contains 2.2 million words and commonly used passwords.
 
-- Execute the crackSHA.py script again with the new dictionary, as shown below:
+- Execute the crackSHA.py script again with the new dictionary (biglist.txt), as shown below:
 ```
 >   ./crackSHA.py htpasswd-sha1 biglist.txt
 ```
@@ -175,19 +175,9 @@ In this task you will be comparing the execution time of various hash functions.
 
 *Note the number of words that were attempted, the number of passwords that were cracked, and the number of seconds it took.
 
-Refer to the numbers recorded in item \#10 of the worksheet. Enter into the
-    downloaded spreadsheet (where it is highlighted in red) the “Words
-    processed” and the “Seconds to process”. The spreadsheet will then show you
-    the estimated amount of time the python script would take (on your VM) if it
-    were modified to do a brute force attack on 15-character passwords using
-    SHA1.
 
-2.  Now enter 10,000,000,000 as the number of words processed, and then enter 1
-    as the number of seconds. In other words, you are specifying what the time
-    would be if you could try 10,000,000,000 passwords per second. **Save the
-    results**.
-
->   **Note that item \#17 asks a follow-up question.**
+Task 6: Considering Execution Time
+==================================
 
 In the next step below you will execute a script that will make use of
 pre-calculated digests. These pre-calculated digests were created by hashing
@@ -228,7 +218,7 @@ same full digest as was seen in step ‘a’.
 
 >   **Note that item \#19 of the worksheet asks a follow-up question.**
 
-Task 6: Personal Experimentation
+Task 7: Personal Experimentation
 ================================
 
 In this task you will experiment with passwords of your choice.
