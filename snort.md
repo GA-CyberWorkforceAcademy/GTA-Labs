@@ -181,6 +181,7 @@ alert <protocol> <source_addr> <src_port> -> \
 
 Your must test each of these criteria during a single snort session, i.e., if you change a snort rule, or port mirroring, you must restart your tests.
 - Make sure you CLEAR the history for Hank/Mary before accessing the confidential website.
+
 Submission
 =====
 After finishing the lab, go to the terminal on your Linux system that was used to start the lab and type:
