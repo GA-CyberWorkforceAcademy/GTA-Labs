@@ -176,17 +176,17 @@ unsafe_edit.php file is used to update employee’s profile information. The PHP
 directory.
 
 ```
->   \$conn = getDB();
+   \$conn = getDB();
 
->   \$sql = "UPDATE credential SET nickname=’\$nickname’, email=’\$email’,
+   \$sql = "UPDATE credential SET nickname=’\$nickname’, email=’\$email’,
 
->   address=’\$address’, phonenumber=’\$phonenumber’, Password=’\$pwd’
+   address=’\$address’, phonenumber=’\$phonenumber’, Password=’\$pwd’
 
->   WHERE id= ’\$input_id’ ";
+   WHERE id= ’\$input_id’ ";
 ```
 ![](media/1836a4c3b8eabd7b550ddb41f3d35597.jpg)
 ```
->   \$conn-\>query(\$sql))
+   \$conn-\>query(\$sql))
 ```
 
 >   **Figure 2: Edit Profile**
@@ -239,32 +239,32 @@ Here is an example of how to write a prepared statement in PHP. We use a SELECT 
 statement to rewrite the code that is vulnerable to SQL injection attacks.
 
 ```
->   \$conn = getDB();
+   \$conn = getDB();
 
->   \$sql = "SELECT name, local, gender FROM USER_TABLE
+   \$sql = "SELECT name, local, gender FROM USER_TABLE
 
->   WHERE id = \$id AND password =’\$pwd’ ";
+   WHERE id = \$id AND password =’\$pwd’ ";
 
->   \$result = \$conn-\>query(\$sql))
+   \$result = \$conn-\>query(\$sql))
 ```
 The above code is vulnerable to SQL injection attacks. It can be rewritten to the following:
 
 ```
->   \$conn = getDB();
+   \$conn = getDB();
 
->   \$stmt = \$conn-\>prepare("SELECT name, local, gender FROM USER_TABLE
+   \$stmt = \$conn-\>prepare("SELECT name, local, gender FROM USER_TABLE
 
->   WHERE id = ? and password = ? ");
+   WHERE id = ? and password = ? ");
 
->   // Bind parameters to the query
+   // Bind parameters to the query
 
->   \$stmt-\>bind_param("is", \$id, \$pwd);
+   \$stmt-\>bind_param("is", \$id, \$pwd);
 
->   \$stmt-\>execute();
+   \$stmt-\>execute();
 
->   \$stmt-\>bind_result(\$bind_name, \$bind_local, \$bind_gender);
+   \$stmt-\>bind_result(\$bind_name, \$bind_local, \$bind_gender);
 
->   \$stmt-\>fetch();
+   \$stmt-\>fetch();
 ```
 Using the prepared statement mechanism, we divide the process of sending a SQL statement to the database into two steps. The first step is to only send
 the code part, i.e., a SQL statement without the actual the data. This is the prepare step. As we can see from the above code snippet, the actual data
