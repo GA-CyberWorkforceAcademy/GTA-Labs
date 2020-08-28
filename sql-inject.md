@@ -109,8 +109,8 @@ To help you started with this task, we explain how authentication is implemented
 
 $sql = "SELECT id, name, eid, salary, birth, ssn, phonenumber, address, email, nickname, Password
     FROM credential
-   WHERE eid= ’\$input_eid’ and password=’\$input_pwd’";
-$result = \$conn-\>query(\$sql))
+   WHERE eid= ’$input_eid’ and password=’$input_pwd’";
+$result = $conn->query($sql))
 ```
 The above SQL statement selects personal employee information such as id, name, salary, ssn etc from the credential table. The variables input eid and input pwd hold the strings typed by users in the login page. 
 
@@ -192,18 +192,15 @@ When employees update their information through the Edit Profile page, an SQL UP
 
 ```
 $conn = getDB();
-$sql = "UPDATE credential SET nickname=’\$nickname’, email=’\$email’,
-   address=’\$address’, phonenumber=’\$phonenumber’, Password=’\$pwd’
-   WHERE id= ’\$input_id’ ";
+$sql = "UPDATE credential SET nickname=’$nickname’, email=’$email’,
+   address=’$address’, phonenumber=’$phonenumber’, Password=’$pwd’
+   WHERE id= ’$input_id’ ";
 $conn->query($sql))
 ```
 ![](media/1836a4c3b8eabd7b550ddb41f3d35597.jpg)
- **Figure 2: Edit Profile**
 
--   **Task 3.1: SQL Injection Attack on UPDATE Statement — modify salary**. As shown in the Edit Profile page, employees can only update their nicknames,
-    emails, addresses, phone numbers, and passwords; they are not authorized to change their salaries. Only administrator is allowed to make changes to
-    salaries. If you are a malicious employee (say Alice), your goal in this task is to increase your own salary via this Edit Profile page. We assume that you
->   do know that salaries are stored in a column called salary.
+
+-   **Task 3.1: SQL Injection Attack on UPDATE Statement — modify salary**. As shown in the Edit Profile page, employees can only update their nicknames, emails, addresses, phone numbers, and passwords; they are not authorized to change their salaries. Only the administrator is allowed to make changes to salaries. You are a malicious employee (say Alice); your goal in this task is to increase your own salary via this Edit Profile page. We assume that you know that salaries are stored in a column called 'salary'.
 
 -   **Task 3.2: SQL Injection Attack on UPDATE Statement — modify other people’
     password**. Using the same vulnerability in the above UPDATE statement, malicious employees can also change other people’s data. The goal for this
@@ -250,24 +247,24 @@ statement to rewrite the code that is vulnerable to SQL injection attacks.
 ```
 $conn = getDB();
 $sql = "SELECT name, local, gender FROM USER_TABLE
-    WHERE id = \$id AND password =’\$pwd’ ";
-$result = \$conn-\>query(\$sql))
+    WHERE id = $id AND password =’$pwd’ ";
+$result = $conn->query($sql))
 ```
 The above code is vulnerable to SQL injection attacks. It can be rewritten to the following:
 
 ```
 $conn = getDB();
-$stmt = \$conn-\>prepare("SELECT name, local, gender FROM USER_TABLE
+$stmt = $conn->prepare("SELECT name, local, gender FROM USER_TABLE
 WHERE id = ? and password = ? ");
 
 ```
 ```
    // Bind parameters to the query
 
-$stmt-\>bind_param("is", \$id, \$pwd);
-$stmt-\>execute();
-$stmt-\>bind_result(\$bind_name, \$bind_local, \$bind_gender);
-$stmt-\>fetch();
+$stmt->bind_param("is", $id, $pwd);
+$stmt->execute();
+$stmt->bind_result($bind_name, $bind_local, $bind_gender);
+$stmt->fetch();
 ```
 
 Using the prepared statement mechanism, we divide the process of sending a SQL statement to the database into two steps. The first step is to only send
