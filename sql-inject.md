@@ -184,13 +184,11 @@ In the above two attacks, we can only steal information from the database; it wi
 Task 3: SQL Injection Attack on UPDATE Statement
 =========
 
-If a SQL injection vulnerability happens to an UPDATE statement, the damage will be more severe, be- cause attackers can use the vulnerability to modify
+If a SQL injection vulnerability happens to an UPDATE statement, the damage will be more severe, because attackers can use the vulnerability to modify
 databases. In our Employee Management application, there is an Edit Profile page (Figure 2) that allows employees to update their profile information,
-including nickname, email, address, phone number, and password. To go to this page, employees need to login first.
+including nickname, email, address, phone number, and password. To go to this page, employees need to login first. Login as Alice with the EID of '10000' and the password of 'seedalice' to check out this page (located at seedlabsqlinjection.com/edit.php)
 
-When employees update their information through the Edit Profile page, the following SQL UPDATE query will be executed. The PHP code implemented in
-unsafe_edit.php file is used to update employee’s profile information. The PHP file is located in the /var/www/seedlabsqlinjection.com/public_html
-directory.
+When employees update their information through the Edit Profile page, an SQL UPDATE query will be executed. The PHP code implemented in the unsafe_edit.php file is used to update employee’s profile information. The following code snippet is how this "unsafe_edit/php' page allows an employee to edit their profile.
 
 ```
 $conn = getDB();
@@ -203,7 +201,7 @@ $sql = "UPDATE credential SET nickname=’\$nickname’, email=’\$email’,
 $conn-\>query(\$sql))
 ```
 
->   **Figure 2: Edit Profile**
+ **Figure 2: Edit Profile**
 
 -   **Task 3.1: SQL Injection Attack on UPDATE Statement — modify salary**. As shown in the Edit Profile page, employees can only update their nicknames,
     emails, addresses, phone numbers, and passwords; they are not authorized to change their salaries. Only administrator is allowed to make changes to
