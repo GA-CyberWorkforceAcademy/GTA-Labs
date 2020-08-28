@@ -86,27 +86,33 @@ already setup MySQL in the “server” component.
 - Using the "student@web-server" container terminal, log into a MySQL console on the server.
 
 ```
->   \$ mysql -u root -pseedubuntu
+$ mysql -u root -pseedubuntu
 ```
 After login, you can create new database or load an existing one. As we have
 already created the Users database for you, you just need to load this
 existing database using the following command:
 ```
->   mysql\> use Users;
+mysql> use Users;
 ```
 To show what tables are there in the Users database, you can use the
 following command to print out all the tables of the selected database.
 ```
->   mysql\> show tables;
+mysql> show tables;
+```
+
+To see how the "credential table ais constructed, you can use the
+following command.
+```
+mysql> describe credential;
 ```
 
 Task 2: SQL Injection Attack on SELECT Statement
 =========
 
 SQL injection is basically a technique through which attackers can execute their own malicious SQL statements generally referred as malicious payload.
-Through the malicious SQL statements, attackers can steal information from the victim database; even worse, they may be able to make changes to the database. Our employee management web application has SQL injection vulnerabilities, which mimic the mistakes frequently made by developers.
+Through the malicious SQL statements, attackers can steal information from the victim database; even worse, they may be able to make changes to the database. The employee management web application you will be be working with here has SQL injection vulnerabilities which mimic the mistakes frequently made by developers.
 
-The browser starts at the entrance page of our web application at [www.SEEDLabSQLInjection.com](http://www.SEEDLabSQLInjection.com/), where you will be asked to provide Employee ID and Password to log in. The login page is shown in Figure 1. The authentication is based on Employee ID and Password, so only employees who know their IDs and passwords are allowed to view/update their profile information. Your job, as an attacker, is to log into the application without knowing any employee’s credential.
+The browser starts at the entrance page of our web application at http://www.SEEDLabSQLInjection.com, where you will be asked to provide Employee ID and Password to log in. The login page is shown in Figure 1. The authentication is based on Employee ID and Password, so only employees who know their IDs and passwords are allowed to view/update their profile information. Your job, as an attacker, is to log into the application without knowing any employee’s credential.
 
 ![](media/49f70e2c4fbdf9eaa135522851f6d418.jpg)
 
@@ -121,6 +127,7 @@ $sql = "SELECT id, name, eid, salary, birth, ssn, phonenumber, address, email, n
    WHERE eid= ’\$input_eid’ and password=’\$input_pwd’";
 $result = \$conn-\>query(\$sql))
 ```
+The above SQL statement selects personal employee information such as id, name, salary, ssn etc from the credential table. The variables input eid and input pwd hold the strings typed by users in the login page. 
 
 - The following is pseudo code provides an idea of how the results of SQL query are handled.
 ```
@@ -132,17 +139,43 @@ if(name==’admin’){
    authentication fails.
    }
 ```
-The above SQL statement selects personal employee information such as id, name, salary, ssn etc from the credential table. The variables input eid and input pwd hold the strings typed by users in the login page. Basically, the program checks whether any record matches with the employee ID and password; if there is a match, the user is successfully authenticated, and is given the corresponding employee information. If there is no match, the authentication fails.
+Basically, the program checks whether any record matches with the employee ID and password; if there is a match, the user is successfully authenticated, and is given the corresponding employee information. If there is no match, the authentication fails.
 
--   **Task 2.1: SQL Injection Attack from webpage**. Your task is to log into the web application as the administrator from the login page, so you can see
-    the information of all the employees. We assume that you do know the administrator’s account name which is admin, but you do not know the ID or
-    the password. You need to decide what to type in the Employee ID and Password fields to succeed in the attack.
+Task 2.1: SQL Injection Attack from webpage
+=========
+Your task is to log into the web application as the administrator from the login page, so you can see the information of all the employees. We assume you do know the administrator’s account name is "Admin", but you do not know the ID or the password. You need to decide what to type in the Employee ID and Password fields to succeed in the attack.
+    
+- Important information: the "#" symbol is MySQL's version of the line comment delimiter. In standard SQL, the line comment delimiter is --.
 
--   **Task 2.2: SQL Injection Attack from command line**. Your task is to repeat Task 2.1, but you need to do it without using the webpage. Within the client
-    virtual terminal, you can use command line tools, such as curl, which can send HTTP requests. One thing that is worth mentioning is that if you want
-    to include multiple parameters in HTTP requests, you need to put the URL and the parameters between a pair of single quotes; otherwise, the special
-    characters used to separate parameters (such as &) will be interpreted by the shell program, changing the meaning of the command. The following
-    example shows how to send an HTTP GET request to our web application, with two parameters (SUID and Password) attached:
+```
+-- This is a standard SQL comment.
+# This is a MySQL comment.
+```
+
+So in the context of SQL injection, you (the attacker) know the site is using MySQL. Use the "#" to abruptly terminate a SQL statement, causing MySQL to ignore whatever is behind the # and execute only what comes before it. Here's an example:
+
+```
+Input:
+
+Username: fake' OR Name='Alice';#
+Password: anything or nothing
+```
+Resultant SQL:
+
+```
+SELECT * FROM credential WHERE eid = 'fake' OR Alice#' AND password = 'anything or nothing'
+```
+
+Which is executed as this, which returns every row:
+```
+SELECT * FROM credentials WHERE eid = 'fake' OR Name = 'Alice'
+```
+
+
+Task 2.2: SQL Injection Attack from command line
+=========
+
+Your task is to repeat Task 2.1, but you need to do it without using the webpage. Within the client virtual terminal, you can use command line tools, such as curl, which can send HTTP requests. One thing that is worth mentioning is that if you want to include multiple parameters in HTTP requests, you need to put the URL and the parameters between a pair of single quotes; otherwise, the special characters used to separate parameters (such as &) will be interpreted by the shell program, changing the meaning of the command. The following example shows how to send an HTTP GET request to the web application, with two parameters (SUID and Password) attached:
 ```
 curl
 >   [’www.SeedLabSQLInjection.com/index.php?SUID=10000&Password=111’](http://www.SeedLabSQLInjection.com/index.php?SUID=10000&Password=111)
