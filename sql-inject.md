@@ -160,13 +160,20 @@ SELECT * FROM credentials WHERE eid = 'fake' OR Name = 'Alice'
 Task 2.2: SQL Injection Attack from command line
 =========
 
-Your task is to repeat Task 2.1, but you need to do it without using the webpage. Within the client virtual terminal, you can use command line tools, such as curl, which can send HTTP requests. One thing that is worth mentioning is that if you want to include multiple parameters in HTTP requests, you need to put the URL and the parameters between a pair of single quotes; otherwise, the special characters used to separate parameters (such as &) will be interpreted by the shell program, changing the meaning of the command. The following example shows how to send an HTTP GET request to the web application, with two parameters (EID and Password) attached:
+Your task is to repeat Task 2.1, but you need to do it without using the webpage. Within the client virtual terminal, you can use command line tools, such as curl, which can send HTTP requests. One thing that is worth mentioning is that if you want to include multiple parameters in HTTP requests, you need to put the URL and the parameters between a pair of single quotes; otherwise, the special characters used to separate parameters (such as &) will be interpreted by the shell program, changing the meaning of the command. 
+
+Use the following to send an HTTP GET request to the web application, with two parameters for Alice (EID and Password):
 ```
 curl ’www.SeedLabSQLInjection.com/unsafe_credential.php?EID=10000&Password=seedalice’
 ```
 
-If you need to include special characters in the SUID and Password fields, you need to encode them properly, or they can change the meaning of your
-requests. For this task, you do need to handle HTTP encoding while sending requests using curl.
+Observe the results (in the terminal you should see Alice's information as a response.
+
+- Now you will need to use the same logic as you did in task 2.1 and construct a curl statement to dump all employee information. 
+
+
+Note: You will need to include special characters and must encode them per HTTP, or they can change the meaning of your requests. 
+
 ```
 = is %3D
 ; is %3B
@@ -174,10 +181,6 @@ requests. For this task, you do need to handle HTTP encoding while sending reque
 a space is  %20
 ```
 
-Task 2.3: Append a new SQL statement
-=====
-
-In the above two attacks, we can only steal information from the database; it will be better if we can modify the database using the same vulnerability in the login page. An idea is to use the SQL injection attack to turn one SQL statement into two, with the second one being the update or delete statement. In SQL, semicolon (;) is used to separate two SQL statements. Please describe how you can use the login page to get the server run two SQL statements. Try the attack to delete a record from the database, and describe your observation.
 
 Task 3: SQL Injection Attack on UPDATE Statement
 =========
