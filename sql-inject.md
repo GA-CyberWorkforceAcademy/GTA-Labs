@@ -175,17 +175,23 @@ SELECT * FROM credentials WHERE eid = 'fake' OR Name = 'Alice'
 Task 2.2: SQL Injection Attack from command line
 =========
 
-Your task is to repeat Task 2.1, but you need to do it without using the webpage. Within the client virtual terminal, you can use command line tools, such as curl, which can send HTTP requests. One thing that is worth mentioning is that if you want to include multiple parameters in HTTP requests, you need to put the URL and the parameters between a pair of single quotes; otherwise, the special characters used to separate parameters (such as &) will be interpreted by the shell program, changing the meaning of the command. The following example shows how to send an HTTP GET request to the web application, with two parameters (SUID and Password) attached:
+Your task is to repeat Task 2.1, but you need to do it without using the webpage. Within the client virtual terminal, you can use command line tools, such as curl, which can send HTTP requests. One thing that is worth mentioning is that if you want to include multiple parameters in HTTP requests, you need to put the URL and the parameters between a pair of single quotes; otherwise, the special characters used to separate parameters (such as &) will be interpreted by the shell program, changing the meaning of the command. The following example shows how to send an HTTP GET request to the web application, with two parameters (EID and Password) attached:
 ```
-curl
->   [’www.SeedLabSQLInjection.com/index.php?SUID=10000&Password=111’](http://www.SeedLabSQLInjection.com/index.php?SUID=10000&Password=111)
+curl ’www.SeedLabSQLInjection.com/unsafe_credential.php?EID=10000&Password=seedalice’
 ```
 
 If you need to include special characters in the SUID and Password fields, you need to encode them properly, or they can change the meaning of your
-requests. If you want to include single quote in those fields, you should use %27 instead; if you want to include white space, you should use %20. In
-this task, you do need to handle HTTP encoding while sending requests using curl.
+requests. For this task, you do need to handle HTTP encoding while sending requests using curl.
+```
+= is %3D
+; is %3B
+' is  %27 
+a space is  %20
+```
 
--   **Task 2.3: Append a new SQL statement**. In the above two attacks, we can only steal information from the database; it will be better if we can modify
+Task 2.3: Append a new SQL statement
+=====
+In the above two attacks, we can only steal information from the database; it will be better if we can modify
     the database using the same vulnerability in the login page. An idea is to use the SQL injection attack to turn one SQL statement into two, with the
     second one being the update or delete statement. In SQL, semicolon (;) is used to separate two SQL statements. Please describe how you can use the
     login page to get the server run two SQL statements. Try the attack to delete a record from the database, and describe your observation.
@@ -202,17 +208,14 @@ unsafe_edit.php file is used to update employee’s profile information. The PHP
 directory.
 
 ```
-   \$conn = getDB();
-
-   \$sql = "UPDATE credential SET nickname=’\$nickname’, email=’\$email’,
-
+$conn = getDB();
+$sql = "UPDATE credential SET nickname=’\$nickname’, email=’\$email’,
    address=’\$address’, phonenumber=’\$phonenumber’, Password=’\$pwd’
-
    WHERE id= ’\$input_id’ ";
 ```
 ![](media/1836a4c3b8eabd7b550ddb41f3d35597.jpg)
 ```
-   \$conn-\>query(\$sql))
+$conn-\>query(\$sql))
 ```
 
 >   **Figure 2: Edit Profile**
@@ -265,33 +268,28 @@ Here is an example of how to write a prepared statement in PHP. We use a SELECT 
 statement to rewrite the code that is vulnerable to SQL injection attacks.
 
 ```
-   \$conn = getDB();
-
-   \$sql = "SELECT name, local, gender FROM USER_TABLE
-
-   WHERE id = \$id AND password =’\$pwd’ ";
-
-   \$result = \$conn-\>query(\$sql))
+$conn = getDB();
+$sql = "SELECT name, local, gender FROM USER_TABLE
+    WHERE id = \$id AND password =’\$pwd’ ";
+$result = \$conn-\>query(\$sql))
 ```
 The above code is vulnerable to SQL injection attacks. It can be rewritten to the following:
 
 ```
-   \$conn = getDB();
+$conn = getDB();
+$stmt = \$conn-\>prepare("SELECT name, local, gender FROM USER_TABLE
+WHERE id = ? and password = ? ");
 
-   \$stmt = \$conn-\>prepare("SELECT name, local, gender FROM USER_TABLE
-
-   WHERE id = ? and password = ? ");
-
+```
+```
    // Bind parameters to the query
 
-   \$stmt-\>bind_param("is", \$id, \$pwd);
-
-   \$stmt-\>execute();
-
-   \$stmt-\>bind_result(\$bind_name, \$bind_local, \$bind_gender);
-
-   \$stmt-\>fetch();
+$stmt-\>bind_param("is", \$id, \$pwd);
+$stmt-\>execute();
+$stmt-\>bind_result(\$bind_name, \$bind_local, \$bind_gender);
+$stmt-\>fetch();
 ```
+
 Using the prepared statement mechanism, we divide the process of sending a SQL statement to the database into two steps. The first step is to only send
 the code part, i.e., a SQL statement without the actual the data. This is the prepare step. As we can see from the above code snippet, the actual data
 are replaced by question marks (?). After this step, we then send the data to the database using bind_param(). The database will treat everything sent
