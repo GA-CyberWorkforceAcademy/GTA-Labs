@@ -195,12 +195,9 @@ $conn = getDB();
 $sql = "UPDATE credential SET nickname=’\$nickname’, email=’\$email’,
    address=’\$address’, phonenumber=’\$phonenumber’, Password=’\$pwd’
    WHERE id= ’\$input_id’ ";
+$conn->query($sql))
 ```
 ![](media/1836a4c3b8eabd7b550ddb41f3d35597.jpg)
-```
-$conn-\>query(\$sql))
-```
-
  **Figure 2: Edit Profile**
 
 -   **Task 3.1: SQL Injection Attack on UPDATE Statement — modify salary**. As shown in the Edit Profile page, employees can only update their nicknames,
