@@ -114,27 +114,19 @@ The browser starts at the entrance page of our web application at [www.SEEDLabSQ
 
 To help you started with this task, we explain how authentication is implemented in our web application. The PHP code unsafe_credential.php, located in the /var/www/seedlabsqlinjection.com/public_html directory, is used to conduct user authentication. The following code snippet show how users are authenticated.
 ```
-   \$conn = getDB();
+\$conn = getDB();
 
-   \$sql = "SELECT id, name, eid, salary, birth, ssn, phonenumber, address,
-   email, nickname, Password
-
-   FROM credential
-
+$sql = "SELECT id, name, eid, salary, birth, ssn, phonenumber, address, email, nickname, Password
+    FROM credential
    WHERE eid= ’\$input_eid’ and password=’\$input_pwd’";
+$result = \$conn-\>query(\$sql))
 
-   \$result = \$conn-\>query(\$sql))
-
-   // The following is psuedo code if(name==’admin’){
-
-   return All employees information.
-
-   } else if(name!=NULL){
-
+// The following is pseudo code 
+if(name==’admin’){
+    return All employees information.
+} else if(name!=NULL){
    return employee information.
-
-   } else {
-
+} else {
    authentication fails.
 
    }
