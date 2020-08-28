@@ -55,31 +55,16 @@ This web application is a simple employee management application. Employees can 
 - Administrator is a privilege role and can manage each individual employees’ profile information
 - Employee is a normal role and can view or update his/her own profile information. 
 
-All employee information is described in the following table.
-
-| User  | Emploee ID | Password  | Salary | Birthday | SSN      |
-|-------|------------|-----------|--------|----------|----------|
-| Admin | 99999      | seedadmin | 400000 | 3/5      | 43254314 |
-| Alice | 10000      | seedalice | 30000  | 9/20     | 10211002 |
-| Bob99y  | 20000      | seedboby  | 50000  | 4/20     | 10213352 |
-| Ryan  | 30000      | seedryan  | 90000  | 4/10     | 32193525 |
-| Samy  | 40000      | seedsamy  | 40000  | 1/11     | 32111111 |
-| Ted   | 50000      | seedted   | 110000 | 11/3     | 24343244 |
-
 Task 1: MySQL Console
 =========
 
-The objective of this task is to get familiar with SQL commands by playing
-with the provided database. We have created a database called Users, which
-contains a table called credential; the table stores the personal
-information (e.g. eid, password, salary, ssn, etc.) of every employee.
+The objective of this task is to get familiar with SQL commands by playing with the provided database. We have created a database called Users, which
+contains a table called credential. The table stores the personal information (e.g. eid, password, salary, ssn, etc.) of every employee for the organization.
 
-Administrator is allowed to change the profile information of all employees,
-but each employee can only change his/her own information. In this task, you
+The administrator is allowed to change the profile information of all employees, but each employee can only change his/her own information. In this task, you
 need to play with the database to get familiar with SQL queries.
 
-MySQL is an open-source relational database management system. We have
-already setup MySQL in the “server” component. 
+MySQL is an open-source relational database management system. We have already setup MySQL in the “server” component. 
 - The user name is "root"
 - The password is "seedubuntu"
 
@@ -88,22 +73,22 @@ already setup MySQL in the “server” component.
 ```
 $ mysql -u root -pseedubuntu
 ```
-After login, you can create new database or load an existing one. As we have
-already created the Users database for you, you just need to load this
-existing database using the following command:
+After login, we will be loading an existing database. Load the "Users" database using the following command:
 ```
 mysql> use Users;
 ```
-To show what tables are there in the Users database, you can use the
-following command to print out all the tables of the selected database.
+To show what tables are in the Users database, use the following command:
 ```
 mysql> show tables;
 ```
 
-To see how the "credential table ais constructed, you can use the
-following command.
+To see how the "credential" table is constructed, you can use the following command:
 ```
 mysql> describe credential;
+```
+To see all of the data entries for the "credential" table is constructed, you can use the following command:
+```
+mysql> SELECT * FROM credential;
 ```
 
 Task 2: SQL Injection Attack on SELECT Statement
