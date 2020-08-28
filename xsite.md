@@ -28,8 +28,9 @@ Navigate to the “labtainer-student” directory and start the lab using the co
 Scenario
 ===============
 
- To demonstrate what attackers can do by exploiting XSS vulnerabilities, we have set up a web application named Elgg in a web server within this lab. Elgg is a very popular open-source web application for social network, and it has implemented a number of countermeasures to remedy the XSS threat. To demonstrate how XSS attacks work, we have commented out these countermeasures in Elgg in our installation, intentionally making Elgg vulnerable to XSS attacks. Without the countermeasures, users can post any
-arbitrary message, including JavaScript programs, to the user profiles. In this lab, students need to exploit this vulnerability to launch an XSS attack on the modified Elgg, in a way that is similar to what Samy Kamkar did to MySpace in 2005 through the notorious Samy worm. The ultimate goal of this attack is to spread an XSS worm among the users, such that whoever views an infected user profile will be infected, and whoever is infected will add you (i.e., the attacker) to his/her friend list.
+To demonstrate what attackers can do by exploiting XSS vulnerabilities, you will work will a web application named Elgg. Elgg is a popular open-source web application for social networking. Although it has implemented a number of countermeasures to remedy XSS threas, these countermeasures are removed in Elgg in your installation. This makes the Elgg site vulnerable to XSS attacks. Users can post any arbitrary message, including JavaScript programs, to the user profiles. 
+
+In this lab, you will exploit this vulnerability to launch an XSS attack on the modified Elgg, in a way that is similar to what Samy Kamkar did to MySpace in 2005 through the notorious Samy worm. The ultimate goal of this attack is to spread an XSS worm among the users, such that whoever views an infected user's profile will then be infected them selves, and whoever is infected will add you (i.e., the attacker) to his/her friend list.
 
 Environment Configuration
 ===============
@@ -37,20 +38,19 @@ Environment Configuration
 This lab includes three networked computers as shown in Figure
 >   [1.](#_bookmark0) 
 
-The ”vuln-site” runs the Apache web server and the Elgg web applications. The ”attacker” and ”victim” computers each include the Firefox browser. Use the browser Web Developer / Network tool (upper right menu), to inspect the HTTP requests and responses.
+The "vuln-site" runs the Apache web server and the Elgg web applications. The "attacker" and "victim" computers each include the Firefox browser. Use the browser Web Developer / Network tool (upper right menu), to inspect the HTTP requests and responses.
 
 ![](media/e42177508edcc836bbe205d1065f8c37.jpg)
 
 Figure 1: Cross site scripting lab topology
 
-   **Starting the Apache Server.** The Apache web server will be running when
-   the lab commences. If you need to restart the web server, use the following
+   **Starting the Apache Server.** The Apache web server will be running when the lab commences. If you need to restart the web server, use the following
    command:
 ```
 >   % sudo systemctl restart httpd
 ```
 
-   **The Elgg Web Application.** We use an open-source web application called Elgg in this lab. Elgg is a web-based social-networking application. It is already set up in on the vuln-site. We have also created several user accounts on the Elgg server and the credentials are given below.
+   **The Elgg Web Application.** There are several user accounts on the Elgg server [http://www.xsslabelgg.com](http://www.xsslabelgg.com/) and the credentials are given below.
 
 | User    | UserName | Password    |
 |---------|----------|-------------|
@@ -60,14 +60,8 @@ Figure 1: Cross site scripting lab topology
 | Charlie | charlie  | seedcharlie |
 | Samy    | samy     | seedsamy    |
 
-   **Configuring DNS.** We have configured the following URL needed for this
-   lab:
 
-| URL                                                     | Description | Directory          |
-|---------------------------------------------------------|-------------|--------------------|
-| [http://www.xsslabelgg.com](http://www.xsslabelgg.com/) | Elgg        | /var/www/XSS/Elgg/ |
-
- **Other software.** Some of the lab tasks require some basic familiarity with JavaScript. Wherever neces- sary, we provide a sample JavaScript program to help the students get started. To complete task 3, students may need a utility to watch incoming requests on a particular TCP port. The home directory on the at- tacker computer contains an ”echoserver” directory having C program that can be configured to listen on a particular port and display incoming messages.
+ **Other software.** Some of the lab tasks require some basic familiarity with JavaScript. Wherever necessary, JavaScript examples are provided to help get you started. To complete task 3, you will need a utility to watch incoming requests on a particular TCP port. The home directory on the attacker computer contains an ”echoserver” directory with a program (written in C) that can be configured to listen on a particular port and display incoming messages.
 
 Task 4 requires modifications to, compilation and execution of a Java program on the attacker computer. This program is in the HTTPSimpleForge directory on the attacker computer, and that computer includes a JDK for compiling java.
 
@@ -117,19 +111,39 @@ We can do this by having the malicious JavaScript insert an *\<*img*\>* tag with
 Task 4: Session Hijacking using the Stolen Cookies
 ===============
 
-After stealing the victim’s cookies, the attacker can do whatever the victim can do to the Elgg web server, including adding and deleting friends on
-   behalf of the victim, deleting the victim’s post, etc. Essentially, the attacker has hijacked the victim’s session. In this task, we will launch
-   this session hijacking attack, and write a program to add a friend on behalf of the victim. The attack should be launched from another virtual machine.
+After stealing the victim’s cookies, the attacker can do whatever the victim can do to the Elgg web server, including adding and deleting friends on behalf of the victim, deleting the victim’s post, etc. Essentially, the attacker has hijacked the victim’s session. In this task, we will launch this session hijacking attack, and write a program to add a friend on behalf of the victim. The attack should be launched from another virtual machine.
 
-   To add a friend for the victim, we should first find out how a legitimate user adds a friend in Elgg. More specifically, we need to figure out what
-   are sent to the server when a user adds a friend. Firefox’s Web Developer / Network tool can help us; it can display the contents of any HTTP request
-   message sent from the browser. From the contents, we can identify all the parameters in the request. A screen shot of sample HTTP headers is given in
-   Figure [2.](#_bookmark1) This header information is gathered using the Firefox Web Developer / Network tools in the victim’s browser.
+To add a friend for the victim, we should first find out how a legitimate user adds a friend in Elgg. More specifically, we need to figure out what are sent to the server when a user adds a friend. Firefox’s Web Developer / Network tool can help us; it can display the contents of any HTTP request message sent from the browser. From the contents, we can identify all the parameters in the request.
 
-   Once we have understood what the HTTP request for adding friends look like, we can write a Java program to send out the same HTTP request. The Elgg
-   server cannot distinguish whether the request is sent out by the victim’s browser or by the attacker’s Java program. As long as we set all the
-   parameters correctly, and the session cookie is attached, the server will accept and process the project-posting HTTP request. To simplify your task,
-   the HTTPSimpleForge directory on the attacker computer contains a sample Java program that does the following:
+```
+[http://www.xsslabelgg.com/action/friends/add?friend=40&](http://www.xsslabelgg.com/action/friends/add?friend=40)
+elgg_ts=1402467511& elgg_token=80923e114f5d6c5606b7efaa389213b3
+
+GET /action/friends/add?friend=40& elgg_ts=1402467511& elgg_token=80923e114f5d6c5606b7efaa389213b3
+
+HTTP/1.1
+Host: [www.xsslabelgg.com](http://www.xsslabelgg.com/)
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:23.0) Gecko/20100101
+Firefox/23.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,\*/\*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: <http://www.xsslabelgg.com/profile/elgguser2> Cookie:Elgg=7pgvml3vh04m9k99qj5r7ceho4
+Connection: keep-alive
+
+HTTP/1.1 302 Found
+Date: Wed, 11 Jun 2014 06:19:28 GMT
+Server: Apache/2.2.22 (Ubuntu)
+X-Powered-By: PHP/5.3.10-1ubuntu3.11 Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate, post-check=0,pre-check=0
+Pragma: no-cache
+Location: <http://www.xsslabelgg.com/profile/elgguser2> Content-Length: 0
+Keep-Alive: timeout=5, max=100 Connection: Keep-Alive
+Content-Type: text/html
+
+```
+
+Once we have understood what the HTTP request for adding friends look like, we can write a Java program to send out the same HTTP request. The Elgg server cannot distinguish whether the request is sent out by the victim’s browser or by the attacker’s Java program. As long as we set all the parameters correctly, and the session cookie is attached, the server will accept and process the project-posting HTTP request. To simplify your task, the HTTPSimpleForge directory on the attacker computer contains a sample Java program that does the following:
 
 ```
 1.  Open a connection to web server.
@@ -170,15 +184,12 @@ Task 5: Countermeasures
 
 Once you know how to turn on these countermeasures, please do the following:
 
-1.  Activate only the HTMLawed 1.8 countermeasure but not htmlspecialchars;
-    visit any of the victim profiles and describe your observations in your
+1.  Activate only the HTMLawed 1.8 countermeasure but not htmlspecialchars; visit any of the victim profiles and describe your observations in your
     report.
 
-2.  Turn on both countermeasures; visit any of the victim profiles and describe
-    your observation in your report.
+2.  Turn on both countermeasures; visit any of the victim profiles and describe your observation in your report.
 
-   **Note:** Please do not change any other code and make sure that there are
-   no syntax errors.
+   **Note:** Please do not change any other code and make sure that there are no syntax errors.
 
 Submission
 ==========
@@ -192,68 +203,17 @@ Submission
 References
 ==========
 
-1.  AJAX for n00bs. Available at <http://www.hunlock.com/blogs/AJAX_for_n00bs>.
-
-2.  AJAX POST-It Notes. Available at
-    <http://www.hunlock.com/blogs/AJAX_POST-It_Notes>.
-
-3.  Essential Javascript – A Javascript Tutorial. Available at the following
+1.  Essential Javascript – A Javascript Tutorial. Available at the following
     URL:
 
 >   <http://www.hunlock.com/blogs/Essential_Javascript_--_A_Javascript_Tutorial>.
 
-1.  The Complete Javascript Strings Reference. Available at the following URL:
+2.  The Complete Javascript Strings Reference. Available at the following URL:
 
 >   <http://www.hunlock.com/blogs/The_Complete_Javascript_Strings_Reference>.
 
-1.  Technical explanation of the MySpace Worm. Available at the following URL:
+3.  Technical explanation of the MySpace Worm. Available at the following URL:
     [http://namb.la/ popular/tech.html](http://namb.la/popular/tech.html).
 
-2.  Elgg Documentation. Available at URL: <http://docs.elgg.org/wiki/Main_Page>.
+4.  Elgg Documentation. Available at URL: <http://docs.elgg.org/wiki/Main_Page>.
 
-[http://www.xsslabelgg.com/action/friends/add?friend=40&](http://www.xsslabelgg.com/action/friends/add?friend=40)
-elgg_ts=1402467511
-
-& elgg_token=80923e114f5d6c5606b7efaa389213b3
-
->   GET /action/friends/add?friend=40& elgg_ts=1402467511
-
->   & elgg_token=80923e114f5d6c5606b7efaa389213b3
-
->   HTTP/1.1
-
->   Host: [www.xsslabelgg.com](http://www.xsslabelgg.com/)
-
->   User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:23.0) Gecko/20100101
->   Firefox/23.0
-
->   Accept: text/html,application/xhtml+xml,application/xml;q=0.9,\*/\*;q=0.8
->   Accept-Language: en-US,en;q=0.5
-
->   Accept-Encoding: gzip, deflate
-
->   Referer: <http://www.xsslabelgg.com/profile/elgguser2> Cookie:
->   Elgg=7pgvml3vh04m9k99qj5r7ceho4
-
->   Connection: keep-alive
-
->   HTTP/1.1 302 Found
-
->   Date: Wed, 11 Jun 2014 06:19:28 GMT
-
->   Server: Apache/2.2.22 (Ubuntu)
-
->   X-Powered-By: PHP/5.3.10-1ubuntu3.11 Expires: Thu, 19 Nov 1981 08:52:00 GMT
-
->   Cache-Control: no-store, no-cache, must-revalidate, post-check=0,
->   pre-check=0
-
->   Pragma: no-cache
-
->   Location: <http://www.xsslabelgg.com/profile/elgguser2> Content-Length: 0
-
->   Keep-Alive: timeout=5, max=100 Connection: Keep-Alive
-
->   Content-Type: text/html
-
->   Figure 2: Sample of HTTP Header for Adding a Friend
