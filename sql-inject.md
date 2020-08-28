@@ -176,10 +176,8 @@ a space is  %20
 
 Task 2.3: Append a new SQL statement
 =====
-In the above two attacks, we can only steal information from the database; it will be better if we can modify
-    the database using the same vulnerability in the login page. An idea is to use the SQL injection attack to turn one SQL statement into two, with the
-    second one being the update or delete statement. In SQL, semicolon (;) is used to separate two SQL statements. Please describe how you can use the
-    login page to get the server run two SQL statements. Try the attack to delete a record from the database, and describe your observation.
+
+In the above two attacks, we can only steal information from the database; it will be better if we can modify the database using the same vulnerability in the login page. An idea is to use the SQL injection attack to turn one SQL statement into two, with the second one being the update or delete statement. In SQL, semicolon (;) is used to separate two SQL statements. Please describe how you can use the login page to get the server run two SQL statements. Try the attack to delete a record from the database, and describe your observation.
 
 Task 3: SQL Injection Attack on UPDATE Statement
 =========
@@ -200,80 +198,15 @@ $conn->query($sql))
 ![](media/1836a4c3b8eabd7b550ddb41f3d35597.jpg)
 
 
--   **Task 3.1: SQL Injection Attack on UPDATE Statement — modify salary**. As shown in the Edit Profile page, employees can only update their nicknames, emails, addresses, phone numbers, and passwords; they are not authorized to change their salaries. Only the administrator is allowed to make changes to salaries. You are a malicious employee (say Alice); your goal in this task is to increase your own salary via this Edit Profile page. We assume that you know that salaries are stored in a column called 'salary'.
+Task 3.1: SQL Injection Attack on UPDATE Statement — modify salary
+=====
 
--   **Task 3.2: SQL Injection Attack on UPDATE Statement — modify other people’
-    password**. Using the same vulnerability in the above UPDATE statement, malicious employees can also change other people’s data. The goal for this
-    task is to modify another employee’s password, and then demonstrate that you can successfully log into the victim’s account using the new password. The
-    assumption here is that you already know the name of the employee (e.g. Ryan) on whom you want to attack. One thing worth mentioning here is that
-    the database stores the hash value of passwords instead of the plaintext password string. You can again look at the unsafe_edit.php code to see how
-    password is being stored. It uses SHA1 hash function to generate the hash value of password.
+As shown in the Edit Profile page, employees can only update their nicknames, emails, addresses, phone numbers, and passwords; they are not authorized to change their salaries. Only the administrator is allowed to make changes to salaries. You are a malicious employee (say Alice); your goal in this task is to increase your own salary via this Edit Profile page. We assume that you know that salaries are stored in a column called 'salary'.
+
 
 To make sure your injection string does not contain any syntax error, you can test your injection string on MySQL console before launching the real
 attack on our web application.
 
-Task 4: Countermeasure — Prepared Statement
-=========
-
-The fundamental problem of the SQL injection vulnerability is the failure to separate code from data. When constructing a SQL statement, the program
-(e.g. PHP program) knows which part is data and which part is code. Unfortunately, when the SQL statement is sent to the database, the boundary
-has disappeared; the boundaries that the SQL interpreter sees may be different from the original boundaries that was set by the developers. To
-solve this problem, it is important to ensure that the view of the boundaries are consistent in the server-side code and in the database. The
-most secure way is to use prepared statement.
-
-![](media/2ec8efb0feb58f7cd87bc8300884cf39.jpg)
-
-   **Figure 3: Prepared Statement Workflow**
-
-To understand how prepared statement prevents SQL injection, we need to understand what happens when SQL server receives a query. The high-level
-workflow of how queries are executed is shown in 
-
-Figure 3. In the compilation step, queries first go through the parsing and normalization phase, where a query is checked against the syntax and
-semantics. The next phase is the compilation phase where keywords (e.g. SELECT, FROM, UPDATE, etc.) are converted into a format understandable to
-machines. Basically, in this phase, query is interpreted. In the query optimization phase, the number of different plans are considered to execute
-the query, out of which the best optimized plan is chosen. The chosen plan is store in the cache, so whenever the next query comes in, it will be
-checked against the content in the cache; if it’s already present in the cache, the parsing, compilation and query optimization phases will be
-skipped. The compiled query is then passed to the execution phase where it is actually executed.
-
-Prepared statement comes into the picture after the compilation but before the execution step. A pre- pared statement will go through the compilation
-step, and be turned into a pre-compiled query with empty placeholders for data. To run this pre-compiled query, data need to be provided, but these
-data will not go through the compilation step; instead, they are plugged directly into the pre-compiled query, and are sent to the execution engine.
-Therefore, even if there is SQL code inside the data, without going through the compilation step, the code will be simply treated as part of data,
-without any special meaning. This is how prepared statement prevents SQL injection attacks.
-
-Here is an example of how to write a prepared statement in PHP. We use a SELECT statement in the following example. We show how to use prepared
-statement to rewrite the code that is vulnerable to SQL injection attacks.
-
-```
-$conn = getDB();
-$sql = "SELECT name, local, gender FROM USER_TABLE
-    WHERE id = $id AND password =’$pwd’ ";
-$result = $conn->query($sql))
-```
-The above code is vulnerable to SQL injection attacks. It can be rewritten to the following:
-
-```
-$conn = getDB();
-$stmt = $conn->prepare("SELECT name, local, gender FROM USER_TABLE
-WHERE id = ? and password = ? ");
-
-```
-```
-   // Bind parameters to the query
-
-$stmt->bind_param("is", $id, $pwd);
-$stmt->execute();
-$stmt->bind_result($bind_name, $bind_local, $bind_gender);
-$stmt->fetch();
-```
-
-Using the prepared statement mechanism, we divide the process of sending a SQL statement to the database into two steps. The first step is to only send
-the code part, i.e., a SQL statement without the actual the data. This is the prepare step. As we can see from the above code snippet, the actual data
-are replaced by question marks (?). After this step, we then send the data to the database using bind_param(). The database will treat everything sent
-in this step only as data, not as code anymore. It binds the data to the corresponding question marks of the prepared statement. In the bind param() method, the first argument "is" indicates the types of the parameters: "i" means that the data in \$id has the integer type, and "s" means that the data in \$pwd has the string type.
-
-For this task, please use the prepared statement mechanism to fix the SQL injection vulnerabilities exploited by you in the previous tasks. Then,
-check whether you can still exploit the vulnerability or not.
 
 Submission
 ==========
