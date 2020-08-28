@@ -120,15 +120,16 @@ $sql = "SELECT id, name, eid, salary, birth, ssn, phonenumber, address, email, n
     FROM credential
    WHERE eid= ’\$input_eid’ and password=’\$input_pwd’";
 $result = \$conn-\>query(\$sql))
+```
 
-// The following is pseudo code 
+- The following is pseudo code provides an idea of how the results of SQL query are handled.
+```
 if(name==’admin’){
     return All employees information.
 } else if(name!=NULL){
    return employee information.
 } else {
    authentication fails.
-
    }
 ```
 The above SQL statement selects personal employee information such as id, name, salary, ssn etc from the credential table. The variables input eid and input pwd hold the strings typed by users in the login page. Basically, the program checks whether any record matches with the employee ID and password; if there is a match, the user is successfully authenticated, and is given the corresponding employee information. If there is no match, the authentication fails.
