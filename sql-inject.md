@@ -204,12 +204,25 @@ $conn->query($sql))
 Task 3.1: SQL Injection Attack on UPDATE Statement — modify salary
 =====
 
-As shown in the Edit Profile page, employees can only update their nicknames, emails, addresses, phone numbers, and passwords; they are not authorized to change their salaries. Only the administrator is allowed to make changes to salaries. You are a malicious employee (say Alice); your goal in this task is to increase your own salary via this Edit Profile page. We assume that you know that salaries are stored in a column called 'salary'.
+As shown in the Edit Profile page, employees can only update their nicknames, emails, addresses, phone numbers, and passwords; they are not authorized to change their salaries. Only the administrator is allowed to make changes to salaries. You are a malicious employee ('Alice); your goal in this task is to decrease Boby's salary via this Edit Profile page. We assume that you know that salaries are stored in a column called 'salary'. 
 
+- Check Boby's salary (used the EID of 20000 and the password 'seedboby')
+- Now log out of Boby's profile, and log in as Alice (EID of 10000 and password of 'seedalice')
+- Use SQL injection to change Boby's salary to $1.
 
-To make sure your injection string does not contain any syntax error, you can test your injection string on MySQL console before launching the real
-attack on our web application.
+** Hint: You need to change this:
 
+```
+UPDATE credential SET nickname=’$nickname’, email=’$email’,address=’$address’, phonenumber=’$phonenumber’, Password=’$pwd’ WHERE id= ’$input_id’
+
+```
+
+to this:
+
+```
+UPDATE credential SET nickname=' ', salary='1' WHERE name= ’Boby’
+```
+   
 
 Submission
 ==========
