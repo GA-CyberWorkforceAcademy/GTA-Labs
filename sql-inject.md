@@ -114,30 +114,30 @@ The browser starts at the entrance page of our web application at [www.SEEDLabSQ
 
 To help you started with this task, we explain how authentication is implemented in our web application. The PHP code unsafe_credential.php, located in the /var/www/seedlabsqlinjection.com/public_html directory, is used to conduct user authentication. The following code snippet show how users are authenticated.
 ```
->   \$conn = getDB();
+   \$conn = getDB();
 
->   \$sql = "SELECT id, name, eid, salary, birth, ssn, phonenumber, address,
->   email, nickname, Password
+   \$sql = "SELECT id, name, eid, salary, birth, ssn, phonenumber, address,
+   email, nickname, Password
 
->   FROM credential
+   FROM credential
 
->   WHERE eid= ’\$input_eid’ and password=’\$input_pwd’";
+   WHERE eid= ’\$input_eid’ and password=’\$input_pwd’";
 
->   \$result = \$conn-\>query(\$sql))
+   \$result = \$conn-\>query(\$sql))
 
->   // The following is psuedo code if(name==’admin’){
+   // The following is psuedo code if(name==’admin’){
 
->   return All employees information.
+   return All employees information.
 
->   } else if(name!=NULL){
+   } else if(name!=NULL){
 
->   return employee information.
+   return employee information.
 
->   } else {
+   } else {
 
->   authentication fails.
+   authentication fails.
 
->   }
+   }
 ```
 The above SQL statement selects personal employee information such as id, name, salary, ssn etc from the credential table. The variables input eid and input pwd hold the strings typed by users in the login page. Basically, the program checks whether any record matches with the employee ID and password; if there is a match, the user is successfully authenticated, and is given the corresponding employee information. If there is no match, the authentication fails.
 
