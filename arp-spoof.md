@@ -63,7 +63,7 @@ Task 1: Sniff the LAN from the Attacker
 
 >   On the User computer, use wget to retrieve a web page from the Webserver:
 
->   wget \<address of Webserver\>
+>   wget <address of Webserver>
 
 >   Observe the Wireshark display. Do you see either the web query or the
 >   response?
@@ -73,8 +73,7 @@ Task 2: Spoof the ARP cache on the User and Gateway Computers
 
 Use the arpspoof tool on the Attacker computer to perform your ARP spoofing. Note you must target both the User and Gateway computers. It is easiest to start the arpspoof program in two different virtual terminals connected to the attacker (you may have wondered why you were given three Attacker terminals).
 ```
->   sudo arpspoof -t \<User IP\> \<gateway IP\> sudo arpspoof -t \<gateway IP\>
->   \<User IP\>
+>   sudo arpspoof -t <User IP> <gateway IP> sudo arpspoof -t <gateway IP> <User IP>
 ```
 After your ARP spoofing has commenced you should see your spoofed ARP traffic in Wireshark. Now return to the User computer and refetch the webpage using wget command. You should see TCP traffic in your Wireshark display. In Wireshark, stop the capture, (red button), and use ”File / Save” to save the traffic into a file named sniff.pcapng in your HOME directory, (/home/ubuntu).
 
