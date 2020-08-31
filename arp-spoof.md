@@ -55,18 +55,19 @@ The arpspoof tool is installed on the Attacker computer, as is Wireshark. The At
 Task 1: Sniff the LAN from the Attacker
 =========
 
->   Before you engage in ARP spoofing, first look at network traffic as seen by
->   the Attacker. Start Wireshark on the Attacker computer, selecting the ”eth0”
->   interface:
+Before you engage in ARP spoofing, first look at network traffic as seen by the Attacker. Start Wireshark on the Attacker computer, selecting the ”eth0”
+interface:  
 
->   wireshark -ki eth0
+```
+wireshark -ki eth0
+```
 
->   On the User computer, use wget to retrieve a web page from the Webserver:
+On the User computer, use wget to retrieve a web page from the Webserver:
+```
+wget <address of Webserver>
+```
 
->   wget <address of Webserver>
-
->   Observe the Wireshark display. Do you see either the web query or the
->   response?
+Observe the Wireshark display. Do you see either the web query or the response?
 
 Task 2: Spoof the ARP cache on the User and Gateway Computers
 =========
