@@ -174,19 +174,19 @@ Notice how the zone definition refers to the example.com.db file, which defines 
 | 10  | IN | PTR | ns.example.com.                             |
 ```
 
-Revview the User Machine Configuration
+Review the User Machine Configuration
 --------------------------------------
 
-   On the user machine 192.168.0.100, we need to let the machine 192.168.0.10
-   be the default DNS server. We achieved this by setting the DNS setting file
-   /etc/resolv.conf of the user machine:
+On the user machine 192.168.0.100, we need to let the machine 192.168.0.10 be the default DNS server. We achieved this by setting the DNS setting file /etc/resolv.conf of the user machine:
 
-   nameserver 192.168.0.10 \# the ip of the DNS server
+```
+ >  nameserver 192.168.0.10
+```
 
 Review the Attacker Machine Configuration
 -----------------------------------------
 
-   The attacher machine includes Wireshark, Netwox and arpspoof untilities.
+   The attacher machine includes Wireshark, Netwox and arpspoof utilities.
 
 Expected Output
 ---------------
