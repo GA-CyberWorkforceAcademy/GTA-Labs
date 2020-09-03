@@ -7,6 +7,7 @@ Overview
 ========
 
 This exercise explores the use of nmap to identify services on a target.
+Estimated time to complete: 10-20 minutes.
 
 Lab Environment
 ===============
