@@ -23,42 +23,39 @@ command:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 -   Links to this lab manual will be displayed if you wish to view the prompt
-    from within your VMThe nmap-ssh lab
+    from within your VM.
     
-- The resulting virtual terminal will include a bash shell on a computer called “MyComputer”. The nmap utility is pre-installed on that computer. You will also have a virtual terminal connected to a “router”, and a bash shell there. You have been told that the router sits between the organization’s client workstations and the servers.
+    
+- You will see (2) virtual terminals “analyst@mycomputer” and "analyst@router". Pay close attention to which terminal you are using.
+- The nmap utility is pre-installed on the "mycomputer" terminal. 
+- The "router" terminal sits between the organization’s client workstations (including your "mycomputer" workstation) and the servers.
 
 Scenario
 ===============
 
-This labtainer exercise uses nmap and tcpdump along with and skills exercised in previous
-labs to identify and exploit a weakness in a system.
+This labtainer exercise uses nmap and tcpdump along with and skills exercised in previous labs to identify and exploit a weakness in a system.
 
-You are performing ad-hoc security testing for a client who believes their
-internal SSH server is relatively secure, but you would like to confirm the
-validity of this. Your goal is to attempt to remotely access that SSH server and
-disclose the content of a selected file.
-
+You are performing ad-hoc security testing for a client who believes their internal SSH server is relatively secure, but you would like to confirm the
+validity of this. Your goal is to attempt to remotely access that SSH server and disclose the contents of a selected file.
 
 Tasks
 ===============
 
-You have been told the target SSH server IP address is 172.25.0.2 and the SSH
-port number changes frequently within the range of 2000-3000. you have been
-given an account, “analyst” on the client computer and on the router.
+You have been told the target SSH server's IP address is 172.25.0.2 and the SSH port number changes frequently, within the range of 2000-3000. You have been
+given an account, “analyst” on the client "mycomputer" and on the "router".
 
-Client computers \<===\> [Router]\<===\> servers
+The network is situated like this: 
+Client computers <===> [Router]<===> servers
 
-your goal is to successfully SSH from “MyComputer” into the “ubuntu” account on
-the SSH server.
+- Your goal is to successfully SSH from “mycomputer” into the SSH server. You have information indicating that the organization uses the default login of "ubuntu" with a common, unknown password. They use this on multiple servers.
 
-Hints:
+Information to consider:
 
--   nmap is installed on mycomputer.
+-   nmap is installed on "mycomputer"
 
--   tshark and tcpdump are installed on the router
+-   tshark and tcpdump are installed on the "router"
 
--   What other password protected network services are being used on the
-    network? And by who?
+-   There are other password protected network services being used on the network...this should be a starting point for determining the password for the "ubunutu" login used across the organization.
 
 **Stop the labtainer**
 
