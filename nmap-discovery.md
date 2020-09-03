@@ -41,8 +41,14 @@ You are left with only one option: use the nmap to find the IP address and and p
 
 - After finding the server information, you will need to access the server via SSH review the contents of the “friedshrimp.txt” file to complete the lab. Use the "ls" command to view the files in your present directory, and the "cat" command (followed by the filename) to view the contents of a file. 
 
-If you need any help with the nmap commands, you can use “man nmap” to view the manual. Remember that to SSH to a host via a NON-STANDARD port other (such as the case here), use “ssh -p <port number> <host IP>”.
-    
+If you need any help with the nmap commands, you can use “man nmap” to view the manual. Remember that to SSH to a host via a NON-STANDARD port other (such as the case here), use 
+```
+$ ssh ubuntu@<host IP> -p <port number>”
+```
+** Note: You will get a notice that the authenticity of the target host cannot be verified. You will need to accept the fingerprint offered to connect to the server. This is normal.
+
+** Hint: To simplify this, first find the IP of the server by using host discovery with nmap. The "friedshrimp" server is the only other host on your subnet.  Then use a port scan targeting the range 2000-3000 to find the port the service is running on.
+
 When the lab is completed, or you’d like to stop working for a while, run:
 
 ```
