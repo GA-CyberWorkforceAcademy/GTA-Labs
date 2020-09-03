@@ -57,7 +57,8 @@ Information to consider:
 
 -   There are other password protected network services being used on the network...this should be a starting point for determining the password for the "ubunutu" login used across the organization.
 
-**Stop the labtainer**
+Submission
+=====
 
 When the lab is completed, or you’d like to stop working for a while, run:
 
