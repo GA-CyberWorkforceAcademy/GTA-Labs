@@ -64,7 +64,9 @@ Information to consider:
 - Discover hosts on the server network
 - Figure out what services those servers are running
 - Start snooping on traffic that you may be able to use (i.e. you need to find the password for ubunutu...)
-- Be specific when you are sniffing traffic.  And use the "-X" flag to view the 
+- Be specific when you are sniffing traffic.  And use the "-X" flag to view the ascii interpretation of the hexcode
+
+
 Submission
 =====
 
