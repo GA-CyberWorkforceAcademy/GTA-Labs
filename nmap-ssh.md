@@ -57,6 +57,14 @@ Information to consider:
 
 -   There are other password protected network services being used on the network...this should be a starting point for determining the password for the "ubunutu" login used across the organization.
 
+
+** Hints: 
+
+- Figure out what the server subnet is. (The router is connected to it)
+- Discover hosts on the server network
+- Figure out what services those servers are running
+- Start snooping on traffic that you may be able to use (i.e. you need to find the password for ubunutu...)
+- Be specific when you are sniffing traffic.  And use the "-X" flag to view the 
 Submission
 =====
 
