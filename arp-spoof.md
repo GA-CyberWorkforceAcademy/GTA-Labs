@@ -35,7 +35,7 @@ Network Configuration
 
 Figure 1: Intended traffic from between User and Webserver
 
-**Record the IP and MAC address of each device for your reference (the user, gateway, and attacker-all terminals are spawned from the same attack host)**
+**All 3 attacker terminals are spawned from the same attack host**
 
 Lab Tasks
 =========
