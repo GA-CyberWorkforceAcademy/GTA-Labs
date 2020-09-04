@@ -68,19 +68,23 @@ On the User computer, use wget to retrieve a web page from the Webserver:
 $ wget <address of webserver>
 ```
 
-Observe the Wireshark display. Do you see either the web query or the response?
+- Observe the Wireshark display. 
+
+- What type of traffic did you capture? Look back at the network diagram and think about the traffic and where you are positioned.
+
+- Do you see either the web query or the response? Why not?
 
 Task 2: Spoof the ARP cache on the User and Gateway Computers
 =========
 
-Use the arpspoof tool on the attacker computer to perform your ARP spoofing. 
+- Use the arpspoof tool on the attacker computer to perform your ARP spoofing. You will need to move to new terminal tabs in the attacker terminal window (not the one that you have used to start wireshark).
 
-- You must target both the user and gateway computers; this is easiest if you start the arpspoof program in two different "attacker" virtual terminals, with one command in each:
+- You must target both the user and gateway computers; this is easiest if you start the arpspoof program in two different "attacker" virtual terminals tabs, with one command in each:
 ```
-1st terminal:
-$ sudo arpspoof -t <User IP> <gateway IP>
+2nd terminal tab:
+$ sudo arpspoof -t <user IP> <gateway IP>
 
-2nd terminal:
+3rd terminal tab:
 $ sudo arpspoof -t <gateway IP> <user IP>
 ```
 After your ARP spoofing has commenced you should see your spoofed ARP traffic in wireshark. 
@@ -89,7 +93,13 @@ After your ARP spoofing has commenced you should see your spoofed ARP traffic in
 
 - You should see TCP traffic in your wireshark display. 
 
-- Stop the capture, (red button), and use ”File / Save” to save the traffic into a file named sniff.pcapng in your HOME directory, (/home/ubuntu).
+- Stop the capture, (red button).
+
+- There is a lot of traffic (mostly ARP) inthis pcap.  Click the "Protocol" coloumn to sort and scroll to the end of the ARP packets. 
+
+- Do you see the web query or response this time?  (You should, since the attack machine is acting an a Man-in-the-Middle).
+
+**Reflect on how simple this was. Effectivly all traffic that the user computer sends/recieves through the gateway would be captured by the attacker!**
 
 Submission
 ==========
