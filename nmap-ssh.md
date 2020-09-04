@@ -57,8 +57,11 @@ Information to consider:
 
 -   There are other password protected network services being used on the network...this should be a starting point for determining the password for the "ubunutu" login used across the organization.
 
+- The password used with "ubuntu" is alpha-numeric, relativly short, but hard to guess without a password cracker.
 
-** Hints: 
+
+Hints
+======
 
 - Figure out what the server's subnet is. (The router is connected to it, check there)
 - Discover hosts on the server network with nmap (from mycomputer)
