@@ -18,7 +18,7 @@ Navigate to the “labtainer-student” directory and start the lab using the
 command:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->   labtainer arp-spoof
+$ labtainer arp-spoof
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 -   Links to this lab manual will be displayed if you wish to view the prompt
@@ -28,13 +28,14 @@ command:
 Network Configuration
 =====================
 
->   This lab includes four networked computers as shown in Figure
->   [1,](#_bookmark0) which illustrates the intended flow of traffic between the
->   user computer and the Webserver via the Gateway.
+ This lab includes four networked computers as shown in Figure
+>   [1,](#_bookmark0) which illustrates the intended flow of traffic between the user computer and the Webserver via the gateway.
 
 ![](media/531868e3dcb6df788fffbd2b105932c8.jpg)
 
->   Figure 1: Intended traffic from between User and Webserver
+Figure 1: Intended traffic from between User and Webserver
+
+**Record the IP and MAC address of each device for your reference (the user, gateway, and attacker-all terminals are spawned from the same attack host)**
 
 Lab Tasks
 =========
@@ -48,23 +49,23 @@ Figure 2: Man-in-the-middle attack via ARP Spoofing
 
 The arpspoof tool is installed on the Attacker computer, as is Wireshark. The Attacker computer is configured to forward IP packets that is receives which are destined for elsewhere. You can confirm this with this command, which should reflect a value of ’1’:
 ```
->   sysctl net.ipv4.conf.all.forwarding
+$ sysctl net.ipv4.conf.all.forwarding
 
 ```
 
 Task 1: Sniff the LAN from the Attacker
 =========
 
-Before you engage in ARP spoofing, first look at network traffic as seen by the Attacker. Start Wireshark on the Attacker computer, selecting the ”eth0”
+Before you engage in ARP spoofing, first look at network traffic as seen by the attacker. Start wireshark on the attacker computer, selecting the ”eth0”
 interface:  
 
 ```
-wireshark -ki eth0
+$ wireshark -ki eth0
 ```
 
 On the User computer, use wget to retrieve a web page from the Webserver:
 ```
-wget <address of Webserver>
+$ wget <address of webserver>
 ```
 
 Observe the Wireshark display. Do you see either the web query or the response?
@@ -72,18 +73,28 @@ Observe the Wireshark display. Do you see either the web query or the response?
 Task 2: Spoof the ARP cache on the User and Gateway Computers
 =========
 
-Use the arpspoof tool on the Attacker computer to perform your ARP spoofing. Note you must target both the User and Gateway computers. It is easiest to start the arpspoof program in two different virtual terminals connected to the attacker (you may have wondered why you were given three Attacker terminals).
+Use the arpspoof tool on the attacker computer to perform your ARP spoofing. 
+
+- You must target both the user and gateway computers; this is easiest if you start the arpspoof program in two different "attacker" virtual terminals, with one command in each:
 ```
->   sudo arpspoof -t <User IP> <gateway IP> sudo arpspoof -t <gateway IP> <User IP>
+1st terminal:
+$ sudo arpspoof -t <User IP> <gateway IP>
+
+2nd terminal:
+$ sudo arpspoof -t <gateway IP> <user IP>
 ```
-After your ARP spoofing has commenced you should see your spoofed ARP traffic in Wireshark. Now return to the User computer and refetch the webpage using wget command. You should see TCP traffic in your Wireshark display. In Wireshark, stop the capture, (red button), and use ”File / Save” to save the traffic into a file named sniff.pcapng in your HOME directory, (/home/ubuntu).
+After your ARP spoofing has commenced you should see your spoofed ARP traffic in wireshark. 
+
+- Return to the user computer and refetch the webpage, using wget command again. 
+
+- You should see TCP traffic in your wireshark display. 
+
+- Stop the capture, (red button), and use ”File / Save” to save the traffic into a file named sniff.pcapng in your HOME directory, (/home/ubuntu).
 
 Submission
 ==========
 
 After finishing the lab, go to the terminal on your Linux system that was used to start the lab and type:
 ```
->   stoplab arp-spoof
+$ stoplab arp-spoof
 ```
-
-When you stop the lab, the system will display a path to the zipped lab results on your Linux system.
