@@ -365,7 +365,7 @@ After finishing the lab, go to the terminal on your Linux system that was used t
 
 ```
 $ stoplab local-dns
-
+```
 
 References
 ==========
