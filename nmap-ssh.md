@@ -60,13 +60,21 @@ Information to consider:
 
 ** Hints: 
 
-- Figure out what the server subnet is. (The router is connected to it)
-- Discover hosts on the server network
-- Figure out what services those servers are running
-- Start snooping on traffic that you may be able to use (i.e. you need to find the password for ubunutu...)
-- Be specific when you are sniffing traffic.  And use the "-X" flag to view the ascii interpretation of the hexcode
+- Figure out what the server's subnet is. (The router is connected to it, check there)
+- Discover hosts on the server network with nmap (from mycomputer)
+- Figure out what services those servers are running with nmap (from mycomputer)
+- Start snooping on traffic that you may be able to use (on the router)
+- Be specific when you are sniffing traffic.  And use "-vv" flag for verbosity/details, and the "-X" flag to view the ascii interpretation of the hexcode for each packet.
+- Try using "egrep" to locate the string "ubuntu" indicating that a logon is happening
+-  View a segment/number of packets that flow in after that with the -A<number of lines to view>; this narrows down the traffic you are looking at.
 
+Example-from the router
 
+```
+
+$ tcpdump -i eth1 dst port <port number> -vvX | egrep -A15 ubuntu
+
+```
 Submission
 =====
 
