@@ -28,7 +28,7 @@ containers.
 
  From your labtainer-student directory start the lab using:
 ```
->   labtainer local-dns
+$ labtainer local-dns
 ```
 
 Links to this lab manual and to an empty lab report will be displayed. If you
@@ -180,22 +180,21 @@ Review the User Machine Configuration
 On the user machine 192.168.0.100, we need to let the machine 192.168.0.10 be the default DNS server. We achieved this by setting the DNS setting file /etc/resolv.conf of the user machine:
 
 ```
- >  nameserver 192.168.0.10
+$ nameserver 192.168.0.10
 ```
 
 Review the Attacker Machine Configuration
 -----------------------------------------
 
-   The attacher machine includes Wireshark, Netwox and arpspoof utilities.
+The attacher machine includes Wireshark, Netwox and arpspoof utilities.
 
 Expected Output
 ---------------
 
-   After you have reviewed the lab environment, test the configuration by
-   issuing the following command on the user machine:
+After you have reviewed the lab environment, test the configuration by issuing the following command on the user machine:
 
 ```
-> dig [www.example.com](http://www.example.com/)
+$ dig [www.example.com](http://www.example.com/)
 ```
 - You should be able to see something like this:
 ```
@@ -339,7 +338,7 @@ server and the external DNS, which is reached via the gateway. So set up your AR
 Before attacking, make sure that the DNS Server’s cache is empty. You can flush the cache using the following command:
 
 ```
-> sudo rndc flush
+$ sudo rndc flush
 ```
 
 The difference between this attack and the previous attack is that we are spoofing the response to DNS server now, so we set the filter field to ‘src host
@@ -349,8 +348,8 @@ You can tell whether the DNS server is poisoned or not by using the network traf
 view the DNS server’s cache, issue the following command:
 
 ```
-> sudo rndc dumpdb -cache
-> sudo cat /var/cache/bind/dump.db
+$ sudo rndc dumpdb -cache
+$ sudo cat /var/cache/bind/dump.db
 ```
 
 Take Away
@@ -365,7 +364,7 @@ Submission
 After finishing the lab, go to the terminal on your Linux system that was used to start the lab and type:
 
 ```
->   stoplab local-dns
+$ stoplab local-dns
 
 
 References
