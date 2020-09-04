@@ -18,7 +18,7 @@ Navigate to the “labtainer-student” directory and start the lab using the
 command:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->   labtainer pass-crack
+$ labtainer pass-crack
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 -   Links to this lab manual will be displayed if you wish to view the prompt
@@ -35,7 +35,7 @@ In this task, you will briefly examine how your Linux system manages and stores 
 -  Use the more command, as shown below, to view the /etc/passwd file.
 
 ```
->   more /etc/passwd
+$ more /etc/passwd
 ```
 
 - You should see a list of all the users that have login access to your machine. At the bottom of this file you should see a line for your account (e.g., the “student” account).
@@ -45,14 +45,14 @@ In this task, you will briefly examine how your Linux system manages and stores 
 - Your shadow password file exists at /etc/shadow. Use the "more" command, as shown below to *try* to view its contents.
 
 ```
->   more /etc/shadow
+$ more /etc/shadow
 ```
 *Note the error message you received when you tried to view the shadow password file.
 
 - Try opening the shadow password file with root privileges. You can gain root privileges on Ubuntu by preceding your command with "sudo". 
 
 ```
->   sudo more /etc/shadow
+$   sudo more /etc/shadow
 ```
 -  After entering your password you should be able to see the contents of the shadow password file.
 
@@ -84,7 +84,7 @@ Reading left-to-right, the fields are:
 Within the field designated for the digest, it is further broken up into other fields that are separated by a ‘\$’. These fields are:
 
 ```
-    **\$**ID**\$**salt**\$**digest
+   **\$**ID**\$**salt**\$**digest
 ```
 The “ID” field contains a number that corresponds to the hash function/algorithm used to generate the digest. The following table shows
 the interpretation of that number:
@@ -104,7 +104,7 @@ the interpretation of that number:
 - Execute the following command to list some account information (where the "-l” the letter, not the number one):
 
 ```
-    chage -l student
+$ chage -l student
 ```
 
 *Note the date when your password was chosen.
@@ -118,7 +118,7 @@ In this task, you will try a dictionary attack to crack the contents of a passwo
 
 You will notice that this is not, in fact, a Linux/Unix-like password file. It is actually an htpasswd format, which can be used by an Apache web server to provide password-based access control to portions of a web site. The line:
 ```
->   alice:{SHA}A9Z8JjwnpFPvZbKeMDNHJzM8y80=
+$  alice:{SHA}A9Z8JjwnpFPvZbKeMDNHJzM8y80=
 ```
 says the user “alice” has had her password hashed by the SHA1 hash function, and that the digest is stored in a base64 encoded digest of
 “A9Z8JjwnpFPvZbKeMDNHJzM8y80=”.
@@ -135,7 +135,7 @@ In this task you will be performing a simple and literal dictionary attack becau
 - Use the "crackSHA.py" script with the following command to execute a dictionary attack on the "htpasswd-sha1" passowrd digest file, using the list of english word saved in the file "tinylist.txt":
 
 ```
-./crackSHA.py htpasswd-sha1 tinylist.txt
+$ ./crackSHA.py htpasswd-sha1 tinylist.txt
 ```
 
 *Note the username(s) and password(s) of the accounts that were cracked.
@@ -147,7 +147,7 @@ By now, you should have cracked some passwords, but not all. This is because the
 
 - Execute the crackSHA.py script again with the new dictionary (biglist.txt), as shown below:
 ```
->   ./crackSHA.py htpasswd-sha1 biglist.txt
+$   ./crackSHA.py htpasswd-sha1 biglist.txt
 ```
 
 *Note the username(s) and password(s) of the accounts that were cracked when using biglist.txt.
@@ -163,14 +163,14 @@ In this task you will be comparing the execution time of various hash functions.
 
 - As a speed comparison between different hash functions, execute the following script on a file that hashed the passwords using MD5 (an older hash function):
 ```
->   ./crackMD5.py htpasswd-md5 biglist.txt
+$ ./crackMD5.py htpasswd-md5 biglist.txt
 ```
 
 *Note the number of words that were attempted, the number of passwords that were cracked, and the number of seconds it took. Consider the benefits of salt values.
 
 - As another point of reference in the speed comparison, execute the following script on a password file that used SHA512:
 ```
->   ./crack512.py htpasswd-sha512 biglist.txt
+$ ./crack512.py htpasswd-sha512 biglist.txt
 ```
 
 *Note the number of words that were attempted, the number of passwords that were cracked, and the number of seconds it took.
@@ -205,7 +205,7 @@ This file contains all the words in biglist.txt that hash to a digest that start
 
 3.  Execute the following command to make use of the pre-calculated digests:
 ```
-    ./crackPre.py htpasswd-sha1 calc
+$  ./crackPre.py htpasswd-sha1 calc
 ```
  **Record in item \#18 of the worksheet the number of words that were attempted, the number of passwords that were cracked, and the number of seconds it took.**
 
@@ -218,12 +218,12 @@ Task 7: Personal Experimentation
 In this task you will experiment with passwords of your choice. As described below, create your own password file (named htpasswd-me) in the htpasswd format. You will make an entry for “alice”. You will then be prompted for the password.
 
 ```
-> htpasswd **-sc** htpasswd-me alice
+$ htpasswd **-sc** htpasswd-me alice
 ```
 You can **add** other entries if you would like, by doing the following (slightly modified) command:
 
 ```
-> htpasswd -s htpasswd-me bob
+$ htpasswd -s htpasswd-me bob
 ```
 
 As a security exercise, you may want to add passwords you commonly use (or have used) to see if they can be cracked using this relatively small list of passwords.
@@ -233,7 +233,7 @@ As a security exercise, you may want to add passwords you commonly use (or have 
 - Perform the pre-calculated attack as follows:
 
 ```
-    ./crackPre.py htpasswd-me calc
+$ ./crackPre.py htpasswd-me calc
 ```
 *Note the results of your experiments. Were any of your passwords cracked?
 
@@ -243,7 +243,7 @@ Submission
 After finishing the lab, go to the terminal on your Linux system that was used to start the lab and type:
 
 ```
-stoplab pass-crack
+$ stoplab pass-crack
 ```
 From the host labtainer working directory. You can always restart the labtainer and try the lab again if you are unable to complete it.
 
