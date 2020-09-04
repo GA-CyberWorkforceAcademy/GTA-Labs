@@ -115,6 +115,7 @@ To reassemble the graphic image transferred in this FTP communication, Change th
 Submission
 ==========
 
+Make sure you have all your answers recorded. You will be submitting these in the Canvas Quiz titled "Packet Introspection Submission"
 After finishing the lab, go to the terminal on your Linux system that was used to start the lab and type:
 ```
 >   stoplab
@@ -123,4 +124,4 @@ After finishing the lab, go to the terminal on your Linux system that was used t
 References
 ==========
 
-Wireshark 101: Essential Skills for Network Analysis, by Laura Chappell and Gerald Combs. Pub- lished by Protocol Analysis Institute, 2013. ISBN: 1893939723, 9781893939721
+Wireshark 101: Essential Skills for Network Analysis, by Laura Chappell and Gerald Combs. Published by Protocol Analysis Institute, 2013. ISBN: 1893939723, 9781893939721
