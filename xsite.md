@@ -72,7 +72,7 @@ Task 1: Posting a Malicious Message to Display an Alert Window
 ===============
    The objective of this task is to embed a JavaScript program in your Elgg profile, such that when another user views your profile, the JavaScript program will be executed and an alert window will be displayed. The following JavaScript program will display an alert window:
 ```
->   \<script\>alert('XSS');\</script\>
+>   <script>alert('XSS');</script>
 ```
   If you embed the above JavaScript code in your profile (e.g. in the brief description field), then any user who views your profile will see the alert window.
 
