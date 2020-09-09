@@ -25,6 +25,8 @@ Navigate to the “labtainer-student” directory and start the lab using the co
 -   Links to this lab manual will be displayed if you wish to view the prompt
     from within your VM
     
+ **If a network error occurs during a lab, stop the lab using 'stoplab' and enter 'docker network prune' in the terminal. Restart the lab with 'labtainer $labname'.
+    
 Scenario
 ===============
 
