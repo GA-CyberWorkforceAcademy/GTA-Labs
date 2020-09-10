@@ -147,94 +147,47 @@ After stealing the victim’s cookies, the attacker can do whatever the victim c
 
 To add a friend for the victim, we should first find out how a legitimate user adds a friend in Elgg. More specifically, we need to figure out what are sent to the server when a user adds a friend. Firefox’s Web Developer / Network tool can help us; it can display the contents of any HTTP request message sent from the browser. From the contents, we can identify all the parameters in the request.
 
+- Log in as another user (charlie for example)
 - Open the Web Developer > Network Tool in your firefox browser.
-- Now add Charlie as a friend.  Look at the very first "GET" request. You should be able to obtain the elgg_ts and elgg_token. Also note that Charlie's user ID is 41.
+- Now add Samy as a friend.  Look at the "GET" request. Note the elgg_ts and elgg_token. Also note that Samy's's user ID is 42. These are unique for each user.
 
-**Note:** Elgg uses two parameters elgg ts and elgg token as a countermeasure to defeat another related attack (Cross Site Request Forgery). Make sure that you set these parameters correctly for your attack to succeed. The ts and token values shown here will be different than what you see...this is only an example!
-- **Remove Charlie as a friend so you can test adding friends with your attacker's malicious program.
+- **Remove Samy as a friend.
 
-```
-GET /action/friends/add?friend=40& elgg_ts=1402467511& elgg_token=80923e114f5d6c5606b7efaa389213b3
-```
-
-Once we have understood what the HTTP request for adding friends look like, we can write a Java program to send out the same HTTP request. The Elgg server cannot distinguish whether the request is sent out by the victim’s browser or by the attacker’s Java program. As long as we set all the parameters correctly, and the session cookie is attached, the server will accept and process the project-posting HTTP request. To simplify your task, the HTTPSimpleForge directory on the attacker computer contains a sample Java program that does the following:
-
- - Navigate to the "/HTTPSimpleForge" directory on the attacker machine and open the "HTTPSimpleForge.java" program in the text editor leafpad:
+- In the attacker's terminal, navigate to the "/HTTPSimpleForge" directory on the attacker machine and open the "HTTPSimpleForge.java" program in the text editor leafpad:
  
  ```
  leafpad HTTPSimpleForge.java
  ```
- 
- - You will now need to hand-code the elgg ts and token values from the information you learned in the previous steps. 
- 
-- You will now hand-code the cookie value (obtained using the technique in Task 3) into this program. In practice, such a program would read the cookie value off of the network as was done in Task 3.
-
-- The cookie value itself will be replaced in the program in the "<<correct_cookie>> field. The line in the program should now read:
+- Change the following lines:
 
 ```
-String cookies = "RANDOMSTRING_COOKIE_INFO"
+String requestDetails = "&__elgg_ts=1599761839&__elgg_token=88d6c723d87b0aee53aa7b5ef0aaec1c";
+// URL to be forged.
+URL url = new URL ("http://www.xsslabelgg.com/action/friends/add?friend=42"+requestDetails);
+ ```
+ ```
+String cookies = "Elgg=cj1be6flek57vflghcdk2r2qb0";
+ 
 ```
-
 -Save the file and close leafpad.
-
-
-
-**Note 1:** Elgg uses two parameters elgg ts and elgg token as a countermeasure to defeat another related attack (Cross Site Request Forgery). Make sure that you set these parameters correctly for your attack to succeed.
-
-   **Note 2:** Compile and run the java program using 
+ **Note** Compile and run the java program using 
    
 ```
 javac HTTPSimpleForge.java 
 java HTTPSimpleForge
 ```
 
-Task 5: Countermeasures
-===============
 
-   Elgg does have a built in countermeasures to defend against the XSS attack. We have deactivated and commented out the countermeasures to make the attack
-   work. There is a custom built security plugin HTMLawed 1.8 on the Elgg web application which on activated, validates the user input and removes the
-   tags from the input. This specific plugin is registered to the function filter tags in the elgg/ engine/lib/input.php file.
+ The Elgg server cannot distinguish whether the request is sent out by the victim’s browser or by the attacker’s Java program. As long as we set all the parameters correctly, and the session cookie is attached, the server will accept and process the project-posting HTTP request. 
 
-   To turn on the countermeasure, login to the application as admin, goto administration (on top menu) plugins (on the right panel), andSelect
-   security and spam in the dropdown menu and click filter. You should find the HTMLawed 1.8 plugin below. Click on Activate to enable the countermeasure.
-
-   In addition to the HTMLawed 1.8 security plugin in Elgg, there is another built-in PHP method called htmlspecialchars(), which is used to encode the
-   special characters in the user input, such as encod- ing "\<" to &lt, "\>" to &gt, etc. Please go to the directory elgg/views/default/output and find
-   the function call htmlspecialchars in text.php, tagcloud.php, tags.php, access.php, tag.php, friendlytime.php, url.php, dropdown.php, email.php and
-   confirmlink.php files. Uncomment the corresponding "htmlspecialchars" function calls in each file.
-
-Once you know how to turn on these countermeasures, please do the following:
-
-1.  Activate only the HTMLawed 1.8 countermeasure but not htmlspecialchars; visit any of the victim profiles and describe your observations in your
-    report.
-
-2.  Turn on both countermeasures; visit any of the victim profiles and describe your observation in your report.
-
-   **Note:** Please do not change any other code and make sure that there are no syntax errors.
+**Note 1:** Elgg uses two parameters elgg ts and elgg token as a countermeasure to defeat another related attack (Cross Site Request Forgery). Make sure that you set these parameters correctly for your attack to succeed.
 
 Submission
 ==========
-   After finishing the lab, go to the terminal on your Linux system that was
-   used to start the lab and type:
+   After finishing the lab, go to the terminal on your Linux system that was used to start the lab and type:
 ```
->   stoplab xsite
+$ stoplab xsite
 
 ```
 
-References
-==========
-
-1.  Essential Javascript – A Javascript Tutorial. Available at the following
-    URL:
-
->   <http://www.hunlock.com/blogs/Essential_Javascript_--_A_Javascript_Tutorial>.
-
-2.  The Complete Javascript Strings Reference. Available at the following URL:
-
->   <http://www.hunlock.com/blogs/The_Complete_Javascript_Strings_Reference>.
-
-3.  Technical explanation of the MySpace Worm. Available at the following URL:
-    [http://namb.la/ popular/tech.html](http://namb.la/popular/tech.html).
-
-4.  Elgg Documentation. Available at URL: <http://docs.elgg.org/wiki/Main_Page>.
 
