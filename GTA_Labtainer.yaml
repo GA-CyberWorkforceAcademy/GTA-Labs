@@ -92,7 +92,7 @@ resources:
     properties:
       name: gta_labtainers
 
-      image: ubuntu2004_lxqt-gta
+      image: ubuntu2004_gta_lxqt
       flavor: hack.c2.m4096.d32
       networks:
         - port: { get_resource: gta_labtainers_port }
@@ -104,6 +104,8 @@ resources:
           template: |
             #!/bin/bash
 
+            apt-get install libreoffice -y
+            
             echo "*** cloud-init install complete ****"
 
             reboot
