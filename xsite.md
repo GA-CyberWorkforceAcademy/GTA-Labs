@@ -181,7 +181,12 @@ String cookies = "RANDOMSTRING_COOKIE_INFO"
 
 **Note 1:** Elgg uses two parameters elgg ts and elgg token as a countermeasure to defeat another related attack (Cross Site Request Forgery). Make sure that you set these parameters correctly for your attack to succeed.
 
-   **Note 2:** Compile and run the java program using javac HTTPSimpleForge.java java HTTPSimpleForge
+   **Note 2:** Compile and run the java program using 
+   
+```
+javac HTTPSimpleForge.java 
+java HTTPSimpleForge
+```
 
 Task 5: Countermeasures
 ===============
