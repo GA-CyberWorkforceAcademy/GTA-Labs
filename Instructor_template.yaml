@@ -1,0 +1,150 @@
+heat_template_version: 2018-08-31
+
+description: GTA Labtainers on Ubuntu 20.04
+
+parameters:
+  username:
+    type: string
+    label: User Name
+    description: Sets the login username for the instances
+    default: user
+    hidden: false
+
+  password:
+    type: string
+    label: Password
+    description: Sets the login password for the instances
+    default: password
+    hidden: true
+
+
+resources:
+  rand_string:
+    type: OS::Heat::RandomString
+    properties:
+      length: 4
+
+  root_username:
+    type: OS::Heat::Value
+    properties:
+      type: string
+      value: r00t
+
+  root_password:
+    type: OS::Heat::Value
+    properties:
+      type: string
+      value: p455w0rd
+
+  # # ----- GTA Labtainers Network Configuration Start ----- #
+  # gta_network:
+  #   type: OS::Neutron::Net
+  #   properties:
+  #     name:
+  #       str_replace:
+  #         template: gta_network_RAND
+  #         params:
+  #           RAND: { get_resource: rand_string }
+  #     admin_state_up: true
+  #     shared: false
+
+  # gta_subnet:
+  #   type: OS::Neutron::Subnet
+  #   depends_on: gta_network
+  #   properties:
+  #     cidr: 192.168.65.0/27
+  #     gateway_ip:  192.168.65.30
+  #     dns_nameservers: [10.101.255.254]
+  #     enable_dhcp: true
+  #     host_routes: [ ]
+  #     ip_version: 4
+  #     name:
+  #       str_replace:
+  #         template: gta_subnet_RAND
+  #         params:
+  #           RAND: { get_resource: rand_string }
+  #     network_id:
+  #       get_resource: gta_network
+  # # ----- GTA Labtainers Network Configuration End ----- #
+
+  # # ----- GTA Labtainers Router Configuration Start ----- #
+  # gta_neutron_router:
+  #   type: OS::Neutron::Router
+  #   properties:
+  #     name:
+  #       str_replace:
+  #         template: gta_neutron_router_RAND
+  #         params:
+  #           RAND: { get_resource: rand_string }
+  #     external_gateway_info:
+  #       network: public
+
+  # gta_neutron_router_interface:
+  #   type: OS::Neutron::RouterInterface
+  #   properties:
+  #     router_id: { get_resource: gta_neutron_router }
+  #     subnet_id: { get_resource: gta_subnet }
+  # # ----- GTA Labtainers Router Configuration Start ----- #
+
+  # ----- GTA Labtainers Workstation Configuration Start ----- #
+  gta_labtainers:
+    type: OS::Nova::Server
+    properties:
+      name: gta_labtainers
+
+      image: ubuntu2004_gta_lxqt
+      flavor: hack.c2.m4.d32
+      networks:
+        - port: { get_resource: gta_labtainers_port }
+      diskConfig: AUTO
+      config_drive: true
+      user_data_format: RAW
+      user_data:
+        str_replace:
+          template: |
+            #!/bin/bash
+
+            apt-get install libreoffice -y
+            
+            echo "*** cloud-init install complete ****"
+
+            reboot
+
+          params:
+            $root_user: { get_resource: root_username }
+            $root_pass: { get_resource: root_password }
+            $user: { get_param: username }
+            $pass: { get_param: password }
+  # ----- GTA Labtainers Workstation Configuration End ----- #
+
+
+  # ----- GTA Labtainers Workstation Port Configuration Start ----- #
+  gta_labtainers_port:
+    type: OS::Neutron::Port
+    description: gta labtainer IP
+    properties:
+      name:
+        str_replace:
+          template: gta_labtainers_port_RAND
+          params:
+            RAND: { get_resource: rand_string }
+      network: public
+      # port_security_enabled: false
+      # fixed_ips:
+      #- subnet_id: {get_resource: gta_subnet }
+      # - ip_address: 192.168.65.20
+
+
+  # gta_labtainers_float_ip:
+  #   type: OS::Neutron::FloatingIP
+  #   depends_on: gta_neutron_router
+  #   description: GTA Labtainers Floating IP
+  #   properties: { floating_network: public }
+
+  # gta_labtainers_float_ip_assoc:
+  #   type: OS::Neutron::FloatingIPAssociation
+  #   depends_on: gta_neutron_router_interface
+  #   properties:
+  #     floatingip_id: { get_resource: gta_labtainers_float_ip }
+  #     port_id: { get_resource: gta_labtainers_port }
+  # # ----- GTA Labtainers Workstation Configuration End ----- #
