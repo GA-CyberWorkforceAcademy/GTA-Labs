@@ -105,6 +105,8 @@ resources:
             #!/bin/bash
 
             apt-get install libreoffice -y
+            docker pull webgoat/webgoat-8.0
+            docker run -p 8080:8080 -t webgoat/webgoat-8.0
             
             echo "*** cloud-init install complete ****"
 
