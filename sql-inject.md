@@ -45,7 +45,7 @@ Navigate to the “labtainer-student” directory and start the lab using the
 command:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->   labtainer sql-inject
+$ labtainer sql-inject
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 -   Links to this lab manual will be displayed if you wish to view the prompt
@@ -237,5 +237,5 @@ Submission
 After finishing the lab, go to the terminal on your Linux system that was
 used to start the lab and type:
 ```
->   stoplab sql-inject
+$ stoplab sql-inject
 ```
