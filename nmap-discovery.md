@@ -22,7 +22,7 @@ Navigate to the “labtainer-student” directory and start the lab using the
 command:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->   labtainer nmap-discovery
+$ labtainer nmap-discovery
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 -   Links to this lab manual will be displayed if you wish to view the prompt
@@ -56,7 +56,7 @@ $ ssh ubuntu@<host IP> -p <port number>”
 When the lab is completed, or you’d like to stop working for a while, run:
 
 ```
-stoplab
+$ stoplab
 ``` 
 
 You can always restart the Labtainer and continue your work. When the Labtainer is stopped. 
