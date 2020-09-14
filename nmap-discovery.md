@@ -2,6 +2,9 @@
 
 Discovering Services with NMAP
 =================================
+__This lab was developed for the Labtainer framework by the Naval Postgraduate School,
+Center for Cybersecurity and Cyber Operations under National Science Foundation Award
+No. 1438893. This work is in the public domain, and cannot be copyrighted.__
 
 Overview
 ========
