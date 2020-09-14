@@ -169,7 +169,8 @@ URL url = new URL ("http://www.xsslabelgg.com/action/friends/add?friend=42"+requ
 String cookies = "Elgg=cj1be6flek57vflghcdk2r2qb0";
  
 ```
--Save the file and close leafpad.
+- Save the file and close leafpad.
+
  **Note** Compile and run the java program using 
    
 ```
@@ -178,7 +179,9 @@ java HTTPSimpleForge
 ```
 
 
- The Elgg server cannot distinguish whether the request is sent out by the victim’s browser or by the attacker’s Java program. As long as we set all the parameters correctly, and the session cookie is attached, the server will accept and process the project-posting HTTP request. 
+- The Elgg server cannot distinguish whether the request is sent out by the victim’s browser or by the attacker’s Java program. As long as we set all the parameters correctly, and the session cookie is attached, the server will accept and process the project-posting HTTP request. 
+ 
+ - Check the friends that were added and note whether or note Samy was added.
 
 **Note 1:** Elgg uses two parameters elgg ts and elgg token as a countermeasure to defeat another related attack (Cross Site Request Forgery). Make sure that you set these parameters correctly for your attack to succeed.
 
