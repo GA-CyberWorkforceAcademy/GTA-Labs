@@ -2,13 +2,16 @@
 
 SQL Injection Attack Lab
 =================================
-__Copyright © 2014 Wenliang Du, Syracuse University.
-The development of this document is/was funded by the following grants from the US National Science
-Foundation: No. 1303306 and 1318814. This lab was imported into the Labtainer framework by the Naval
-Postgraduate School, Center for Cybersecurity and Cyber Operations under National Science Foundation
-Award No. 1438893. Permission is granted to copy, distribute and/or modify this document under the terms
-of the GNU Free Documentation License, Version 1.2 or any later version published by the Free Software
-Foundation. A copy of the license can be found at http://www.gnu.org/licenses/fdl.html.__
+__Copyright 2006 - 2016 Wenliang Du, Syracuse University.
+The development of this document was partially funded by the National Science Foundation under
+Award No. 1303306 and 1318814. This lab was imported into the Labtainer framework by the Naval
+Postgraduate School, Center for Cybersecurity and Cyber Operations under National Science
+Foundation Aware No. 1438893. This work is licensed under a Creative Commons Attribution-Non-
+Commercial-ShareAlike 4.0 International License. A human-readable summary of (and not a
+substitute for) the license is the following: You are free to copy and redistribute the material in any
+medium or format. You must give appropriate credit. If you remix, transform, or build upon the
+material, you must distribute your contributions under the same license as the original. You may not
+use the material for commercial purposes.__
 
 Overview
 ========
