@@ -22,7 +22,7 @@ Navigate to the “labtainer-student” directory and start the lab using the
 command:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->   labtainer nmap-ssh
+$  labtainer nmap-ssh
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 -   Links to this lab manual will be displayed if you wish to view the prompt
@@ -87,7 +87,7 @@ Submission
 When the lab is completed, or you’d like to stop working for a while, run:
 
 ``
-stoplab
+$ stoplab
 ``
 
 You can always restart the labtainer to continue your work.
