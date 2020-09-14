@@ -3,6 +3,14 @@
 Cross-Site Scripting (XSS) Attack Lab
 =================================
 
+__Copyright © 2014 Wenliang Du, Syracuse University.
+The development of this document is/was funded by the following grants from the US National Science
+Foundation: No. 1303306 and 1318814. This lab was imported into the Labtainer framework by the Naval
+Postgraduate School, Center for Cybersecurity and Cyber Operations under National Science Foundation
+Award No. 1438893. Permission is granted to copy, distribute and/or modify this document under the terms
+of the GNU Free Documentation License, Version 1.2 or any later version published by the Free Software
+Foundation. A copy of the license can be found at http://www.gnu.org/licenses/fdl.html.__
+
 Overview
 ========
 
