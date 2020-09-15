@@ -161,7 +161,7 @@ To add a friend for the victim, we should first find out how a legitimate user a
 
 - **Remove Samy as a friend.
 
-- In the attacker's terminal, navigate to the "/HTTPSimpleForge" directory on the attacker machine and open the "HTTPSimpleForge.java" program in the text editor leafpad:
+- In the attacker's terminal, navigate to the "/HTTPSimpleForge" directory on the attacker machine and open the "HTTPSimpleForge.java" program in the text editor featherpad:
  
  ```
  leafpad HTTPSimpleForge.java
@@ -177,7 +177,7 @@ URL url = new URL ("http://www.xsslabelgg.com/action/friends/add?friend=42"+requ
 String cookies = "Elgg=cj1be6flek57vflghcdk2r2qb0";
  
 ```
-- Save the file and close leafpad.
+- Save the file and close featherpad.
 
  **Note** Compile and run the java program using 
    
