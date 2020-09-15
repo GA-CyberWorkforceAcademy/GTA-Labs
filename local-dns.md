@@ -1,4 +1,7 @@
-   Local DNS Attack Lab
+![](media/b80e0eacca6dad9d42b5dc3545946591.png)
+
+Local DNS Attack Lab
+============
 
 Lab Overview
 ============
