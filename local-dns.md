@@ -1,19 +1,7 @@
-![](media/b80e0eacca6dad9d42b5dc3545946591.png)
-
-Local DNS Attack Lab
-============
+>   Local DNS Attack Lab
 
 Lab Overview
 ============
-
-__Copyright c 2006 Wenliang Du, Syracuse University.
-The development of this document was partially funded by the National Science Foundation’s Course, Curriculum,
-and Laboratory Improvement (CCLI) program under Award No. 0618680 and 0231122. This lab
-was altered and imported into the Labtainer framework by the Naval Postgraduate School, Center for Cybersecurity
-and Cyber Operations under National Science Foundation Aware No. 1438893.
-Permission is granted to copy, distribute and/or modify this document under the terms of the GNU Free
-Documentation License, Version 1.2 or any later version published by the Free Software Foundation. A copy
-of the license can be found at http://www.gnu.org/licenses/fdl.html.__
 
 DNS (Domain Name System) is the Internet’s phone book; it
 translates hostnames to IP addresses (or IP addresses to hostnames). This

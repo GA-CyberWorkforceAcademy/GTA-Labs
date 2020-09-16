@@ -2,9 +2,6 @@
 
 Discovering Services with NMAP
 =================================
-__This lab was developed for the Labtainer framework by the Naval Postgraduate School,
-Center for Cybersecurity and Cyber Operations under National Science Foundation Award
-No. 1438893. This work is in the public domain, and cannot be copyrighted.__
 
 Overview
 ========
@@ -22,7 +19,7 @@ Navigate to the “labtainer-student” directory and start the lab using the
 command:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-$ labtainer nmap-discovery
+>   labtainer nmap-discovery
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 -   Links to this lab manual will be displayed if you wish to view the prompt
@@ -56,7 +53,7 @@ $ ssh ubuntu@<host IP> -p <port number>”
 When the lab is completed, or you’d like to stop working for a while, run:
 
 ```
-$ stoplab
+stoplab
 ``` 
 
 You can always restart the Labtainer and continue your work. When the Labtainer is stopped. 
