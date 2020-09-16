@@ -33,11 +33,11 @@ You should have two additional terminal's open after starting the lab that repre
 
 From your ubuntu host, you will need to first identify the docker network ID's so you know what adapter to sniff traffic on. From the terminal window that you deployed the lab from, type "ip addr" (not the new terminal windows).  This will return a list of network adapters and information.  Locate the adapter that is on the 172.20.0.0/24 network.  This is the network that the container client and server are connected to. 
 
-The image below shows the adapter and network, however the identifier will most likley me different as it is created dynamically.
+The image below shows the adapter and network, however the identifier will most likely me different as it is created dynamically.
 
 ![](media/adapter.PNG)
 
-From your host's terminal, you will now need to run Wireshark and select the adapter that you identified in the previous step.  Ensure you run Wireshark with administrative priviledges. 
+From your host's terminal, you will now need to run Wireshark and select the adapter that you identified in the previous step.  Ensure you run Wireshark with administrative privileges. 
 
 ```
 $ sudo wireshark
@@ -46,7 +46,7 @@ $ sudo wireshark
 
 - Select the correct adapter and start capturing traffic.
 
-- No packets should apear in the Wireshark window until you are interacting between the client and server containers in the next steps.
+- No packets should appear in the Wireshark window until you are interacting between the client and server containers in the next steps.
 
 
 Determine the server IP address
@@ -54,7 +54,7 @@ Determine the server IP address
 
 - In the terminal window with the label "ubuntu@server", type “ip addr” to view the IP address of the server. The server IP address will follow the “inet” label.
 
-- You may also use the ifconfig command to view this information. This is an older, deprecated command but still supported on popular Linux distrobutions.
+- You may also use the ifconfig command to view this information. This is an older, deprecated command but still supported on popular Linux distributions.
 
 Telnet to server and display a file on the server
 =====
@@ -82,7 +82,7 @@ $   cat filetoview.txt
 View plaintext passwords with Wireshark and TCPdump
 =====
 
-- Ensure that Wireshark is open on your ubunutu host and capturing traffic on the docker container adapter that was previously identified. 
+- Ensure that Wireshark is open on your ubuntu host and capturing traffic on the docker container adapter that was previously identified. 
 
 - On the client start a telnet session, but when prompted for the password type “mydoghasfleas” (you know this password is incorrect).
 
@@ -90,23 +90,23 @@ View plaintext passwords with Wireshark and TCPdump
 
 - In Wireshark, right-click on any of the packets in the stream and go "Follow > TCP Stream". A new window should open with the traffic stream reconstructed from the packets captured.  Take note of the password entry seen in plaintext.
 
-- Now trying viewing this information through TCPDump.  On the ubuntu server, run TCPdump and watch the very end of the hexidecimal output for the data being pushed in each segment.
+- Now trying viewing this information through TCPDump.  On the ubuntu server, run TCPDump and watch the very end of the hexadecimal output for the data being pushed in each segment.
 
 ```
 $ sudo tcpdump -i eth0 -X dst 172.20.0.3
 ```
 
-*As you type each letter of the password, notice that the tcpdump traffic captures them in seperate segments.
+*As you type each letter of the password, notice that the TCPDump traffic captures them in separate segments.
 
 Use SSH to protect communications with the server
 =====
-- Ensure that Wireshark is open on your ubunutu host and restart the packet capture on the docker container adapter that was previously identified. 
+- Ensure that Wireshark is open on your ubuntu host and restart the packet capture on the docker container adapter that was previously identified. 
 
 - From the client computer, use the SSH command to access the server using its IP address:
 ```
 $ ssh <IP ADDRESS>
 ```
-- The first time you SSH to a server, SSH will warn you that the “authenticity ofthe host… can’t be established”. Type “yes” at the prompt.
+- The first time you SSH to a server, SSH will warn you that the “authenticity of the host… can’t be established”. Type “yes” at the prompt.
 
 - View the file content by typing:
 ```
