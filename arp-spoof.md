@@ -40,7 +40,7 @@ Figure 1: Intended traffic from between User and Webserver
 Lab Tasks
 =========
 
-In this lab, you will use the arpspoof tool to convice the User computer that traffic destined for Gateway should instead be sent to the Attacker computer – and convince the Gateway that traffic destined for the User should be sent to the Attacker computer, as illustrated in
+In this lab, you will use the arpspoof tool to convince the User computer that traffic destined for Gateway should instead be sent to the Attacker computer – and convince the Gateway that traffic destined for the User should be sent to the Attacker computer, as illustrated in
 [Figure2](#_bookmark1)
 
 ![](media/b96f350b01df9d918613fad019d242b8.jpg)
@@ -95,11 +95,11 @@ After your ARP spoofing has commenced you should see your spoofed ARP traffic in
 
 - Stop the capture, (red button).
 
-- There is a lot of traffic (mostly ARP) inthis pcap.  Click the "Protocol" coloumn to sort and scroll to the end of the ARP packets. 
+- There is a lot of traffic (mostly ARP) in this pcap.  Click the "Protocol" column to sort and scroll to the end of the ARP packets. 
 
 - Do you see the web query or response this time?  (You should, since the attack machine is acting an a Man-in-the-Middle).
 
-**Reflect on how simple this was. Effectivly all traffic that the user computer sends/recieves through the gateway would be captured by the attacker!**
+**Reflect on how simple this was. Effectively all traffic that the user computer sends/receives through the gateway would be captured by the attacker!**
 
 Submission
 ==========
