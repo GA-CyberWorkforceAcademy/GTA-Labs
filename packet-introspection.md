@@ -18,7 +18,7 @@ Navigate to the “labtainer-student” directory and start the lab using the
 command:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->   labtainer packet-introspective
+>   labtainer packet-introspection
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 -   The resulting virtual terminal is connected to the attacker computer.
@@ -32,18 +32,16 @@ Lab Tasks
 Part 1- Find Most Active TCP Flow (15 pts total)
 ==========
 
-A common network analysis task is determining the largest contributors to network traffic and potential congestion. In this part you will isolate and examine the largest TCP flow1 in a packet capture. Complete the following steps and answer the questions.
+A common network analysis task is determining the largest contributors to network traffic and potential congestion. In this part you will isolate and examine the largest TCP flows in a packet capture. Complete the following steps and answer the questions.
 
-Open pcaps/http-misctraffic101.pcapng in Wireshark
+Open pcaps/http-misctraffic101.pcapng in Wireshark.
 
-Select Statistics — Conversations. Click the Ethernet tab; notice there is only one pair of hosts communicating on the local network. Ensure that the Name resolution box is checked. The MAC address listed as Cadant is the local router. The Flextron host is the client from which the traffic was captured.
+Select Statistics — Conversations. Click the Ethernet tab; notice there is only one pair of hosts communicating on the local network. Ensure that the Name resolution box is checked. The MAC address listed as Cadant is the local router. The HP host is the client from which the traffic was captured.
 
-- Q1.A (5 pts): Click on the IPv4 tab to examine the IPv4 conversations in this trace file. Based on the bytes count, what IP addresses participate in the most active IPv4 conversation?
+- Q1.A (5 pts): Click on the IPv4 tab to examine the IPv4 conversations in this trace file. Based on the byte count, what IP addresses participate in the most active IPv4 conversation?
 
 Click the TCP tab to identify the most active TCP conversation. Sort by bytes by clicking on the Bytes column heading.
 
-When looking at the most active flow, we see that host 107.6.133.250 is using port http (80) and host 25.6.181.160 is using port dellpwrappks (1266). Since HTTP clients choose a random ephemeral port to communicate, we can be reasonably confident that this traffic is in fact unrelated to the dellp- wrappks service.(If you see service names, you can uncheck the Name resolution box to view the
-port numbers.)
 
 - Q1.B (10 pts): Right-click on the most active TCP conversation and select Apply as a Filter. Wireshark automatically creates and applies a display filter for this TCP conversation. How many packets match this filter?
 
@@ -64,7 +62,7 @@ Select Statistics — Endpoints and click on the IPv4 tab. You should see inform
 
 Click the Map button. Wireshark will launch a map view in your browser with the known IP addresses plotted as points on the map. Click on any of the plot point to find more information about the IP address.
 
-- Q2 (15 pts): How much aggregate traffic went to/from Milpitas, CA?
+- Q2 (15 pts): How much aggregate traffic went to/from Santa Clara, CA?
 
 *Clean-up: Close the browser tab/window when you are finished. Close the Wireshark Endpoints window
 
@@ -85,7 +83,7 @@ Apply the display filter frame contains ”X-Slogan”
 
 Right-click on the two other displayed frames and select Follow — TCP Stream to examine the HTTP headers exchanged between hosts. Did you find the other message? Note that you can only follow one stream at a time using this right-click method. You will need to clear out your display filter before following the next stream.
 
-- Q3.B (10 pts): What other message did you find (different than before)?
+- Q3.B (10 pts): What other message did your find from Gerald Combs? 
 
 *Clean-up: Click the Close button on the Follow TCP Stream window when you have finished following streams. Click the Clear button to remove your display filter before continuing.
 
@@ -108,9 +106,9 @@ The only remaining traffic displayed is the file transfer traffic. Right-click o
 
 To reassemble the graphic image transferred in this FTP communication, Change the Show and save data as dropdown to Raw and click the Save As button, select a target directory for the file, and set the file name to the one you found a few steps back. Click Save.
 
-- Q4.B (10 pts): Navigate to the target directory and open the file you saved in the previous step. Include the image in your report.
+- Q4.B (10 pts): Open a terminal and navigate to the target directory /home/ubuntu/ where you stored the file.  Create a hash of the file using the md5sum command and the file. Type the hash in the answer box. 
 
-*Clean-up: When youve finished examining the image you extracted, close your image viewer. Return to Wireshark to close the TCP Stream window and clear your display filter.
+*Clean-up: When you have finished examining the image you extracted, close your image viewer. Return to Wireshark to close the TCP Stream window and clear your display filter.
 
 Submission
 ==========
