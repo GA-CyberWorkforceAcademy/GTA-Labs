@@ -33,7 +33,7 @@ You should have two additional terminal's open after starting the lab that repre
 
 From your ubuntu host, you will need to first identify the docker network ID so you know what adapter to sniff traffic on. From the host terminal window, type the command: "ip addr". NOTE: Ensure you are not in the terminal windows for the ubuntu client and ubuntu server. These terminals are the lab docker containers.  the "ip addr" command will return a list of network adapters and information.  Locate the adapter that is on the 172.20.0.0/24 network.  This is the network that the container client and server are connected to. 
 
-The image below shows the adapter and network, however the identifier will most likely me different as it is created dynamically.
+The image below shows the adapter and network, however the identifier will most likely be different as it is created dynamically.
 
 ![](media/adapter.PNG)
 
