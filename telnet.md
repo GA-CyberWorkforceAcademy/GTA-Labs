@@ -27,7 +27,7 @@ Tasks
 Start sniffing traffic
 =====
 
-You should have two additional terminal's open after starting the lab that represent an ubuntu client and server. These hosts reside on docker containers.
+You should have two additional terminals open after starting the lab that represent an ubuntu client and server. These hosts reside on docker containers.
 
 *A container is a standard unit of software that packages up code and all its dependencies so the application runs quickly and reliably from one computing environment to another.
 
