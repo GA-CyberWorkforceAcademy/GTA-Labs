@@ -22,9 +22,11 @@ open a terminal window.
 Navigate to the “labtainer-student” directory and start the lab using the
 command:
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+```
 $  labtainer metasploit
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+```
+
+- You will be advised that this lab will require downloading.  Accept this (answer Y) and allow the download to proceed.
 
 -   The resulting virtual terminal is connected to the attacker computer.
 -   Links to this lab manual will be displayed if you wish to view the prompt
