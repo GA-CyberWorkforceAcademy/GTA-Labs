@@ -130,8 +130,7 @@ You will again use packet spoofing (nping) to perform this task. Use the –data
 /~/documents/delete-this.txt. 
 ```
 
-Note that if you use your telnet session to delete that file, e.g., to observe the protocol in wireshark, then you must recreate that file so it can be deleted in
-a hijacked session.
+Note that if you use your telnet session to delete that file, e.g., to observe the protocol in wireshark, then you must recreate that file so it can be deleted in a hijacked session.
 
 **Figure 3: TCP Session Hijacking Attack**
 
@@ -147,7 +146,9 @@ In the following, we show how we can set up a reverse shell if we can directly r
 
 **Figure 4: Reverse shell connection to the listening netcat process**
 
-To have a bash shell on a remote machine connect back to the attacker’s machine, the attacker needs a process waiting for some connection on a given port. In this example, we will use netcat. This program allows us to specify a port number and can listen for a connection on that port. In Figure 4(a), netcat (nc for short) is used to listen for a connection on port 9090. 
+To have a bash shell on a remote machine connect back to the attacker’s machine, the attacker needs a process waiting for some connection on a given port. 
+
+In this example, we will use netcat. This program allows us to specify a port number and can listen for a connection on that port. In Figure 4(a), netcat (nc for short) is used to listen for a connection on port 9090. 
 
 In Figure 4(b), the /bin/bash command represents the command that would normally be executed on a compromised server.
 
