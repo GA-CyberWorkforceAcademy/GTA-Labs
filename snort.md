@@ -20,7 +20,7 @@ Navigate to the “labtainer-student” directory and start the lab using the
 command:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->   labtainer snort
+$  labtainer snort
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 -   Links to this lab manual will be displayed if you wish to view the prompt
@@ -33,7 +33,7 @@ This lab includes several networked computers as shown in Figure 1. When the lab
 starts, you will get (3) virtual terminals, each houses (2)
 container/components.
 
-\*\*Terminal 1)
+**Terminal 1)
 
 -   The external side of the gateway is with our external address, i.e.,
     203.0.113.10. and routes web traffic (ports 80 and 443) to the internal
@@ -45,7 +45,7 @@ container/components.
     Firefox and an entry in /etc/hosts for www.example.com. Both workstations
     also include the nmap utility. "Hank" is our external adversary.
 
-\*\*Terminal 2)
+**Terminal 2)
 
 -   The internal side of the gateway is configured with NAT to translate sources
     addresses of traffic from internal IP addresses, e.g., 192.168.2.1, to our
@@ -61,7 +61,7 @@ container/components.
 -   The web server runs Apache and is configured to support SSL for web pages in
     the www.example.com domain.
 
-\*\*Terminal 3)
+**Terminal 3)
 
 -   The snort container includes the Snort IDS utility and is assigned to "Tom"
     in Security. It also includes Wireshark to help you observe traffic being
@@ -82,9 +82,9 @@ includes a start snort.sh script that will start the utility in Network
 Intrustion Dection Mode, and display alerts to the console. For this lab, you
 are required to start snort with:
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+```
 ./start_snort.sh
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+```
 
 When it comes time to stop snort, e.g., to add rules, simply use CTL-C.
 
@@ -93,9 +93,9 @@ Pre-configured Snort rules
 
 While snort is running, open Firefox on the remote ws and view the webpage:
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+```
 firefox www.example.com
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+```
 
 -   You should not see any alerts, as this is normal, permissible traffic.
 
@@ -107,9 +107,9 @@ largely as it exists after initial installation of the snort utility. To see an
 example of some of the preconfigured rules, perform an nmap scan of
 www.example.com from the remote ws container:
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+```
 sudo nmap www.example.com
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+```
 
 \*Note the alerts displayed at the snort console. The rules that generate these
 alerts can be seen, along with all rules, in /etc/snort/rules/
@@ -129,17 +129,17 @@ in Tom's home directory.)sn
 -   You will need to access the "nano" text editor, with root priviledges and
     add a rule.
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+```
 sudo nano /etc/snort/rules/local.rules
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+```
 
 -   Now add to the bottom of the file:
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+```
 alert tcp any any -> any any (msg:"TCP detected"; sid:00002;)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+```
 
-\*\*The rule can be read as: “Generate an alert whenever a TCP packet from any
+**The rule can be read as: “Generate an alert whenever a TCP packet from any
 address on any port is sent to any address on any port, and include the message
 tagged as “TCP detected”:, and give the rule an identifier of 00002.”
 
@@ -147,8 +147,9 @@ tagged as “TCP detected”:, and give the rule an identifier of 00002.”
 
 -   On the remote ws, test this rule by re-starting Firefox on the remote ws:
 
-    `firefox www.example.com`
-
+```
+firefox www.example.com
+```
     As you can see, the rule you wrote will overwhelm you with useless
     information because it is alerting to ALL the TCP traffic being produced by
     the remote ws's firefox connection to the website.
@@ -208,8 +209,9 @@ Watching internal traffic
 
 -   Go to Mary's ws2 container and run nmap:
 
--   sudo nmap www.example.com
-
+```
+sudo nmap www.example.com
+```
 -   What do you see on the snort component? Does it include the ICMP PING NMAP
     alert that you saw when the remote workstation ran nmap? Why not?
 
@@ -218,16 +220,18 @@ Watching internal traffic
     to the snort component. You can do this by adding this line to the section
     of that file that defines the packet mirroring:
 
--   iptables -t mangle -A PREROUTING -i \$lan2 -j TEE --gateway 192.168.3.1
+```
+sudo iptables -t mangle -A PREROUTING -i $lan2 -j TEE --gateway 192.168.3.1
+```
 
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    *PREROUTING – alters network packets when they arrive
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**PREROUTING – alters network packets when they arrive
+
 
 -   Then, from this same position, run the script to replace the iptables rules
     with your new rules:sudo
-
--   sudo /etc/rc.local
+```
+sudo /etc/rc.local
+```
 
 -   Now restart snort and again run nmap from the ws2 computer. You should now
     see additional alerts including ICMP PING NMAP alert.
@@ -237,21 +241,17 @@ Distinguishing traffic by address
 
 -   Start Firefox on mary’s ws2 computer to view the confidential business plan:
 
--   firefox www.example.com/plan.html
+```
+firefox www.example.com/plan.html
+```
 
-    Then observe the snort console. This will not do! The keen minds at the
-    startup need to view their confidential business plan without IDS alerts
-    firing off. But they do want to monitor internal computers for suspicious
-    traffic, e.g., nmap scans. In this task, you will adjust your snort rule so
-    that the CONFIDENTIAL alert only fires when the plan is accessed by
-    addresses outside of the site.
+Then observe the snort console. This will not do! The keen minds at the startup need to view their confidential business plan without IDS alerts firing off. But they do want to monitor internal computers for suspicious traffic, e.g., nmap scans. In this task, you will adjust your snort rule so that the CONFIDENTIAL alert only fires when the plan is accessed by  addresses outside of the site.
 
 -   If you review rules found in the /etc/snort/rules directory, you will see
     that rules have the general form of:
-
--   alert \<protocol\> \<source_addr\> \<src_port\> -\> \\  
-    \<dest_addr\> \<dest_port\> \<rule options in parens\>
-
+```
+alert <protocol> <source_addr> <src_port> -> <dest_addr> <dest_port> <rule options in parens>
+```
 -   The snort rules include two address fields: source addr and dest addr. These
     addresses are used to check the source from which the packet originated and
     the destination of the packet. The address may be a single IP address or a
@@ -261,7 +261,7 @@ Distinguishing traffic by address
     of 192.168.2.0/24 represents C class network 192.168.2.0 with 24 bits in the
     network mask.
 
-\*Note that as a result of our use of NAT, all traffic from the web server
+**Note that as a result of our use of NAT, all traffic from the web server
 destined for an external address will have a destination address of the gateway,
 (i.e., 192.168.1.10), while web traffic destined for internal users will have
 destination addresses that match the internal user.
@@ -287,5 +287,5 @@ After finishing the lab, go to the terminal on your Linux system that was used
 to start the lab and type:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-stoplab snort
+$ stoplab snort
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
