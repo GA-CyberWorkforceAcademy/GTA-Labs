@@ -56,4 +56,4 @@ When the lab is completed, or you’d like to stop working for a while, run:
 $ stoplab
 ``` 
 
-You can always restart the Labtainer and continue your work. When the Labtainer is stopped. 
+You can always restart the Labtainer and continue your work.
