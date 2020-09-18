@@ -169,34 +169,37 @@ If you have trouble understanding the sample Java program, we suggest you to  re
 
    **Note 2:** Compile and run the java program using javac HTTPSimpleForge.java java HTTPSimpleForge
 
-Task 5: Countermeasures
+Task 5: Countermeasures (Optional)
 ===============
 
-   Elgg does have a built in countermeasures to defend against the XSS attack. We have deactivated and commented out the countermeasures to make the attack
-   work. There is a custom built security plugin HTMLawed 1.8 on the Elgg web application which on activated, validates the user input and removes the
-   tags from the input. This specific plugin is registered to the function filter tags in the elgg/ engine/lib/input.php file.
+Elgg does have a built in countermeasures to defend against the XSS attack. We have deactivated and commented out the countermeasures to make the attack work. There is a custom built security plugin HTMLawed 1.8 on the Elgg web application which on activation, validates the user input and removes the tags from the input. 
 
-   To turn on the countermeasure, login to the application as admin, goto administration (on top menu) plugins (on the right panel), andSelect
-   security and spam in the dropdown menu and click filter. You should find the HTMLawed 1.8 plugin below. Click on Activate to enable the countermeasure.
+This specific plugin is registered to the function filter tags in the elgg/ engine/lib/input.php file.
 
-   In addition to the HTMLawed 1.8 security plugin in Elgg, there is another built-in PHP method called htmlspecialchars(), which is used to encode the
-   special characters in the user input, such as encod- ing "\<" to &lt, "\>" to &gt, etc. Please go to the directory elgg/views/default/output and find
-   the function call htmlspecialchars in text.php, tagcloud.php, tags.php, access.php, tag.php, friendlytime.php, url.php, dropdown.php, email.php and
-   confirmlink.php files. Uncomment the corresponding "htmlspecialchars" function calls in each file.
+- To turn on the countermeasure:
+1. Login to the application as admin
+2. goto "administration" (on top menu) > "plugins" (on the right panel), and Select "security and spam" in the dropdown menu and click "filter". 
+3. You should find the HTMLawed 1.8 plugin below. Click on "Activate" to enable the countermeasure.
+
+In addition to the HTMLawed 1.8 security plugin in Elgg, there is another built-in PHP method called htmlspecialchars(), which is used to encode the special characters in the user input, such as encoding "<" to &lt, ">" to &gt, etc. 
+
+1. Please go to the directory elgg/views/default/output and find the function call htmlspecialchars in text.php, tagcloud.php, tags.php, access.php, tag.php, friendlytime.php, url.php, dropdown.php, email.php and confirmlink.php files. 
+
+2. Uncomment the corresponding "htmlspecialchars" function calls in each file.
+
 
 Once you know how to turn on these countermeasures, please do the following:
 
-1.  Activate only the HTMLawed 1.8 countermeasure but not htmlspecialchars; visit any of the victim profiles and describe your observations in your
-    report.
+1.  Activate only the HTMLawed 1.8 countermeasure but not htmlspecialchars; visit any of the victim profiles and make observations.
 
-2.  Turn on both countermeasures; visit any of the victim profiles and describe your observation in your report.
+2.  Turn on both countermeasures; visit any of the victim profiles and make observations.
 
    **Note:** Please do not change any other code and make sure that there are no syntax errors.
 
 Submission
 ==========
-   After finishing the lab, go to the terminal on your Linux system that was
-   used to start the lab and type:
+
+After finishing the lab, go to the terminal on your Linux system that was used to start the lab and type:
 ```
 $ stoplab xsite
 
