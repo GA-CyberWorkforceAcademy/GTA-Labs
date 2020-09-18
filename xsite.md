@@ -70,7 +70,7 @@ Lab Tasks
 
 Task 1: Posting a Malicious Message to Display an Alert Window
 ===============
-   The objective of this task is to embed a JavaScript program in your Elgg profile, such that when another user views your profile, the JavaScript program will be executed and an alert window will be displayed. The following JavaScript program will display an alert window:
+The objective of this task is to embed a JavaScript program in your Elgg profile, such that when another user views your profile, the JavaScript program will be executed and an alert window will be displayed. The following JavaScript program will display an alert window:
 ```
 >   \<script\>alert('XSS');\</script\>
 ```
@@ -86,6 +86,8 @@ src="http://www.example.com/myscripts.js">
 ```
 
    In the above example, the page will fetch the JavaScript program from [http://www.example.com](http://www.example.com/), which can be any web server.
+   
+   For more informatin about JavaScript Browser Object Models: https://www.w3schools.com/js/js_window.asp
 
 Task 2: Posting a Malicious Message to Display Cookies
 ===============
@@ -196,7 +198,7 @@ Submission
    After finishing the lab, go to the terminal on your Linux system that was
    used to start the lab and type:
 ```
->   stoplab xsite
+$ stoplab xsite
 
 ```
 
