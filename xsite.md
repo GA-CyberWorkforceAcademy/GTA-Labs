@@ -35,8 +35,7 @@ In this lab, you will exploit this vulnerability to launch an XSS attack on the 
 Environment Configuration
 ===============
 
-This lab includes three networked computers as shown in Figure
->   [1.](#_bookmark0) 
+This lab includes three networked computers as shown in Figure [1.](#_bookmark0) 
 
 The "vuln-site" runs the Apache web server and the Elgg web applications. The "attacker" and "victim" computers each include the Firefox browser. Use the browser Web Developer / Network tool (upper right menu), to inspect the HTTP requests and responses.
 
@@ -72,7 +71,7 @@ Task 1: Posting a Malicious Message to Display an Alert Window
 ===============
 The objective of this task is to embed a JavaScript program in your Elgg profile, such that when another user views your profile, the JavaScript program will be executed and an alert window will be displayed. The following JavaScript program will display an alert window:
 ```
->   <script>alert('XSS');</script>
+$  <script>alert("XSS");</script>
 ```
   If you embed the above JavaScript code in your profile (e.g. in the brief description field), then any user who views your profile will see the alert window.
 
