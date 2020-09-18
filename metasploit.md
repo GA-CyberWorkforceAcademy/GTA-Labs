@@ -23,7 +23,7 @@ Navigate to the “labtainer-student” directory and start the lab using the
 command:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-$  labtainer metaploit
+$  labtainer metasploit
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 -   The resulting virtual terminal is connected to the attacker computer.
