@@ -19,7 +19,7 @@ Once you have logged into your range account and accessed your Labtainer-VM, ope
 Navigate to the “labtainer-student” directory and start the lab using the command:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->   labtainer xsite
+$  labtainer xsite
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 -   Links to this lab manual will be displayed if you wish to view the prompt
@@ -47,7 +47,7 @@ Figure 1: Cross site scripting lab topology
    **Starting the Apache Server.** The Apache web server will be running when the lab commences. If you need to restart the web server, use the following
    command:
 ```
->   % sudo systemctl restart httpd
+ $ sudo systemctl restart httpd
 ```
 
    **The Elgg Web Application.** There are several user accounts on the Elgg server [http://www.xsslabelgg.com](http://www.xsslabelgg.com/) and the credentials are given below.
@@ -72,7 +72,7 @@ Task 1: Posting a Malicious Message to Display an Alert Window
 ===============
 The objective of this task is to embed a JavaScript program in your Elgg profile, such that when another user views your profile, the JavaScript program will be executed and an alert window will be displayed. The following JavaScript program will display an alert window:
 ```
->   \<script\>alert('XSS');\</script\>
+>   <script>alert('XSS');</script>
 ```
   If you embed the above JavaScript code in your profile (e.g. in the brief description field), then any user who views your profile will see the alert window.
 
@@ -95,7 +95,7 @@ Task 2: Posting a Malicious Message to Display Cookies
    The objective of this task is to embed a JavaScript program in your Elgg profile, such that when another user views your profile, the user’s cookies  will be displayed in the alert window. This can be done by adding some additional code to the JavaScript program in the previous task:
 
 ```
->   \<script\>alert(document.cookie);\</script\>
+>   <script>alert(document.cookie);</script>
 ```
 
 Task 3: Stealing Cookies from the Victim’s Machine
