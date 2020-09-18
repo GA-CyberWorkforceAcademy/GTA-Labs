@@ -24,9 +24,6 @@ $ labtainer pass-crack
 -   Links to this lab manual will be displayed if you wish to view the prompt
     from within your VM
 
-**Note**: There is an appendix of some helpful commands at the end of these
-instructions.
-
 Task 1: Password Files
 ======================
 
@@ -245,14 +242,6 @@ After finishing the lab, go to the terminal on your Linux system that was used t
 ```
 $ stoplab pass-crack
 ```
-From the host labtainer working directory. You can always restart the labtainer and try the lab again if you are unable to complete it.
 
-Appendix – Some Unix Commands
-=============================
+You can always restart the labtainer and try the lab again if you are unable to complete it.
 
-| cd    | Change the current directory. cd destination With no “destination” your current directory will be changed to your home directory. If you “destination” is “..”, then your current directory will be changed to the parent of your current directory. |
-|-------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|                                                        |
-| clear | Erase all the output on the current terminal and place the shell prompt at the top of the terminal.                                                                                                                                                  |                                    |
-| ls    | List the contents and/or attributes of a directory or file ls location ls file With no “location” or “file” it will display the contents of the current working directory.                                                                           |                                  |
-| more  | Display a page of a text file at a time in the terminal. (Also see less). more file To see another page, press the space bar. To see one more line, press the Enter key. To quit at any time press ‘q’ to quit.                                      |
-| pwd   | Display the present working directory pwd                                                                                                                                                                                                            |
