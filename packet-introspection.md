@@ -18,7 +18,7 @@ Navigate to the “labtainer-student” directory and start the lab using the
 command:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->   labtainer packet-introspection
+$  labtainer packet-introspection
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 -   The resulting virtual terminal is connected to the attacker computer.
@@ -116,7 +116,7 @@ Submission
 Make sure you have all your answers recorded. You will be submitting these in the Canvas Quiz titled "Packet Introspection Submission"
 After finishing the lab, go to the terminal on your Linux system that was used to start the lab and type:
 ```
->   stoplab
+$  stoplab
 ```
 
 References

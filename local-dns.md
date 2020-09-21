@@ -1,4 +1,4 @@
->   Local DNS Attack Lab
+![](media/b80e0eacca6dad9d42b5dc3545946591.png)
 
 Lab Overview
 ============
@@ -86,19 +86,19 @@ options {
 - Whenever you run the command:
 
 ```
-% sudo rndc dumpdb -cache // Dump the cache to dump.db
+$ sudo rndc dumpdb -cache // Dump the cache to dump.db
 ```
 
 You may delete the cache using:
 
 ```
-% sudo rndc flush // Flush the DNS cache
+$ sudo rndc flush // Flush the DNS cache
 ```
 
 - If a change is made to a configuration file, the DNS server must be restarted:
 
 ```
-% sudo /etc/init.d/bind9 restart
+$ sudo /etc/init.d/bind9 restart
 ```
 
  **Create zones.** Assume that we own a domain: example.com, which means that we are responsible for providing the definitive answer regarding example.com. We direct our DNS server to provide naming for the example.com domain by defining a *zone* in a file named example.conf in /etc/bind, and then importing that file into the named.conf configuration via an entry in the /etc/bind/named.conf.local file. It should be noted that the example.com domain name is reserved for use in documentation, and is not owned by anybody, so it is safe to use it. Our zone definition from the example.conf file is below:

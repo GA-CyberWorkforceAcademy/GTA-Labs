@@ -19,7 +19,7 @@ Once you have logged into your range account and accessed your Labtainer-VM, ope
 Navigate to the “labtainer-student” directory and start the lab using the command:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->   labtainer xsite
+$  labtainer xsite
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 -   Links to this lab manual will be displayed if you wish to view the prompt
@@ -35,8 +35,7 @@ In this lab, you will exploit this vulnerability to launch an XSS attack on the 
 Environment Configuration
 ===============
 
-This lab includes three networked computers as shown in Figure
->   [1.](#_bookmark0) 
+This lab includes three networked computers as shown in Figure [1.](#_bookmark0) 
 
 The "vuln-site" runs the Apache web server and the Elgg web applications. The "attacker" and "victim" computers each include the Firefox browser. Use the browser Web Developer / Network tool (upper right menu), to inspect the HTTP requests and responses.
 
@@ -47,7 +46,7 @@ Figure 1: Cross site scripting lab topology
    **Starting the Apache Server.** The Apache web server will be running when the lab commences. If you need to restart the web server, use the following
    command:
 ```
->   % sudo systemctl restart httpd
+ $ sudo systemctl restart httpd
 ```
 
    **The Elgg Web Application.** There are several user accounts on the Elgg server [http://www.xsslabelgg.com](http://www.xsslabelgg.com/) and the credentials are given below.
@@ -70,9 +69,9 @@ Lab Tasks
 
 Task 1: Posting a Malicious Message to Display an Alert Window
 ===============
-   The objective of this task is to embed a JavaScript program in your Elgg profile, such that when another user views your profile, the JavaScript program will be executed and an alert window will be displayed. The following JavaScript program will display an alert window:
+The objective of this task is to embed a JavaScript program in your Elgg profile, such that when another user views your profile, the JavaScript program will be executed and an alert window will be displayed. The following JavaScript program will display an alert window:
 ```
->   \<script\>alert('XSS');\</script\>
+$  <script>alert("XSS");</script>
 ```
   If you embed the above JavaScript code in your profile (e.g. in the brief description field), then any user who views your profile will see the alert window.
 
@@ -86,6 +85,8 @@ src="http://www.example.com/myscripts.js">
 ```
 
    In the above example, the page will fetch the JavaScript program from [http://www.example.com](http://www.example.com/), which can be any web server.
+   
+   For more informatin about JavaScript Browser Object Models: https://www.w3schools.com/js/js_window.asp
 
 Task 2: Posting a Malicious Message to Display Cookies
 ===============
@@ -93,7 +94,7 @@ Task 2: Posting a Malicious Message to Display Cookies
    The objective of this task is to embed a JavaScript program in your Elgg profile, such that when another user views your profile, the user’s cookies  will be displayed in the alert window. This can be done by adding some additional code to the JavaScript program in the previous task:
 
 ```
->   \<script\>alert(document.cookie);\</script\>
+>   <script>alert(document.cookie);</script>
 ```
 
 Task 3: Stealing Cookies from the Victim’s Machine
@@ -167,36 +168,39 @@ If you have trouble understanding the sample Java program, we suggest you to  re
 
    **Note 2:** Compile and run the java program using javac HTTPSimpleForge.java java HTTPSimpleForge
 
-Task 5: Countermeasures
+Task 5: Countermeasures (Optional)
 ===============
 
-   Elgg does have a built in countermeasures to defend against the XSS attack. We have deactivated and commented out the countermeasures to make the attack
-   work. There is a custom built security plugin HTMLawed 1.8 on the Elgg web application which on activated, validates the user input and removes the
-   tags from the input. This specific plugin is registered to the function filter tags in the elgg/ engine/lib/input.php file.
+Elgg does have a built in countermeasures to defend against the XSS attack. We have deactivated and commented out the countermeasures to make the attack work. There is a custom built security plugin HTMLawed 1.8 on the Elgg web application which on activation, validates the user input and removes the tags from the input. 
 
-   To turn on the countermeasure, login to the application as admin, goto administration (on top menu) plugins (on the right panel), andSelect
-   security and spam in the dropdown menu and click filter. You should find the HTMLawed 1.8 plugin below. Click on Activate to enable the countermeasure.
+This specific plugin is registered to the function filter tags in the elgg/ engine/lib/input.php file.
 
-   In addition to the HTMLawed 1.8 security plugin in Elgg, there is another built-in PHP method called htmlspecialchars(), which is used to encode the
-   special characters in the user input, such as encod- ing "\<" to &lt, "\>" to &gt, etc. Please go to the directory elgg/views/default/output and find
-   the function call htmlspecialchars in text.php, tagcloud.php, tags.php, access.php, tag.php, friendlytime.php, url.php, dropdown.php, email.php and
-   confirmlink.php files. Uncomment the corresponding "htmlspecialchars" function calls in each file.
+- To turn on the countermeasure:
+1. Login to the application as admin
+2. goto "administration" (on top menu) > "plugins" (on the right panel), and Select "security and spam" in the dropdown menu and click "filter". 
+3. You should find the HTMLawed 1.8 plugin below. Click on "Activate" to enable the countermeasure.
+
+In addition to the HTMLawed 1.8 security plugin in Elgg, there is another built-in PHP method called htmlspecialchars(), which is used to encode the special characters in the user input, such as encoding "<" to &lt, ">" to &gt, etc. 
+
+1. Please go to the directory elgg/views/default/output and find the function call htmlspecialchars in text.php, tagcloud.php, tags.php, access.php, tag.php, friendlytime.php, url.php, dropdown.php, email.php and confirmlink.php files. 
+
+2. Uncomment the corresponding "htmlspecialchars" function calls in each file.
+
 
 Once you know how to turn on these countermeasures, please do the following:
 
-1.  Activate only the HTMLawed 1.8 countermeasure but not htmlspecialchars; visit any of the victim profiles and describe your observations in your
-    report.
+1.  Activate only the HTMLawed 1.8 countermeasure but not htmlspecialchars; visit any of the victim profiles and make observations.
 
-2.  Turn on both countermeasures; visit any of the victim profiles and describe your observation in your report.
+2.  Turn on both countermeasures; visit any of the victim profiles and make observations.
 
    **Note:** Please do not change any other code and make sure that there are no syntax errors.
 
 Submission
 ==========
-   After finishing the lab, go to the terminal on your Linux system that was
-   used to start the lab and type:
+
+After finishing the lab, go to the terminal on your Linux system that was used to start the lab and type:
 ```
->   stoplab xsite
+$ stoplab xsite
 
 ```
 
