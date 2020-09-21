@@ -30,8 +30,8 @@ Network Configuration
 =====================
 
 This lab includes several networked computers as shown in Figure 1. When the lab
-starts, you will get (3) virtual terminals, each houses (2)
-container/components.
+starts, you will get (3) virtual terminals, each housing (2)
+containers. 
 
 \*\*Terminal 1)
 
@@ -69,6 +69,8 @@ container/components.
 
 -   The ws 2 is an internal workstaion used by a company employee (Mary).
 
+-   Take an opportunity to familiarize yourself with these lab prompts 
+
 ![](media/de3a114c656a9d761046bd0ac8a0503e.jpg)
 
 Lab Tasks
@@ -91,7 +93,7 @@ When it comes time to stop snort, e.g., to add rules, simply use CTL-C.
 Pre-configured Snort rules
 ==========================
 
-While snort is running, open Firefox on the remote ws and view the webpage:
+While snort is running, open Firefox on the hank@remote_ws and view the webpage:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 firefox www.example.com
@@ -104,7 +106,7 @@ firefox www.example.com
 The Snort utility includes a set of pre-configured rules that create alerts for
 known suspicious network activity. The configuration on the snort component is
 largely as it exists after initial installation of the snort utility. To see an
-example of some of the preconfigured rules, perform an nmap scan of
+example of some of the pre-configured rules, perform an nmap scan of
 www.example.com from the remote ws container:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -145,7 +147,7 @@ tagged as “TCP detected”:, and give the rule an identifier of 00002.”
 
 -   Restart snort using the ./start_snort.sh.
 
--   On the remote ws, test this rule by re-starting Firefox on the remote ws:
+-   On the hank@remote ws container, test this rule by re-starting Firefox on the remote ws:
 
     `firefox www.example.com`
 
