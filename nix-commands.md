@@ -306,7 +306,7 @@ find /usr/local –print
 ```
 Return to the privilege of a regular user:
 ```
-Exit
+exit
 ```
 
 You should still have a shell window open, but the prompt should have returned
@@ -413,7 +413,7 @@ History
 By default, most Linux shells keep track of the commands you have entered. Enter
 the following to see the commands you have entered as the student user:
 ```
-History
+history
 ```
 There are several benefits of keeping track of your commands. One benefit is
 being able to reuse previous commands without retyping them. One way to do that
