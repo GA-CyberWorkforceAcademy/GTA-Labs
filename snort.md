@@ -81,7 +81,7 @@ Starting and stopping snort
 
 The Snort utility is installed on the snort container. The home directory
 includes a start snort.sh script that will start the utility in Network
-Intrustion Dection Mode, and display alerts to the console. For this lab, you
+Intrusion Detection Mode, and display alerts to the console. For this lab, you
 are required to start snort with:
 
 ```
@@ -128,7 +128,7 @@ in Tom's home directory.)sn
 -   Stop snort and add a rule that generates an alert for each packet within a
     TCP stream.
 
--   You will need to access the "nano" text editor, with root priviledges and
+-   You will need to access the "nano" text editor, with root privileges and
     add a rule.
 
 ```
