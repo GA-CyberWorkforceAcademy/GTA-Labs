@@ -120,6 +120,6 @@ Stop the Labtainer
 
 When the lab is completed, or you’d like to stop working for a while, run:
 ```
-$ stoplab telnetlab
+$ stoplab
 ```
 From the host labtainer working directory. You can always restart the labtainer and try the lab again if you are unable to complete it. 
