@@ -152,10 +152,10 @@ rmdir temp2
 **It should have failed** because files still exist in that directory. Delete
 the files in the temp2 directory by using the rm (remove) command:
 ```
-rm temp2/.bas\*
+rm temp2/.bas*
 ll –a temp2
 ```
-Notice the use of the wild card “\*” symbol in the rm command. The command was
+Notice the use of the wild card “*” symbol in the rm command. The command was
 interpreted to mean: delete all the files starting with “.bas”.
 
 Now remove the directory:
@@ -193,7 +193,7 @@ the “|” character (shift “\”). (Microsoft also borrowed this concept).
 Pipe the previous command through the more command (as shown below), which will
 display one screen at a time:
 ```
-ls /usr/bin \| more
+ls /usr/bin | more
 ```
 To see the next page of output, press the space bar. To see one line at a time,
 press Enter. To quit at any time, press ‘q’.
@@ -472,13 +472,13 @@ will ping only once (-c 1), and will only wait one second (-w 1) for the reply.
 That is an improvement, but you don’t really want to see all that output. So try
 the following (all on one command line):
 ```
-ping -c 1 -w 1 google.com \> /dev/null
+ping -c 1 -w 1 google.com > /dev/null
 ```
 You redirected all the output into a black hole from which nothing returns. So
 we have removed all the output, but now we don’t know if the ping was
 successful. So, try the following addition (all on one command line):
 ```
-ping -c 1 -w 1 google.com \> /dev/null && echo Up
+ping -c 1 -w 1 google.com > /dev/null && echo Up
 ```
 That looks more like it. If ping is successful, the command after “&&” is
 executed, otherwise it is not. In this case “Up” is displayed on the screen if
@@ -489,13 +489,13 @@ following lines:
 ```
 echo
 echo “Trying Google”
-ping -c 1 -w 1 google.com \> /dev/null && echo Up
+ping -c 1 -w 1 google.com > /dev/null && echo Up
 echo
 echo “Trying Bing”
-ping -c 1 -w 1 bing.com \> /dev/null && echo Up
+ping -c 1 -w 1 bing.com > /dev/null && echo Up
 echo
 echo “Trying NPS”
-ping -c 1 -w 1 nps.edu \> /dev/null && echo Up
+ping -c 1 -w 1 nps.edu > /dev/null && echo Up
 ```
 Save the file in your home directory with the name of “pinger”, and then exit
 the editor.
