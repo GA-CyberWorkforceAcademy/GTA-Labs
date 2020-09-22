@@ -240,7 +240,7 @@ Submission
 After finishing the lab, go to the terminal on your Linux system that was used to start the lab and type:
 
 ```
-$ stoplab pass-crack
+$ stoplab
 ```
 
 You can always restart the labtainer and try the lab again if you are unable to complete it.
