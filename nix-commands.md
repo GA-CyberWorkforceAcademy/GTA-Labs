@@ -524,5 +524,5 @@ Finish Up
 After finishing the lab, go to the terminal on your Linux system that was used
 to start the lab and type:
 ```
-stoplab nix-commands
+stoplab
 ```
