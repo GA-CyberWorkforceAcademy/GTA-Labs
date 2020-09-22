@@ -188,7 +188,7 @@ One of the commands from the last section scrolled by too fast to see it all:
 ls /usr/bin
 ```
 One way to slow it down is to “pipe” it into another command. The pipe symbol is
-the “\|” character (shift “\\”). (Microsoft also borrowed this concept).
+the “|” character (shift “\”). (Microsoft also borrowed this concept).
 
 Pipe the previous command through the more command (as shown below), which will
 display one screen at a time:
@@ -208,16 +208,16 @@ also borrowed this concept.
 
 Redirect the directory listing into a file, as shown in the following command:
 ```
-ls /usr/bin \> listing
+ls /usr/bin > listing
 ll
 ```
 This file can now be viewed using more or cat or your favorite editor.
 
 If the file named “listing” already exists, it will be overwritten with a
 redirection. It is possible, however, to append the contents of an existing file
-by using “\>\>”:
+by using “>>”:
 ```
-echo "testing" \>\> listing
+echo "testing" >> listing
 cat listing
 ```
 The displayed output should first list the contents of the /usr/bin directory,
@@ -245,7 +245,7 @@ The command for searching the contents of a file for a given string is grep
 
 Search for the string “student” in all the files in the /etc directory:
 ```
-grep student /etc/\*
+grep student /etc/*
 ```
 The first argument of the grep command is the string to be searched for
 (student), while the last argument is the file, or files, to look in. The /etc
@@ -257,7 +257,7 @@ be quoted.
 There were a lot of errors reported from the previous grep command, so you can
 tell grep to be silent about those errors in order to have a cleaner output:
 ```
-grep -s student /etc/\*
+grep -s student /etc/*
 ```
 The Linux find command is like the Swiss army knife of Linux commands, and is
 also very useful for finding things. Its syntax is somewhat complicated, and it
@@ -295,7 +295,7 @@ Wild card characters can be used, but they must be quoted. For example, to find
 all the files ending with “.h”, the following could be used (**typed on one
 line**):
 ```
-find /usr/include -name "\*.h" –print
+find /usr/include -name "*.h" –print
 ```
 An even more basic use of find is to display the path of **every** file it sees.
 In the following example, find is told to look in the entire hierarchy starting
