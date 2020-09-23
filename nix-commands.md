@@ -152,10 +152,10 @@ rmdir temp2
 **It should have failed** because files still exist in that directory. Delete
 the files in the temp2 directory by using the rm (remove) command:
 ```
-rm temp2/.bas\*
+rm temp2/.bas*
 ll –a temp2
 ```
-Notice the use of the wild card “\*” symbol in the rm command. The command was
+Notice the use of the wild card “*” symbol in the rm command. The command was
 interpreted to mean: delete all the files starting with “.bas”.
 
 Now remove the directory:
@@ -188,12 +188,12 @@ One of the commands from the last section scrolled by too fast to see it all:
 ls /usr/bin
 ```
 One way to slow it down is to “pipe” it into another command. The pipe symbol is
-the “\|” character (shift “\\”). (Microsoft also borrowed this concept).
+the “|” character (shift “\”). (Microsoft also borrowed this concept).
 
 Pipe the previous command through the more command (as shown below), which will
 display one screen at a time:
 ```
-ls /usr/bin \| more
+ls /usr/bin | more
 ```
 To see the next page of output, press the space bar. To see one line at a time,
 press Enter. To quit at any time, press ‘q’.
@@ -208,16 +208,16 @@ also borrowed this concept.
 
 Redirect the directory listing into a file, as shown in the following command:
 ```
-ls /usr/bin \> listing
+ls /usr/bin > listing
 ll
 ```
 This file can now be viewed using more or cat or your favorite editor.
 
 If the file named “listing” already exists, it will be overwritten with a
 redirection. It is possible, however, to append the contents of an existing file
-by using “\>\>”:
+by using “>>”:
 ```
-echo "testing" \>\> listing
+echo "testing" >> listing
 cat listing
 ```
 The displayed output should first list the contents of the /usr/bin directory,
@@ -245,7 +245,7 @@ The command for searching the contents of a file for a given string is grep
 
 Search for the string “student” in all the files in the /etc directory:
 ```
-grep student /etc/\*
+grep student /etc/*
 ```
 The first argument of the grep command is the string to be searched for
 (student), while the last argument is the file, or files, to look in. The /etc
@@ -257,7 +257,7 @@ be quoted.
 There were a lot of errors reported from the previous grep command, so you can
 tell grep to be silent about those errors in order to have a cleaner output:
 ```
-grep -s student /etc/\*
+grep -s student /etc/*
 ```
 The Linux find command is like the Swiss army knife of Linux commands, and is
 also very useful for finding things. Its syntax is somewhat complicated, and it
@@ -295,7 +295,7 @@ Wild card characters can be used, but they must be quoted. For example, to find
 all the files ending with “.h”, the following could be used (**typed on one
 line**):
 ```
-find /usr/include -name "\*.h" –print
+find /usr/include -name "*.h" –print
 ```
 An even more basic use of find is to display the path of **every** file it sees.
 In the following example, find is told to look in the entire hierarchy starting
@@ -306,7 +306,7 @@ find /usr/local –print
 ```
 Return to the privilege of a regular user:
 ```
-Exit
+exit
 ```
 
 You should still have a shell window open, but the prompt should have returned
@@ -413,7 +413,7 @@ History
 By default, most Linux shells keep track of the commands you have entered. Enter
 the following to see the commands you have entered as the student user:
 ```
-History
+history
 ```
 There are several benefits of keeping track of your commands. One benefit is
 being able to reuse previous commands without retyping them. One way to do that
@@ -472,13 +472,13 @@ will ping only once (-c 1), and will only wait one second (-w 1) for the reply.
 That is an improvement, but you don’t really want to see all that output. So try
 the following (all on one command line):
 ```
-ping -c 1 -w 1 google.com \> /dev/null
+ping -c 1 -w 1 google.com > /dev/null
 ```
 You redirected all the output into a black hole from which nothing returns. So
 we have removed all the output, but now we don’t know if the ping was
 successful. So, try the following addition (all on one command line):
 ```
-ping -c 1 -w 1 google.com \> /dev/null && echo Up
+ping -c 1 -w 1 google.com > /dev/null && echo Up
 ```
 That looks more like it. If ping is successful, the command after “&&” is
 executed, otherwise it is not. In this case “Up” is displayed on the screen if
@@ -489,13 +489,13 @@ following lines:
 ```
 echo
 echo “Trying Google”
-ping -c 1 -w 1 google.com \> /dev/null && echo Up
+ping -c 1 -w 1 google.com > /dev/null && echo Up
 echo
 echo “Trying Bing”
-ping -c 1 -w 1 bing.com \> /dev/null && echo Up
+ping -c 1 -w 1 bing.com > /dev/null && echo Up
 echo
 echo “Trying NPS”
-ping -c 1 -w 1 nps.edu \> /dev/null && echo Up
+ping -c 1 -w 1 nps.edu > /dev/null && echo Up
 ```
 Save the file in your home directory with the name of “pinger”, and then exit
 the editor.
@@ -524,5 +524,5 @@ Finish Up
 After finishing the lab, go to the terminal on your Linux system that was used
 to start the lab and type:
 ```
-stoplab nix-commands
+stoplab
 ```
