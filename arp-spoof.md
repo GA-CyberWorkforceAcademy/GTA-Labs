@@ -47,7 +47,7 @@ In this lab, you will use the arpspoof tool to convince the User computer that t
 
 Figure 2: Man-in-the-middle attack via ARP Spoofing
 
-The arpspoof tool is installed on the Attacker computer, as is Wireshark. The Attacker computer is configured to forward IP packets that is receives which are destined for elsewhere. You can confirm this with this command, which should reflect a value of ’1’:
+The arpspoof tool is installed on the Attacker computer, as is Wireshark. The Attacker computer is configured to forward IP packets that it receives which are destined for elsewhere. You can confirm this with this command, which should reflect a value of ’1’:
 ```
 $ sysctl net.ipv4.conf.all.forwarding
 
