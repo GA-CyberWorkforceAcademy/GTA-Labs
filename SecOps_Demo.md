@@ -23,7 +23,7 @@ When executing a command on a /dev/tcp/$host/$port pseudo-device file, Bash open
 #!/bin/bash
 for P in {20..81} #port range
 do
-  echo "HEAD / HTTP 1.0" > dev/tcp/scanme.nmpa.org/$P #target to scan
+  echo "HEAD / HTTP 1.0" > /dev/tcp/scanme.nmap.org/$P #target to scan
   MYEXIT=$?
   if [ "X$MYEXIT" = "X0" ]; then
     echo "$P ' is open'" >> /home/student/Desktop/scanresults.txt #file holding resutls
