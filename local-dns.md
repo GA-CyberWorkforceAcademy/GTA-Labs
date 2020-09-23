@@ -62,15 +62,13 @@ suggested the following to be covered in the lab session [1](#_bookmark1):
 3.  Configuring the DNS server.
 
 Review the DNS server Configuration
------------------------------------
+==========
 
 The tt BIND 9 server program is installed on the Apollo DNS server
 [[3].](#_bookmark6) The DNS server reads a configuration file named
 /etc/bind/named.conf when it starts. This configuration file includes an option
 file, which is called /etc/bind/named.conf.options. Please review that file and
 note this entry:
-
-- We assume that the instructor has already covered the concepts of the attacks in the lecture, so we do not include them in the lab session.
 
 ```
 options {
@@ -175,7 +173,7 @@ Notice how the zone definition refers to the example.com.db file, which defines 
 ```
 
 Review the User Machine Configuration
---------------------------------------
+==========
 
 On the user machine 192.168.0.100, we need to let the machine 192.168.0.10 be the default DNS server. We achieved this by setting the DNS setting file /etc/resolv.conf of the user machine:
 
@@ -184,19 +182,21 @@ $ nameserver 192.168.0.10
 ```
 
 Review the Attacker Machine Configuration
------------------------------------------
+==========
 
 The attacher machine includes Wireshark, Netwox and arpspoof utilities.
 
 Expected Output
----------------
+==========
 
 After you have reviewed the lab environment, test the configuration by issuing the following command on the user machine:
 
 ```
 $ dig [www.example.com](http://www.example.com/)
 ```
+
 - You should be able to see something like this:
+
 ```
    <<>> DiG 9.5.0b2 <<>> [www.example.com](http://www.example.com/)
 
@@ -233,13 +233,15 @@ ns.example.com. 259200 IN A 192.168.0.10
 ;; MSG SIZE rcvd: 82
 
 ```
+
+
 Note: the ANSWER SECTION contains the DNS mapping. Notice that the IP address of [www.example.com](http://www.example.com/) is now 192.169.0.101, which is what
 we have set up in the DNS server. For a simple and clear answer, we can use nslookup instead. 
 
 - To do a DNS reverse lookup, issue dig -x N.N.N.N
 
 Lab Tasks
-=========
+==========
 
 The main objective of Pharming attacks on a user is to redirect the user to another machine *B* when the user tries to get to machine *A* using *A*’s host
 name. For example, when the user tries to access the online banking, such as [www.chase.com,](http://www.chase.com/) if the adversaries can redirect the user
@@ -253,7 +255,7 @@ to access, instead of using the real web site name www.chase.com; the example.co
 by anybody.
 
 Task 1: Attackers have already compromised the victim’s machine
-=====
+==========
 
 **Modifying HOSTS file.** The host name and IP address pairs in the HOSTS file (/etc/hosts) are used for local lookup; they take the preference over remote DNS
 lookups. For example, if there is a following entry in the HOSTS file in the user’s computer, the [www.example.com](http://www.example.com/) will be resolved
@@ -270,7 +272,7 @@ access [www.example.com.](http://www.example.com/) Assume that you have already 
 After modifing the /etc/hosts file to test this simple attack, restore it to its original content, e.g., remove any ”example.com” entries.
 
 Task 2: Directly Spoof Response to User
-=====
+==========
 
 In this attack, the victim’s machine has not been compromised, so attackers cannot directly change the DNS query process on the victim’s machine.
    However, if attackers are on the same local area network as the victim, they can still achieve a great damage. Showed as Figure [2.](#_bookmark2)
@@ -310,7 +312,7 @@ Attempt this attack and use Wireshark on the attacker to observe the traffic. No
 - To complete this task, you are not required to succeed in the attack, but you are required to save a PCAP file on your attacker home directory named ”spoof.pcapng”. This PCAP file should include your spoofed DNS response.
 
 Task 3: DNS Server Cache Poisoning
-=====
+==========
 
 The above attack targets the user’s machine. In order to achieve long-lasting effect, every time the user’s machine sends out a DNS query for
 [www.example.com,](http://www.example.com/) the attacker’s machine must send out a spoofed DNS response. This might not be so efficient; there is a much better
